@@ -1,0 +1,4 @@
+The example ASP.NET web service:
+http://sarah.wlan.qnet/websvc/whoson/LogonEventService.asmx?wsdl
+
+// Anders Lövgren, 2011-11-23
