@@ -3,12 +3,26 @@
 #endif
 
 #include <iostream>
-#ifdef HAVE_STDLIB_H
-#include <stdlib.h>
+#if defined(HAVE_CTIME)
+# include <ctime>
+#else
+# include <time.h>
+#endif
+#if defined(HAVE_CSTDLIB)
+# include <cstdlib>
+#elif defined(HAVE_STDLIB_H)
+# include <stdlib.h>
 #endif
 #include <getopt.h>
 
 #include "options.hpp"
+
+Options::ArgumentException::ArgumentException(const char *opt)
+{
+	msg += "Unknown option '";
+	msg += opt;
+	msg += "'";
+}
 
 void Options::Usage()
 {
@@ -50,6 +64,11 @@ void Options::Usage()
 		<< "Copyright (C) 2011 Anders Lövgren (QNET/Compdept BMC)\n";
 }
 
+void Options::Version()
+{
+	std::cout << PACKAGE_STRING << std::endl;
+}
+
 void Options::Parse(int argc, char **argv)
 {
 	int c, index;
@@ -73,67 +92,99 @@ void Options::Parse(int argc, char **argv)
 			exit(0);
 			break;
 		case OpVersion:
+			Version();
+			exit(0);
 			break;
 			
 			// 
 			// Reason:
 			// 
 		case OpLogon:
+			reason = Login;
 			break;
 		case OpLogout:
+			reason = Logout;
 			break;
 		case OpList:
+			reason = List;
 			break;
 			
 			// 
 			// Filter:
 			// 
 		case OpId:
+			filter.eventID = atoi(optarg);
 			break;
 		case OpStart:
+			filter.stime = mktime(getdate(optarg));
 			break;
 		case OpEnd:
+			filter.etime = mktime(getdate(optarg));
 			break;
 		case OpComp:
+			filter.workstation = optarg;
 			break;
 		case OpHost:
+			filter.hostname = optarg;
 			break;
 		case OpIp:
+			filter.ipaddr = optarg;
 			break;
 		case OpHw:
+			filter.hwaddr = optarg;
 			break;
 		case OpUser:
+			filter.username = optarg;
 			break;
 		case OpDomain:
+			filter.domain = optarg;
 			break;
 			
 			// 
 			// Match:
 			// 
 		case OpActive:
+			match = WhosOn::MatchActive;
 			break;
 		case OpClosed:
+			match = WhosOn::MatchClosed;			
 			break;
 		case OpBetween:
+			match = WhosOn::MatchBetween;
 			break;
 		case OpBefore:
+			match = WhosOn::MatchBefore;
 			break;
 		case OpAfter:
+			match = WhosOn::MatchAfter;
 			break;
 		case OpExact:
+			match = WhosOn::MatchExact;
 			break;
 			
 			// 
 			// Format:
 			// 
 		case OpHuman:
+			format = Human;
 			break;
 		case OpCompact:
+			format = Compact;
 			break;
 		case OpTabbed:
+			format = Tabbed;
 			break;
 		case OpXml:
+			format = XML;
 			break;
+			
+		default:
+			throw ArgumentException(optarg);
 		}
+	}
+	
+	if(reason == Unknown) {
+		std::string msg = "Missing -o or -i option, see --help";
+		throw ArgumentException(msg);
 	}
 }

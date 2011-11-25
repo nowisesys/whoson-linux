@@ -2,6 +2,7 @@
 #define __OPTIONS_HPP__
 
 #include <string>
+#include "whoson.hpp"
 
 class Options
 {
@@ -9,7 +10,8 @@ public:
 	struct ArgumentException
 	{
 		std::string msg;
-		ArgumentException(std::string msg) : msg(msg) {}
+		ArgumentException(const std::string &msg) : msg(msg) {}
+		ArgumentException(const char *opt);
 	};
 	
 	enum Reason 
@@ -34,12 +36,17 @@ public:
 	void Parse(int argc, char **argv);     // throws ArgumentException
 	Reason GetReason() const { return reason; }
 	Format GetFormat() const { return format; }
+	const WhosOn::LogonEvent * GetFilter() const { return &filter; }
+	WhosOn::LogonEventMatch GetMatch() const { return match; }
 	
 private:
 	static void Usage();
+	static void Version();
 	
 	Reason reason;
 	Format format;
+	WhosOn::LogonEvent filter;
+	WhosOn::LogonEventMatch match;
 };
 
 #endif  // __OPTIONS_HPP__
