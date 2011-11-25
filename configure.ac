@@ -12,6 +12,18 @@ AC_LANG(C++)
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX
+AC_PROG_LIBTOOL
+
+# Test whether to build static linked client programs:
+AC_ARG_ENABLE([static-clients],
+  [AS_HELP_STRING(
+    [--enable-static-clients],
+    [Link all client programs static (default is no)])],
+  [static_clients=$enableval],
+  [static_clients=no])
+AC_MSG_CHECKING([whether to build static clients])
+AC_MSG_RESULT([${static_clients}])
+AM_CONDITIONAL([STATIC_CLIENTS], [test x${static_clients} = xyes])
 
 # Checks for libraries.
 
@@ -30,7 +42,7 @@ else
 fi
 AC_MSG_CHECKING([for library gsoap++])
 if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
-  GSOAP_LDD_FLAGS=$(pkg-config --libs --static gsoap++)
+  GSOAP_LDD_FLAGS=$(pkg-config --libs gsoap++)
   GSOAP_CXX_FLAGS=$(pkg-config --cflags gsoap++)
   AC_MSG_RESULT([yes (libs: ${GSOAP_LDD_FLAGS}, cflags: ${GSOAP_CXX_FLAGS})])
   AC_DEFINE([HAVE_LIBGSOAP_CXX], [1], [Define to 1 if libgsoap++ was found])
@@ -39,8 +51,9 @@ else
   AC_MSG_ERROR([The gSOAP Toolkit was not found. Please download and install it from http://gsoap2.sourceforge.net/])
 fi
 
+CPPFLAGS="$CPPFLAGS -I../libwhoson"
 CXXFLAGS="$CXXFLAGS ${GSOAP_CXX_FLAGS}"
-LIBS="$LIBS ${GSOAP_LDD_FLAGS}"
+LDFLAGS="$LDFLAGS ${GSOAP_LDD_FLAGS}"
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h])
@@ -50,5 +63,9 @@ AC_CHECK_HEADERS([stdlib.h])
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile])
+                 src/Makefile
+		 src/libwhoson/Makefile
+		 src/libwhoson/soap/Makefile
+		 src/whoson/Makefile
+		 src/whosond/Makefile])
 AC_OUTPUT
