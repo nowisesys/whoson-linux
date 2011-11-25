@@ -1,0 +1,49 @@
+  
+   README ON BUILDING GSOAP USING LIBTOOL
+   
+
+See http://www.cs.fsu.edu/~engelen/soapfaq.html, section "How do I
+build the libraries with libtool?". 
+
+
+1. Generic:
+
+   In essential, configure.in and gsoap/Makefile.am has to be modified
+   to support building using libtool.
+   
+   In addition, the WSDL2H_SOAP_CPP_LIB variable in configure.in must
+   be changed to use libgsoap++.la instead of libgsoap++.a
+   
+   The FAQ mention running:
+   
+     bash> autoconf -f -i -v configure
+     bash> make
+     bash> make install
+     
+   That didn't work. Instead the whole build system had to be
+   recreated, the success rate depends on installed versions of
+   autoconf & co. This will recreate the build system:
+   
+     bash> cp /usr/share/libtool/config/ltmain.sh .
+     bash> aclocal
+     bash> autoconf
+     bash> automake --add-missing --copy
+
+2. Gentoo Linux:
+
+   If using Gentoo Linux, create a custom ebuild in portage overlay:
+   
+     bash> cd /usr/local/portage
+     bash> mkdir -p net-libs/gsoap
+     bash> cp -a /usr/portage/net-libs/gsoap/* net-libs/gsoap
+   
+   Step into net-libs/gsoap. Create a local copy of the ebuild (adding
+   i.e. -r1 to its version number). Edit the ebuild file enabling the 
+   libtool patch. Update digest and update net-libs/gsoap:
+   
+     bash> ebuild gsoap-x.y.z-r1.ebuild digest
+     bash> emerge net-libs/gsoap
+
+   A new patch might be needed to be created as described in step 1.
+   
+// Anders Lövgren, 2011-11-24

@@ -1,0 +1,28 @@
+
+   README ON RECOMPILING GSOAP WITH PIC INFORMATION
+
+
+If linking shared library against libgsoap* bails out with relocation 
+errors, then the gSOAP libraries were probably not compiled with PIC 
+information. 
+
+1. Recompile with PIC information:
+
+     bash> cd gsoap-x.y
+     bash> CXXFLAGS="-fPIC -DPIC -Wall -O2" ./configure
+     bash> make
+     bash> sudo make install
+
+2. See README.SHARED-LIBS for information on building gSOAP using
+   GNU libtool.
+
+3. Gentoo Linux specific:
+
+   If using Gentoo Linux, then find your CXXFLAGS and CFLAGS in /etc/make.conf
+   and pass them to emerge:
+   
+     bash> CXXFLAGS="-O2 -pipe -march=k8 -msse3 -fPIC -DPIC" \
+           CFLAGS="-O2 -pipe -march=k8 -msse3 -fPIC -DPIC" \
+	   emerge net-libs/gsoap
+
+// Anders Lövgren, 2011-11-24
