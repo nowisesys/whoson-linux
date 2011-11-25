@@ -1,0 +1,13 @@
+Use typedef to allow caller to chose between SOAP 1.1 and 1.2
+implementations of the SOAP proxy class:
+
+// 
+// whoson.hpp:
+// 
+#ifdef USE_SOAP_12_PROXY
+class LogonEventServiceSoap12Proxy;
+typedef LogonEventServiceSoap12Proxy * LogonEventServiceProxy *;
+#else
+class LogonEventServiceSoapProxy;
+typedef LogonEventServiceSoapProxy * LogonEventServiceProxy *;
+#endif
