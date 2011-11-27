@@ -82,7 +82,7 @@ namespace WhosOn {
 	void LogonEventProxy::SetEndpointAddress(const char *endpoint)
 	{
 		if(!proxy) {
-			proxy = new LogonEventServiceSoap12Proxy();
+			proxy = new SoapServiceProxy();
 		}
 		proxy->soap_endpoint = endpoint;
 	}
