@@ -275,6 +275,8 @@ clean: clean-am
 
 clean-am: clean-generic clean-libtool mostlyclean-am
 
+distclean: distclean-am
+	-rm -f Makefile
 distclean-am: clean-am distclean-generic
 
 dvi: dvi-am
@@ -362,8 +364,6 @@ clean-soap-bindings :
 	rm -f *.xml
 distclean-soap-bindings : clean-soap-bindings
 	rm -f *~
-
-distclean : distclean-soap-bindings
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

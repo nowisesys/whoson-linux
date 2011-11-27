@@ -15,5 +15,3 @@ clean-soap-bindings :
 	rm -f *.xml
 distclean-soap-bindings : clean-soap-bindings
 	rm -f *~
-
-distclean : distclean-soap-bindings
