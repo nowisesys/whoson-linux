@@ -13,18 +13,21 @@ class LogonEventServiceSoapProxy;        // SOAP 1.1 proxy
 
 #if WHOSON_SOAP_VERSION == 12
 # define SoapServiceProxy LogonEventServiceSoap12Proxy
+# include "soap/WhosOnLogonEventServiceSoap12Proxy.h"
 #else
 # define SoapServiceProxy LogonEventServiceSoapProxy
+# include "soap/WhosOnLogonEventServiceSoapProxy.h"
 #endif
 
 namespace WhosOn {
-
-	struct ArgumentException
-	{
-		std::string msg;
-		ArgumentException(const std::string &msg) { this->msg = msg; }
-	};
 	
+	struct SoapServiceException 
+	{
+		SoapServiceProxy *proxy;
+		SoapServiceException(SoapServiceProxy *proxy) : proxy(proxy) {}
+		void Write(std::ostream &stream) const { proxy->soap_stream_fault(stream); }
+	};
+
 	struct LogonEvent
 	{
 		int eventID;
@@ -36,6 +39,9 @@ namespace WhosOn {
 		time_t stime;
 		time_t etime;
 		std::string workstation;
+		
+		LogonEvent() : eventID(0), stime(0), etime(0) {}
+		LogonEvent(int eventID) : eventID(eventID), stime(0), etime(0) {}
 	};
 	
 	enum LogonEventMatch
@@ -44,34 +50,75 @@ namespace WhosOn {
 		MatchActive = 4, MatchClosed = 5
 	};
 	
-	class LogonEventProxy 
+	class LogonEventAdapter
+	{
+	public:
+		LogonEventAdapter(SoapServiceProxy *proxy);
+		
+		int Add(const LogonEvent *event) const;
+		int Add(const std::string &username, const std::string &domain) const;
+		int Add(const std::string &username, const std::string &domain, const std::string &hwaddr, const std::string &workstation) const;
+		
+		void Close(int event) const;
+		void Close(const LogonEvent *event) const;
+		
+		void Delete(int event) const;
+		void Delete(const LogonEvent *event) const;
+		
+		std::vector<LogonEvent> Find(const LogonEvent *filter, LogonEventMatch match = MatchExact);
+		LogonEvent Find(const std::string &username, const std::string &domain, const std::string &ipaddr);
+		
+		void SetProxy(SoapServiceProxy *proxy) { this->proxy = proxy; }
+		SoapServiceProxy * GetProxy() const { return proxy; }
+		
+	private:
+		SoapServiceProxy *proxy;
+	};
+	
+	class LogonEventProxy : public LogonEvent
 	{
 	public:
 		LogonEventProxy(int eventID);
 		LogonEventProxy(const std::string &username, const std::string &domain);
 		LogonEventProxy(const std::string &username, const std::string &domain, const std::string &hwaddr, const std::string &workstation);
-		LogonEventProxy(const LogonEventProxy &);
-		LogonEventProxy(const LogonEvent &);
-		~LogonEventProxy();
 		
-		void Add() const;
-		void Close() const;
-		void Delete() const;
+		void Add(LogonEventAdapter *adapter);
+		void Close(LogonEventAdapter *adapter);
+		void Delete(LogonEventAdapter *adapter);
 		
-		std::vector<LogonEvent> Find() const;
-		static std::vector<LogonEvent> Find(const LogonEvent *filter, LogonEventMatch match = MatchExact);
-		static LogonEvent Find(const std::string &username, const std::string &domain, const std::string &ipaddr);
-		
-		const LogonEvent * GetLogonEvent() const;
-		void SetEndpointAddress(const char *endpoint);
-		
-		SoapServiceProxy * GetProxy() const { return proxy; }
-		void SetProxy(SoapServiceProxy *proxy) { this->proxy = proxy; }
-		
-	private:
-		LogonEvent event;
-		SoapServiceProxy *proxy;
+		std::vector<LogonEvent> Find(LogonEventAdapter *adapter, LogonEventMatch match = MatchExact);
 	};
-}
+	
+	inline void LogonEventAdapter::Close(const LogonEvent *event) const
+	{
+		Close(event->eventID);
+	}
+	
+	inline void LogonEventAdapter::Delete(const LogonEvent *event) const
+	{
+		Delete(event->eventID);
+	}
+	
+	inline void LogonEventProxy::Add(LogonEventAdapter *adapter) 
+	{
+		adapter->Add(this);
+	}
+	
+	inline void LogonEventProxy::Close(LogonEventAdapter *adapter)
+	{
+		adapter->Close(this);
+	}
+	
+	inline void LogonEventProxy::Delete(LogonEventAdapter *adapter)
+	{
+		adapter->Delete(this);
+	}
+	
+	inline std::vector<LogonEvent> LogonEventProxy::Find(LogonEventAdapter *adapter, LogonEventMatch match)
+	{
+		return adapter->Find(this, match);
+	}
+	
+}       // namespace WhosOn
 
 #endif  // __LIBWHOSON_HPP__

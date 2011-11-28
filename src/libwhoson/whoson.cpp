@@ -10,81 +10,91 @@
 #include "soap/WhosOnLogonEventServiceSoap12Proxy.h"
 
 namespace WhosOn {
-	
-	LogonEventProxy::LogonEventProxy(int eventID) : proxy(0) 
-	{
-		event.eventID = eventID;
-	}
-	
-	LogonEventProxy::LogonEventProxy(const std::string &username, const std::string &domain) : proxy(0)
-	{
-		event.username = username;
-		event.domain = domain;
-	}
-	
-	LogonEventProxy::LogonEventProxy(const std::string &username, const std::string &domain, const std::string &hwaddr, const std::string &workstation) : proxy(0)
-	{
-		event.username = username;
-		event.domain = domain;
-		event.hwaddr = hwaddr;
-		event.workstation = event.workstation;
-	}
 
-	LogonEventProxy::LogonEventProxy(const LogonEventProxy &proxy)
+	LogonEventAdapter::LogonEventAdapter(SoapServiceProxy *proxy)
+		: proxy(proxy)
 	{
-		this->event = event;
-		this->proxy = proxy.proxy;
-	}
-	
-	LogonEventProxy::LogonEventProxy(const LogonEvent &event) : proxy(0)
-	{
-		this->event = event;
-	}
-	
-	void LogonEventProxy::Add() const
-	{
-		// TODO: implement
-	}
-	
-	void LogonEventProxy::Close() const
-	{
-		// TODO: implement
-	}
-	
-	void LogonEventProxy::Delete() const
-	{
-		// TODO: implement
-	}
-	
-	std::vector<LogonEvent> LogonEventProxy::Find() const
-	{
-		return Find(&event, MatchExact);    // Use Find(LogonEvent *, LogonEventMatch)
-	}
-	
-	std::vector<LogonEvent> LogonEventProxy::Find(const LogonEvent *filter, LogonEventMatch match)
-	{
-		std::vector<LogonEvent> result;
-		// TODO: implement
-		return result;
-	}
-	
-	LogonEvent LogonEventProxy::Find(const std::string &username, const std::string &domain, const std::string &ipaddr)
-	{
-		LogonEvent event;
-		return event;
 	}
 		
-	const LogonEvent * LogonEventProxy::GetLogonEvent() const
+	int LogonEventAdapter::Add(const LogonEvent *event) const
 	{
-		return &event;
+		return Add(event->username, event->domain, event->hwaddr, event->workstation);
 	}
 	
-	void LogonEventProxy::SetEndpointAddress(const char *endpoint)
+	int LogonEventAdapter::Add(const std::string &username, const std::string &domain) const
 	{
-		if(!proxy) {
-			proxy = new SoapServiceProxy();
+		Network *net = Network::GetInstance();
+		return Add(username, domain, net->GetMacAddress(), net->GetComputer());
+	}
+	
+	int LogonEventAdapter::Add(const std::string &username, const std::string &domain, const std::string &hwaddr, const std::string &workstation) const
+	{
+		_WhosOn__CreateLogonEvent args;
+		_WhosOn__CreateLogonEventResponse resp;
+		
+		args.user = (std::string *)&username;
+		args.domain = (std::string *)&domain;
+		args.hwaddr = (std::string *)&hwaddr;
+		args.computer = (std::string *)&workstation;
+		
+		if(proxy->CreateLogonEvent(&args, &resp) != SOAP_OK) {
+			throw SoapServiceException(proxy);
+		} else {
+			return resp.CreateLogonEventResult;
 		}
-		proxy->soap_endpoint = endpoint;
+	}
+		
+	void LogonEventAdapter::Close(int event) const
+	{
+		_WhosOn__CloseLogonEvent args;
+		_WhosOn__CloseLogonEventResponse resp;
+		
+		args.eventID = event;
+		if(proxy->CloseLogonEvent(&args, &resp) != SOAP_OK) {
+			throw SoapServiceException(proxy);
+		}
+	}
+		
+	void LogonEventAdapter::Delete(int event) const
+	{
+		_WhosOn__DeleteLogonEvent args;
+		_WhosOn__DeleteLogonEventResponse resp;
+		
+		args.eventID = event;
+		if(proxy->DeleteLogonEvent(&args, &resp) != SOAP_OK) {
+			throw SoapServiceException(proxy);
+		}
+	}
+		
+	std::vector<LogonEvent> LogonEventAdapter::Find(const LogonEvent *filter, LogonEventMatch match)
+	{
+		// TODO: implement
+	}
+	
+	LogonEvent LogonEventAdapter::Find(const std::string &username, const std::string &domain, const std::string &ipaddr)
+	{
+		// TODO: implement
+	}
+		
+	LogonEventProxy::LogonEventProxy(int eventID) 
+		: LogonEvent(eventID)
+	{
+	}
+	
+	LogonEventProxy::LogonEventProxy(const std::string &username, const std::string &domain) 
+		: LogonEvent(0)
+	{
+		this->username = username;
+		this->domain = domain;
+	}
+	
+	LogonEventProxy::LogonEventProxy(const std::string &username, const std::string &domain, const std::string &hwaddr, const std::string &workstation)
+		: LogonEvent(0)
+	{
+		this->username = username;
+		this->domain = domain;
+		this->hwaddr = hwaddr;
+		this->workstation = workstation;
 	}
 
 }       // namespace WhosOn
