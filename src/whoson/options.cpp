@@ -24,6 +24,13 @@ Options::ArgumentException::ArgumentException(const char *opt)
 	msg += "'";
 }
 
+Options::Options()
+{
+	reason = Unknown;
+	format = Compact;
+	match  = WhosOn::MatchExact;
+}
+
 void Options::Usage()
 {
 	std::cout << PACKAGE_NAME << " - Client side application for the whoson logon accounting program suite.\n";
@@ -36,6 +43,8 @@ void Options::Usage()
 		<< "  -l,--list:        List logon events (see filter and matching)\n"
 		<< "  -h,--help:        Show this help\n"
 		<< "  -V,--version:     Get version info.\n"
+		<< "  -v,--verbose:     Be more verbose.\n"
+		<< "  -d,--debug:       Enable debug mode.\n"
 		<< "Filters:\n"
 		<< "     --id=num:      Filter on event ID.\n"
 		<< "     --start=date:  Filter on start date.\n"
@@ -69,23 +78,75 @@ void Options::Version()
 	std::cout << PACKAGE_STRING << std::endl;
 }
 
+void Options::Show() const
+{
+	const char *mReason[] = { "Logout", "Login", "List", "Unknown" };
+	const char *mFormat[] = { "Compact", "Human", "Tabbed", "XML" };
+	const char *mMatch[]  = { "Before", "Between", "After", "Exact", "Active", "Closed" };
+	
+	std::cout 
+		<< "Options: " << "\n"
+		<< "  Reason: " << mReason[reason] << "\n"
+		<< "  Format: " << mFormat[format] << "\n"
+		<< "  Match:  " << mMatch[match] << "\n"
+		<< "  Filter: \n"
+		<< "  --------------------------------------\n"
+		<< "       Event ID: " << filter.eventID << "\n"
+		<< "     Start Time: " << filter.stime << "\n"
+		<< "       End Time: " << filter.etime << "\n"
+		<< "       Computer: " << filter.workstation << "\n"
+		<< "       Hostname: " << filter.hostname << "\n"
+		<< "     IP-address: " << filter.ipaddr << "\n"
+		<< "    MAC-address: " << filter.hwaddr << "\n"
+		<< "       Username: " << filter.username << "\n"
+		<< "         Domain: " << filter.domain << "\n"
+		<< std::endl;
+}
+
 void Options::Parse(int argc, char **argv)
 {
 	int c, index;
 	const option longopts[] = {
-		{ "logon", 0, 0, OpLogon },
-		{ "logout", 0, 0, OpLogout },
-		{ "list", 0, 0, OpList },
-		{ "help", 0, 0, OpHelp },
-		{ "version", 0, 0, OpVersion },
-		{ "id", 1, 0, OpId },
-		{ "start", 1, 0, OpStart },
+		// Generic:
+		{ "help",     0, 0, OpHelp },
+		{ "version",  0, 0, OpVersion },
+		{ "verbose",  0, 0, OpVerbose },
+		{ "debug",    0, 0, OpDebug },
+		// Reason:
+		{ "logon",    0, 0, OpLogon },
+		{ "logout",   0, 0, OpLogout },
+		{ "list",     0, 0, OpList },
+		// Filter:
+		{ "id",       1, 0, OpId },
+		{ "start",    1, 0, OpStart },
+		{ "end",      1, 0, OpEnd },
+		{ "comp",     1, 0, OpComp },
+		{ "host",     1, 0, OpHost },
+		{ "ip",       1, 0, OpIp },
+		{ "ipaddr",   1, 0, OpIp },      // alias
+		{ "hw",       1, 0, OpHw },
+		{ "hwaddr",   1, 0, OpHw },      // alias
+		{ "mac",      1, 0, OpHw },      // alias
+		{ "user",     1, 0, OpUser },
+		{ "username", 1, 0, OpUser },    // alias
+		{ "domain",   1, 0, OpDomain },
+		// Match:
+		{ "active",   0, 0, OpActive },
+		{ "closed",   0, 0, OpClosed },
+		{ "between",  0, 0, OpBetween },
+		{ "before",   0, 0, OpBefore },
+		{ "after",    0, 0, OpAfter },
+		{ "exact",    0, 0, OpExact },
+		// Format:
+		{ "human",    0, 0, OpHuman },
+		{ "compact",  0, 0, OpCompact },
+		{ "tabbed",   0, 0, OpTabbed },
+		{ "XML",      0, 0, OpXml },
+		{ "xml",      0, 0, OpXml },     // alias
 		{ 0, 0, 0, 0 }
 	};
 	
-	while((c = getopt_long(argc, argv, "iolhVaceHCTX", longopts, &index)) != -1) {
-		std::cout << "Option: " << c << std::endl;
-		
+	while((c = getopt_long(argc, argv, "acCdehHiloTvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -94,6 +155,12 @@ void Options::Parse(int argc, char **argv)
 		case OpVersion:
 			Version();
 			exit(0);
+			break;
+		case OpVerbose:
+			Verbose++;
+			break;
+		case OpDebug:
+			Debug = true;
 			break;
 			
 			// 
@@ -181,6 +248,10 @@ void Options::Parse(int argc, char **argv)
 		default:
 			throw ArgumentException(optarg);
 		}
+	}
+	
+	if(Debug) {
+		Show();
 	}
 	
 	if(reason == Unknown) {
