@@ -2,14 +2,16 @@
 # include "config.h"
 #endif
 
-#include <net/if.h>
 #include <arpa/inet.h>
+#include <net/if.h>
 #include <stdint.h>
 #include <stdio.h>
 
+#ifdef HAVE_LIBWBCLIENT
 extern "C" {
 #include <wbclient.h>
 }
+#endif
 
 #include "network.hpp"
 
@@ -21,10 +23,12 @@ extern "C" {
 
 namespace WhosOn {
 	
+#ifdef HAVE_LIBWBCLIENT
 	std::ostream & WinbindException::Write(std::ostream &stream) 
 	{
 		return stream << call << ": " << wbcErrorString(static_cast<wbcErr>(code)) << std::endl;
 	}
+#endif
 	
 	// 
 	// Globally shared instance:
