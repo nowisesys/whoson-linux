@@ -2,9 +2,13 @@
 # include "config.h"
 #endif
 
-#include <arpa/inet.h>
+#ifdef HAVE_ARPA_INET_H
+# include <arpa/inet.h>
+#endif
 #include <net/if.h>
-#include <stdint.h>
+#ifdef HAVE_STDINT_H
+# include <stdint.h>
+#endif
 #include <stdio.h>
 
 #ifdef HAVE_LIBWBCLIENT

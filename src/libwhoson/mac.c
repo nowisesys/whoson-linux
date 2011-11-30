@@ -6,16 +6,34 @@
 #define _GNU_SOURCE
 #endif
 
-#include <inttypes.h>
-#include <arpa/inet.h>
+#ifdef HAVE_INTTYPES_H
+# include <inttypes.h>
+#endif
+#ifdef HAVE_ARPA_INET_H
+# include <arpa/inet.h>
+#endif
 #include <net/if.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
-#include <stdlib.h>
-#include <unistd.h>
+#ifdef HAVE_SYS_IOCTL_H
+# include <sys/ioctl.h>
+#endif
+#ifdef HAVE_SYS_SOCKET_H
+# include <sys/socket.h>
+#endif
+#ifdef HAVE_CSTDLIB
+# include <cstdlib>
+#elif  HAVE_STDLIB_H
+# include <stdlib.h>
+#endif
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>
+#endif
 #include <netinet/in.h>
 #include <stdio.h>
-#include <string.h>
+#ifdef HAVE_STRING_H
+# include <string.h>
+#elif  HAVE_STRINGS_H
+# include <strings.h>
+#endif
 #include <errno.h>
 
 #define ARPHRD_ETHER 1
