@@ -7,13 +7,13 @@
 #endif
 
 #include <inttypes.h>
+#include <arpa/inet.h>
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -34,6 +34,9 @@
  */
 int get_default_route_iface(struct ifreq *req, const char **call, int *code)
 {	
+#if defined(__APPLE__)
+#endif // defined(__APPLE__)
+#if defined(__linux__) 
 	FILE *route;
 	char buff[BUFF_SIZE];
 	uint32_t dest = -1;
@@ -66,8 +69,10 @@ int get_default_route_iface(struct ifreq *req, const char **call, int *code)
 		set_last_error("ioctl");
 		return -1;
 	}
-		
+	
 	close(sock);
+#endif  // defined(__linux__) 
+
 	return 0;
 }
 
@@ -84,5 +89,7 @@ const char * get_iface_name(const struct ifreq *req)
  */
 const struct sockaddr * get_mac_addr(const struct ifreq *req)
 {
+#if defined(__linux__) 
 	return &req->ifr_hwaddr;
+#endif
 }
