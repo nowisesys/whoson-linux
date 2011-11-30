@@ -14,17 +14,6 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
-
-#if BUILD_EXAMPLES
-#	COND_EXAMPLES = libwhoson/examples
-#endif
-#SUBDIRS = libwhoson whoson whosond libwhoson/examples
-
-#if BUILD_EXAMPLES
-#   COND_EXAMPLES = libwhoson/examples
-#endif
-#
-#SUBDIRS = libwhoson whoson whosond $(COND_EXAMPLES)
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
