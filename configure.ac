@@ -19,6 +19,7 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_LIBTOOL
+PKG_PROG_PKG_CONFIG
 
 # Test whether to build static linked client programs:
 AC_ARG_ENABLE([static-clients],
@@ -55,18 +56,19 @@ AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
 # gsoapck++  - SOAP C++ Web Services with Cookies Enabled
 # gsoap      - SOAP C Web Services
 
-# TODO: replace with M4 macros defined by pkg.m4
-which pkg-config
-if [ "$?" == "0" ]; then
-  pkg-config --exists gsoap++ > /dev/null
-  if test "$?" == "0" ; then
-    GSOAP_LIBS=$(pkg-config --libs gsoap++)
-    GSOAP_CXXFLAGS=$(pkg-config --cflags gsoap++)
-    whoson_have_gsoap_cxx="yes"
-  else 
-    whoson_have_gsoap_cxx="no"
-  fi
-else
+PKG_CHECK_EXISTS([gsoap++],
+  [PKG_CHECK_MODULES(
+    [gSOAP], [gsoap++],
+    [
+      GSOAP_LIBS="${pkg_cv_gSOAP_LIBS}"
+      GSOAP_CXXFLAGS="${pkg_cv_gSOAP_CFLAGS}"
+      whoson_have_gsoap_cxx="yes"
+    ],
+    [ whoson_have_gsoap_cxx="no" ]
+    )]
+)
+
+if test "x{whoson_have_gsoap_cxx}" = "xno" ; then
   # Using the standard AC_CHECK_LIB() won't work.
   for d in /usr/local /usr/local/gsoap /opt /opt/gsoap; do
     if test -e "$d/lib/libgsoap++.a" ; then
@@ -79,9 +81,9 @@ else
   done
 fi
 
-AC_MSG_CHECKING([for library gsoap++])
+AC_MSG_CHECKING([whether gSOAP was found])
 if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
-  AC_MSG_RESULT([yes (libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS})])
+  AC_MSG_RESULT([yes, (libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS})])
   AC_DEFINE([HAVE_LIBGSOAP_CXX], [1], [Define to 1 if libgsoap++ was found])
 else 
   AC_MSG_RESULT([no])
