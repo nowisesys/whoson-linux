@@ -54,7 +54,8 @@ namespace WhosOn {
 	{
 	public:
 		LogonEventAdapter(SoapServiceProxy *proxy);
-		
+
+		int Add() const;
 		int Add(const LogonEvent *event) const;
 		int Add(const std::string &username, const std::string &domain) const;
 		int Add(const std::string &username, const std::string &domain, const std::string &hwaddr, const std::string &workstation) const;

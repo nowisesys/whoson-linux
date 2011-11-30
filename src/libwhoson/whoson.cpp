@@ -20,10 +20,17 @@ namespace WhosOn {
 	{
 		return Add(event->username, event->domain, event->hwaddr, event->workstation);
 	}
+
+	int LogonEventAdapter::Add() const
+	{
+		const Network *net = Network::GetInstance();
+		const Account *acc = Account::GetInstance();
+		return Add(acc->GetUsername(), acc->GetDomain(), net->GetMacAddress(), net->GetComputer());
+	}
 	
 	int LogonEventAdapter::Add(const std::string &username, const std::string &domain) const
 	{
-		Network *net = Network::GetInstance();
+		const Network *net = Network::GetInstance();
 		return Add(username, domain, net->GetMacAddress(), net->GetComputer());
 	}
 	
