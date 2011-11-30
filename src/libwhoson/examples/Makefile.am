@@ -1,5 +1,6 @@
-noinst_PROGRAMS = network
+noinst_PROGRAMS = network getip
 network_SOURCES = ../network.cpp
+getip_SOURCES = getip.cpp
 
 LIBS = -lwhoson
 
