@@ -10,6 +10,7 @@
 # include <stdint.h>
 #endif
 #include <stdio.h>
+#include <netdb.h>
 
 #ifdef HAVE_LIBWBCLIENT
 extern "C" {
@@ -88,6 +89,30 @@ namespace WhosOn {
 			}
 			wbcFreeMemory(name);
 		}
+#else
+		// 
+		// Fake NetBIOS name by using upper case hostname.
+		// 
+		char buff[255];
+		hostent *ent;
+		
+		if(gethostname(buff, sizeof(buff)) < 0) {
+			throw NetworkException("gethostname");
+		}
+		if(!(ent = gethostbyname(buff))) {
+			throw NetworkException("gethostbyname");
+		}
+		
+		if(*(ent->h_aliases)) {
+			strcpy(buff, *ent->h_aliases);   // use first
+		} else {
+			char *ps = strchr(buff, '.');    // fake alias
+			if(ps) *ps = '\0';
+		}
+		for(int i = 0; i < strlen(buff); ++i) {
+			buff[i] = toupper(buff[i]);
+		}
+		computer = buff;
 #endif		
 	}
 	
