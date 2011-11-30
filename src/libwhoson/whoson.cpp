@@ -72,7 +72,7 @@ namespace WhosOn {
 			throw SoapServiceException(proxy);
 		}
 	}
-		
+  
 	std::vector<LogonEvent> LogonEventAdapter::Find(const LogonEvent *filter, LogonEventMatch match)
 	{
 		// TODO: implement
