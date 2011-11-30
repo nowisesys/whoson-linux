@@ -55,17 +55,33 @@ AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
 # gsoapck++  - SOAP C++ Web Services with Cookies Enabled
 # gsoap      - SOAP C Web Services
 
-pkg-config --exists gsoap++ > /dev/null
-if test "$?" == "0" ; then
-  whoson_have_gsoap_cxx="yes"
-else 
-  whoson_have_gsoap_cxx="no"
+# TODO: replace with M4 macros defined by pkg.m4
+which pkg-config
+if [ "$?" == "0" ]; then
+  pkg-config --exists gsoap++ > /dev/null
+  if test "$?" == "0" ; then
+    GSOAP_LIBS=$(pkg-config --libs gsoap++)
+    GSOAP_CXXFLAGS=$(pkg-config --cflags gsoap++)
+    whoson_have_gsoap_cxx="yes"
+  else 
+    whoson_have_gsoap_cxx="no"
+  fi
+else
+  # Using the standard AC_CHECK_LIB() won't work.
+  for d in /usr/local /usr/local/gsoap /opt /opt/gsoap; do
+    if test -e "$d/lib/libgsoap++.a" ; then
+      GSOAP_LIBS="-L$d/lib -lgsoap++"
+      whoson_have_gsoap_cxx="yes"
+    fi
+    if test -e "$d/include/stdsoap2.h" ; then
+      GSOAP_CXXFLAGS="-I$d/include"
+    fi
+  done
 fi
+
 AC_MSG_CHECKING([for library gsoap++])
 if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
-  GSOAP_LIBS=$(pkg-config --libs gsoap++)
-  GSOAP_CXXFLAGS=$(pkg-config --cflags gsoap++)
-  AC_MSG_RESULT([yes (libs: ${GSOAP_LDD_FLAGS}, cflags: ${GSOAP_CXX_FLAGS})])
+  AC_MSG_RESULT([yes (libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS})])
   AC_DEFINE([HAVE_LIBGSOAP_CXX], [1], [Define to 1 if libgsoap++ was found])
 else 
   AC_MSG_RESULT([no])
