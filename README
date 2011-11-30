@@ -1,0 +1,32 @@
+
+   README FOR THE WHOSON CLIENT SIDE APPLICATION AND LIBRARY
+   
+
+** GENERAL:
+
+   The whoson application and library provides an SOAP client for the
+   WhosOn logon accounting service. The whoson-asp or whoson-php package 
+   should have been installed on the server side.
+
+** LIBRARY:
+
+   The libwhoson library provides adapter and proxy classes (C++) for
+   the WhosOn service.
+   
+** APPLICATIONS:
+
+   The whoson application should be runned when an user logon or logoff,
+   passing either -i or -o to record the event thru the SOAP service.
+   
+   Logon event can be queried using the -l option and relevant filter
+   options. See -h or --help for more information.
+
+** ENVIRONMENT:
+
+   The whoson application accepts a few environment variables also:
+   
+   WHOSON_DEBUG         : Same as -d option (boolean, either 0 or 1).
+   WHOSON_VERBOSE       : Same as -v option (numeric, use 0 or more).
+   WHOSON_SOAP_ENDPOINT : The SOAP service endpoint.
+   
+// Anders Lövgren, 2011-11-30
