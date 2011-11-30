@@ -25,8 +25,10 @@
 
    The whoson application accepts a few environment variables also:
    
-   WHOSON_DEBUG         : Same as -d option (boolean, either 0 or 1).
-   WHOSON_VERBOSE       : Same as -v option (numeric, use 0 or more).
-   WHOSON_SOAP_ENDPOINT : The SOAP service endpoint.
+     WHOSON_DEBUG         : Same as -d option (boolean, either 0 or 1).
+     WHOSON_VERBOSE       : Same as -v option (numeric, use 0 or more).
+     WHOSON_SOAP_ENDPOINT : The SOAP service endpoint.
+   
+   Command line options has precedance over environment variables.
    
 // Anders Lövgren, 2011-11-30
