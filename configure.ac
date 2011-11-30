@@ -3,15 +3,21 @@
 
 AC_PREREQ([2.68])
 AC_INIT([whoson], [1.0.0], [anders.lovgren@bmc.uu.se])
-AM_INIT_AUTOMAKE([whoson], [1.0.0])
+AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
 
 AC_LANG(C++)
 
 # Checks for programs.
-AC_PROG_CC
 AC_PROG_CXX
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
+AC_PROG_RANLIB
 AC_PROG_LIBTOOL
 
 # Test whether to build static linked client programs:
@@ -25,7 +31,22 @@ AC_MSG_CHECKING([whether to build static clients])
 AC_MSG_RESULT([${static_clients}])
 AM_CONDITIONAL([STATIC_CLIENTS], [test x${static_clients} = xyes])
 
+# Test whether to build examples:
+AC_ARG_ENABLE([examples],
+  [AS_HELP_STRING(
+    [--enable-examples],
+    [Build example programs])],
+  [build_examples=$enableval],
+  [build_examples=yes])
+AC_MSG_CHECKING([whether to build examples])
+AC_MSG_RESULT([${build_examples}])
+AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
+
 # Checks for libraries.
+
+## ------------------------------------
+##  gSOAP
+## ------------------------------------
 
 # gsoapssl   - SOAP C Web Services with SSL and ZLIB
 # gsoapssl++ - SOAP C++ Web Services with SSL and ZLIB
@@ -42,8 +63,8 @@ else
 fi
 AC_MSG_CHECKING([for library gsoap++])
 if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
-  GSOAP_LDD_FLAGS=$(pkg-config --libs gsoap++)
-  GSOAP_CXX_FLAGS=$(pkg-config --cflags gsoap++)
+  GSOAP_LIBS=$(pkg-config --libs gsoap++)
+  GSOAP_CXXFLAGS=$(pkg-config --cflags gsoap++)
   AC_MSG_RESULT([yes (libs: ${GSOAP_LDD_FLAGS}, cflags: ${GSOAP_CXX_FLAGS})])
   AC_DEFINE([HAVE_LIBGSOAP_CXX], [1], [Define to 1 if libgsoap++ was found])
 else 
@@ -51,21 +72,34 @@ else
   AC_MSG_ERROR([The gSOAP Toolkit was not found. Please download and install it from http://gsoap2.sourceforge.net/])
 fi
 
-CPPFLAGS="$CPPFLAGS -I../libwhoson"
-CXXFLAGS="$CXXFLAGS ${GSOAP_CXX_FLAGS}"
-LDFLAGS="$LDFLAGS ${GSOAP_LDD_FLAGS}"
+## ------------------------------------
+##  Samba (winbind)
+## ------------------------------------
+AC_CHECK_LIB([wbclient], [wb_context_init])
 
 # Checks for header files.
-AC_CHECK_HEADERS([stdlib.h])
+AC_CHECK_HEADERS([arpa/inet.h inttypes.h netinet/in.h stdint.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_TYPE_UINT32_T
 
 # Checks for library functions.
+AC_FUNC_MKTIME
+AC_CHECK_FUNCS([socket stime strerror strpbrk])
+
+# Append pre-processor, C++ compiler and linker flags:
+CPPFLAGS="$CPPFLAGS -I../libwhoson"
+CXXFLAGS="$CXXFLAGS ${GSOAP_CXXFLAGS}"
+LIBS="$LIBS ${GSOAP_LIBS}"
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
 		 src/libwhoson/Makefile
 		 src/libwhoson/soap/Makefile
+		 src/libwhoson/examples/Makefile
 		 src/whoson/Makefile
 		 src/whosond/Makefile])
 AC_OUTPUT
