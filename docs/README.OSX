@@ -1,0 +1,24 @@
+
+  NOTES FOR MAC OS X
+
+
+** GENERAL:
+
+   The library and all applications should compile clean using GCC (g++) 4.2.1 
+   on Mac OS X (Lion). The examples fails to build due to -rpath being added to
+   the linker flags. 
+
+** REQUIREMENTS:
+
+   Download gSOAP from http://http://gsoap2.sourceforge.net/
+   Installing to /usr/local (default) should be OK.
+
+** INSTALL:
+
+   Make sure to exclude examples from being built. Configure and install using:
+
+     bash> ./configure --disable-examples
+     bash> make
+     bash> sudo make install
+
+// Anders Lovgren, 2011-11-30
