@@ -56,6 +56,9 @@ AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
 # gsoapck++  - SOAP C++ Web Services with Cookies Enabled
 # gsoap      - SOAP C Web Services
 
+# Set to yes if libsoap++ is found:
+whoson_have_gsoap_cxx="no"
+
 PKG_CHECK_EXISTS([gsoap++],
   [PKG_CHECK_MODULES(
     [gSOAP], [gsoap++],
@@ -68,9 +71,9 @@ PKG_CHECK_EXISTS([gsoap++],
     )]
 )
 
-if test "x{whoson_have_gsoap_cxx}" = "xno" ; then
+if test "x${whoson_have_gsoap_cxx}" = "xno" ; then
   # Using the standard AC_CHECK_LIB() won't work.
-  for d in /usr/local /usr/local/gsoap /opt /opt/gsoap; do
+  for d in /usr /usr/local /usr/local/gsoap /opt /opt/gsoap; do
     if test -e "$d/lib/libgsoap++.a" ; then
       GSOAP_LIBS="-L$d/lib -lgsoap++"
       whoson_have_gsoap_cxx="yes"
