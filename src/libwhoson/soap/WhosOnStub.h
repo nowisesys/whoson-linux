@@ -56,7 +56,7 @@ public:
 	std::string *Username;	/* optional element of type xsd:string */
 	std::string *Domain;	/* optional element of type xsd:string */
 	std::string *HwAddress;	/* optional element of type xsd:string */
-	std::string *IpAaddres;	/* optional element of type xsd:string */
+	std::string *IpAddress;	/* optional element of type xsd:string */
 	std::string *Hostname;	/* optional element of type xsd:string */
 	std::string *Workstation;	/* optional element of type xsd:string */
 	time_t StartTime;	/* required element of type xsd:dateTime */
@@ -70,7 +70,7 @@ public:
 	virtual int soap_out(struct soap*, const char*, int, const char*) const;
 	virtual void *soap_get(struct soap*, const char*, const char*);
 	virtual void *soap_in(struct soap*, const char*, const char*);
-	         WhosOn__LogonEvent(): Username(NULL), Domain(NULL), HwAddress(NULL), IpAaddres(NULL), Hostname(NULL), Workstation(NULL), soap(NULL) { WhosOn__LogonEvent::soap_default(NULL); }
+	         WhosOn__LogonEvent(): Username(NULL), Domain(NULL), HwAddress(NULL), IpAddress(NULL), Hostname(NULL), Workstation(NULL), soap(NULL) { WhosOn__LogonEvent::soap_default(NULL); }
 	virtual ~WhosOn__LogonEvent() { }
 };
 #endif

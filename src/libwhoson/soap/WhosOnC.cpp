@@ -12,7 +12,7 @@
 
 #include "WhosOnH.h"
 
-SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2011-11-25 12:35:51 GMT")
+SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2011-12-01 16:57:14 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -2688,7 +2688,7 @@ void WhosOn__LogonEvent::soap_default(struct soap *soap)
 	this->WhosOn__LogonEvent::Username = NULL;
 	this->WhosOn__LogonEvent::Domain = NULL;
 	this->WhosOn__LogonEvent::HwAddress = NULL;
-	this->WhosOn__LogonEvent::IpAaddres = NULL;
+	this->WhosOn__LogonEvent::IpAddress = NULL;
 	this->WhosOn__LogonEvent::Hostname = NULL;
 	this->WhosOn__LogonEvent::Workstation = NULL;
 	soap_default_time(soap, &this->WhosOn__LogonEvent::StartTime);
@@ -2702,7 +2702,7 @@ void WhosOn__LogonEvent::soap_serialize(struct soap *soap) const
 	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Username);
 	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Domain);
 	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::HwAddress);
-	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::IpAaddres);
+	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::IpAddress);
 	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Hostname);
 	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Workstation);
 	/* transient soap skipped */
@@ -2725,7 +2725,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_WhosOn__LogonEvent(struct soap *soap, const c
 		return soap->error;
 	if (soap_out_PointerTostd__string(soap, "WhosOn:HwAddress", -1, &(a->WhosOn__LogonEvent::HwAddress), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:IpAaddres", -1, &(a->WhosOn__LogonEvent::IpAaddres), ""))
+	if (soap_out_PointerTostd__string(soap, "WhosOn:IpAddress", -1, &(a->WhosOn__LogonEvent::IpAddress), ""))
 		return soap->error;
 	if (soap_out_PointerTostd__string(soap, "WhosOn:Hostname", -1, &(a->WhosOn__LogonEvent::Hostname), ""))
 		return soap->error;
@@ -2763,7 +2763,7 @@ SOAP_FMAC3 WhosOn__LogonEvent * SOAP_FMAC4 soap_in_WhosOn__LogonEvent(struct soa
 	size_t soap_flag_Username1 = 1;
 	size_t soap_flag_Domain1 = 1;
 	size_t soap_flag_HwAddress1 = 1;
-	size_t soap_flag_IpAaddres1 = 1;
+	size_t soap_flag_IpAddress1 = 1;
 	size_t soap_flag_Hostname1 = 1;
 	size_t soap_flag_Workstation1 = 1;
 	size_t soap_flag_StartTime1 = 1;
@@ -2792,9 +2792,9 @@ SOAP_FMAC3 WhosOn__LogonEvent * SOAP_FMAC4 soap_in_WhosOn__LogonEvent(struct soa
 				{	soap_flag_HwAddress1--;
 					continue;
 				}
-			if (soap_flag_IpAaddres1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:IpAaddres", &(a->WhosOn__LogonEvent::IpAaddres), "xsd:string"))
-				{	soap_flag_IpAaddres1--;
+			if (soap_flag_IpAddress1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
+				if (soap_in_PointerTostd__string(soap, "WhosOn:IpAddress", &(a->WhosOn__LogonEvent::IpAddress), "xsd:string"))
+				{	soap_flag_IpAddress1--;
 					continue;
 				}
 			if (soap_flag_Hostname1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
