@@ -153,6 +153,8 @@ void Options::Parse(int argc, char **argv)
 		{ 0, 0, 0, 0 }
 	};
 	
+	opterr = 0;
+	
 	while((c = getopt_long(argc, argv, "acCdehHilos:TvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
@@ -258,9 +260,9 @@ void Options::Parse(int argc, char **argv)
 		case OpEndpoint:
 			endpoint = optarg;
 			break;
-			
+
 		default:
-			throw ArgumentException(optarg);
+			throw ArgumentException(argv[--optind]);
 		}
 	}
 	
