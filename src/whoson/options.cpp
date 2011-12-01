@@ -38,39 +38,41 @@ void Options::Usage()
 		<< "\n"
 		<< "Usage: whoson.exe [options...]\n"
 		<< "Options:\n"
-		<< "  -i,--logon:       Store logon event.\n"
-		<< "  -o,--logout:      Store logoff event.\n"
-		<< "  -l,--list:        List logon events (see filter and matching)\n"
-		<< "  -h,--help:        Show this help\n"
-		<< "  -V,--version:     Get version info.\n"
-		<< "  -v,--verbose:     Be more verbose.\n"
-		<< "  -d,--debug:       Enable debug mode.\n"
+		<< "  -i,--logon:        Store logon event.\n"
+		<< "  -o,--logout:       Store logoff event.\n"
+		<< "  -l,--list:         List logon events (see filter and matching)\n"
+		<< "  -h,--help:         Show this help\n"
+		<< "  -V,--version:      Get version info.\n"
+		<< "  -v,--verbose:      Be more verbose.\n"
+		<< "  -d,--debug:        Enable debug mode.\n"
 		<< "Filters:\n"
-		<< "     --id=num:      Filter on event ID.\n"
-		<< "     --start=date:  Filter on start date.\n"
-		<< "     --end=date:    Filter on end date.\n"
-		<< "     --comp=name:   Filter on computer name (NetBIOS).\n"
-		<< "     --host=name:   Filter on computer name (FQHN).\n"
-		<< "     --ip=addr:     Filter on IP address.\n"
-		<< "     --hw=addr:     Filter on MAC address.\n"
-		<< "     --user=name:   Filter on username.\n"
-		<< "     --domain=name: Filter on domain name.\n"
+		<< "     --id=num:       Filter on event ID.\n"
+		<< "     --start=date:   Filter on start date.\n"
+		<< "     --end=date:     Filter on end date.\n"
+		<< "     --comp=name:    Filter on computer name (NetBIOS).\n"
+		<< "     --host=name:    Filter on computer name (FQHN).\n"
+		<< "     --ip=addr:      Filter on IP address.\n"
+		<< "     --hw=addr:      Filter on MAC address.\n"
+		<< "     --user=name:    Filter on username.\n"
+		<< "     --domain=name:  Filter on domain name.\n"
 		<< "Matching:\n"
-		<< "  -a,--active:      Match active logons.\n"
-		<< "  -c,--closed:      Match closed logons.\n"
-		<< "     --between:     Match logons between.\n"
-		<< "     --before:      Match logons before.\n"
-		<< "     --after:       Match logons after.\n"
-		<< "  -e,--exact:       Match filter exact.\n"
+		<< "  -a,--active:       Match active logons.\n"
+		<< "  -c,--closed:       Match closed logons.\n"
+		<< "     --between:      Match logons between.\n"
+		<< "     --before:       Match logons before.\n"
+		<< "     --after:        Match logons after.\n"
+		<< "  -e,--exact:        Match filter exact.\n"
 		<< "Format:\n"
-		<< "  -H,--human:       Output formatted for human reading.\n"
-		<< "  -C,--compact:     Output formatted in compact style.\n"
-		<< "  -T,--tabbed:      Output in tab separated format.\n"
-		<< "  -X,--XML:         Output formatted as XML.\n"
+		<< "  -H,--human:        Output formatted for human reading.\n"
+		<< "  -C,--compact:      Output formatted in compact style.\n"
+		<< "  -T,--tabbed:       Output in tab separated format.\n"
+		<< "  -X,--XML:          Output formatted as XML.\n"
+		<< "SOAP:\n"
+		<< "  -s,--endpoint=url: The SOAP service endpoint.\n"
 		<< "\n"
 		<< "The --between, --before and --after can only be used with the --start, --end (and --id) filter.\n"
 		<< "\n"
-		<< "Copyright (C) 2011 Anders Lövgren (QNET/Compdept BMC)\n";
+		<< "Copyright (C) 2011 Anders LÃ¶vgren (QNET/Compdept BMC)\n";
 }
 
 void Options::Version()
@@ -100,6 +102,9 @@ void Options::Show() const
 		<< "    MAC-address: " << filter.hwaddr << "\n"
 		<< "       Username: " << filter.username << "\n"
 		<< "         Domain: " << filter.domain << "\n"
+		<< "  SOAP:\n"
+		<< "  --------------------------------------\n"
+		<< "       Endpoint: " << endpoint << "\n"
 		<< std::endl;
 }
 
@@ -143,10 +148,12 @@ void Options::Parse(int argc, char **argv)
 		{ "tabbed",   0, 0, OpTabbed },
 		{ "XML",      0, 0, OpXml },
 		{ "xml",      0, 0, OpXml },     // alias
+		// SOAP:
+		{ "endpoint", 1, 0, OpEndpoint },
 		{ 0, 0, 0, 0 }
 	};
 	
-	while((c = getopt_long(argc, argv, "acCdehHiloTvVX", longopts, &index)) != -1) {
+	while((c = getopt_long(argc, argv, "acCdehHilos:TvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -243,6 +250,13 @@ void Options::Parse(int argc, char **argv)
 			break;
 		case OpXml:
 			format = XML;
+			break;
+
+			//
+			// SOAP:
+			// 
+		case OpEndpoint:
+			endpoint = optarg;
 			break;
 			
 		default:

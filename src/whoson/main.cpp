@@ -36,6 +36,9 @@ public:
 			std::cerr << exception.msg << std::endl;
 			exit(1);
 		}
+		if(opts->GetEndpoint()) {
+			proxy.soap_endpoint = opts->GetEndpoint();
+		}
 	}
 
 	void Process()
