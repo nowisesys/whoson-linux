@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = network$(EXEEXT)
+noinst_PROGRAMS = network$(EXEEXT) getip$(EXEEXT)
 subdir = src/libwhoson/examples
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -49,6 +49,9 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
+am_getip_OBJECTS = getip.$(OBJEXT)
+getip_OBJECTS = $(am_getip_OBJECTS)
+getip_LDADD = $(LDADD)
 am_network_OBJECTS = network.$(OBJEXT)
 network_OBJECTS = $(am_network_OBJECTS)
 network_LDADD = $(LDADD)
@@ -65,8 +68,8 @@ CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(network_SOURCES)
-DIST_SOURCES = $(network_SOURCES)
+SOURCES = $(getip_SOURCES) $(network_SOURCES)
+DIST_SOURCES = $(getip_SOURCES) $(network_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -194,6 +197,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 network_SOURCES = ../network.cpp
+getip_SOURCES = getip.cpp
 AM_CPPFLAGS = -I../../..
 AM_CXXFLAGS = -DHAVE_CONFIG_H=1 -D__LIBWHOSON_HAS_MAIN__=1
 AM_LDFLAGS = -L../.libs -Wl,-rpath=../.libs
@@ -240,6 +244,9 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+getip$(EXEEXT): $(getip_OBJECTS) $(getip_DEPENDENCIES) 
+	@rm -f getip$(EXEEXT)
+	$(CXXLINK) $(getip_OBJECTS) $(getip_LDADD) $(LIBS)
 network$(EXEEXT): $(network_OBJECTS) $(network_DEPENDENCIES) 
 	@rm -f network$(EXEEXT)
 	$(CXXLINK) $(network_OBJECTS) $(network_LDADD) $(LIBS)
@@ -250,6 +257,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/getip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@
 
 .cpp.o:
