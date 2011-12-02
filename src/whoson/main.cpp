@@ -41,19 +41,20 @@ public:
 		}
 	}
 
-	void Process()
+	void Process() 
 	{	
 		WhosOn::LogonEventAdapter adapter(&proxy);
 	
 		try {
 			switch(opts->GetReason()) {
 			case Options::Login:
-				adapter.Add(opts->GetFilter());
+				Login(&adapter);
 				break;
 			case Options::Logout:
-				adapter.Close(opts->GetFilter());
+				Logout(&adapter);
 				break;
 			case Options::List:
+				List(&adapter);
 				break;
 			case Options::Unknown:
 				break;
@@ -65,6 +66,22 @@ public:
 	}
 	
 private:
+	
+	void Login(const WhosOn::LogonEventAdapter *adapter) const
+	{
+		adapter->Add(opts->GetFilter());
+	}
+	
+	void Logout(const WhosOn::LogonEventAdapter *adapter) const
+	{
+		WhosOn::LogonEvent event = adapter->Find();
+		adapter->Close(&event);
+	}
+	
+	void List(const WhosOn::LogonEventAdapter *adapter) const
+	{
+	}
+	
 	SoapServiceProxy proxy;
 	Options *opts;
 };
