@@ -93,15 +93,15 @@ void Options::Show() const
 		<< "  Match:  " << mMatch[match] << "\n"
 		<< "  Filter: \n"
 		<< "  --------------------------------------\n"
-		<< "       Event ID: " << filter.eventID << "\n"
-		<< "     Start Time: " << filter.stime << "\n"
-		<< "       End Time: " << filter.etime << "\n"
-		<< "       Computer: " << filter.workstation << "\n"
-		<< "       Hostname: " << filter.hostname << "\n"
-		<< "     IP-address: " << filter.ipaddr << "\n"
-		<< "    MAC-address: " << filter.hwaddr << "\n"
-		<< "       Username: " << filter.username << "\n"
-		<< "         Domain: " << filter.domain << "\n"
+		<< "       Event ID: " << filter.GetEventID() << "\n"
+		<< "     Start Time: " << filter.GetStartTime() << "\n"
+		<< "       End Time: " << filter.GetEndTime() << "\n"
+		<< "       Computer: " << filter.GetWorkstation() << "\n"
+		<< "       Hostname: " << filter.GetHostname() << "\n"
+		<< "     IP-address: " << filter.GetIpAddress() << "\n"
+		<< "    MAC-address: " << filter.GetHwAddress() << "\n"
+		<< "       Username: " << filter.GetUsername() << "\n"
+		<< "         Domain: " << filter.GetDomain() << "\n"
 		<< "  SOAP:\n"
 		<< "  --------------------------------------\n"
 		<< "       Endpoint: " << endpoint << "\n"
@@ -189,31 +189,31 @@ void Options::Parse(int argc, char **argv)
 			// Filter:
 			// 
 		case OpId:
-			filter.eventID = atoi(optarg);
+			filter.EventID = atoi(optarg);
 			break;
 		case OpStart:
-			filter.stime = mktime(getdate(optarg));
+			filter.StartTime = mktime(getdate(optarg));
 			break;
 		case OpEnd:
-			filter.etime = mktime(getdate(optarg));
+			filter.EndTime = mktime(getdate(optarg));
 			break;
 		case OpComp:
-			filter.workstation = optarg;
+			filter.SetWorkstation(optarg);
 			break;
 		case OpHost:
-			filter.hostname = optarg;
+			filter.SetHostname(optarg);
 			break;
 		case OpIp:
-			filter.ipaddr = optarg;
+			filter.SetIpAddress(optarg);
 			break;
 		case OpHw:
-			filter.hwaddr = optarg;
+			filter.SetHwAddress(optarg);
 			break;
 		case OpUser:
-			filter.username = optarg;
+			filter.SetUsername(optarg);
 			break;
 		case OpDomain:
-			filter.domain = optarg;
+			filter.SetDomain(optarg);
 			break;
 			
 			// 
