@@ -41,7 +41,7 @@ public:
 	Format GetFormat() const { return format; }
 	const WhosOn::LogonEvent * GetFilter() const { return &filter; }
 	WhosOn::LogonEventMatch GetMatch() const { return match; }
-	const char * GetEndpoint() const { return endpoint; }
+	const char * GetEndpoint(const char *def = 0) const { return endpoint ? endpoint : def; }
 
 	int Verbose;
 	bool Debug;
@@ -56,6 +56,7 @@ private:
 	Format format;
 	WhosOn::LogonEvent filter;
 	WhosOn::LogonEventMatch match;
+	
 	const char *endpoint;
 };
 

@@ -24,7 +24,7 @@ Options::ArgumentException::ArgumentException(const char *opt)
 	msg += "'";
 }
 
-Options::Options()
+Options::Options() : endpoint(0)
 {
 	reason = Unknown;
 	format = Compact;
@@ -104,7 +104,7 @@ void Options::Show() const
 		<< "         Domain: " << filter.GetDomain() << "\n"
 		<< "  SOAP:\n"
 		<< "  --------------------------------------\n"
-		<< "       Endpoint: " << endpoint << "\n"
+		<< "       Endpoint: " << (endpoint ? endpoint : "") << "\n"
 		<< std::endl;
 }
 
