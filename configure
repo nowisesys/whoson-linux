@@ -752,8 +752,10 @@ enable_fast_install
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
-enable_static_clients
+with_gnu_ld
+enable_all_static
 enable_examples
+with_wbclient
 '
       ac_precious_vars='build_alias
 host_alias
@@ -766,8 +768,13 @@ CPPFLAGS
 CCC
 CC
 CFLAGS
+LDFLAGS
+LIBS
+CPPFLAGS
 CPP
+CPPFLAGS
 CXXCPP
+CPPFLAGS
 PKG_CONFIG
 PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
@@ -1400,7 +1407,7 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
-  --enable-static-clients Link all client programs static (default is no)
+  --enable-all-static     Link all libraries and clients static (no)
   --enable-examples       Build example programs
 
 Optional Packages:
@@ -1411,6 +1418,7 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot=DIR Search for dependent libraries within DIR
                         (or the compiler's sysroot if not specified).
+  --with-wbclient         Use wbclient from samba (yes)
 
 Some influential environment variables:
   CXX         C++ compiler command
@@ -8546,10 +8554,6 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
-## CAVEAT EMPTOR:
-## There is no encapsulation within the following macros, do not change
-## the running order or otherwise move them around unless you know exactly
-## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -15421,9 +15425,9 @@ $as_echo "no" >&6; }
 fi
 
 # Test whether to build static linked client programs:
-# Check whether --enable-static-clients was given.
-if test "${enable_static_clients+set}" = set; then :
-  enableval=$enable_static_clients; static_clients=$enableval
+# Check whether --enable-all-static was given.
+if test "${enable_all_static+set}" = set; then :
+  enableval=$enable_all_static; static_clients=$enableval
 else
   static_clients=no
 fi
@@ -15459,6 +15463,20 @@ $as_echo "${build_examples}" >&6; }
 else
   BUILD_EXAMPLES_TRUE='#'
   BUILD_EXAMPLES_FALSE=
+fi
+
+
+# Disable wbclient by default if --enable-all-static=yes:
+with_wbclient=yes
+if test x${static_clients} = xyes; then
+  with_wbclient=no
+fi
+
+# Check whether --with-wbclient was given.
+if test "${with_wbclient+set}" = set; then :
+  withval=$with_wbclient; with_wbclient=$withval
+else
+  with_wbclient=${with_wbclient}
 fi
 
 
@@ -15594,6 +15612,7 @@ fi
 ## ------------------------------------
 ##  Samba (winbind)
 ## ------------------------------------
+if test "x${with_wbclient}" = "xyes"; then
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wb_context_init in -lwbclient" >&5
 $as_echo_n "checking for wb_context_init in -lwbclient... " >&6; }
 if ${ac_cv_lib_wbclient_wb_context_init+:} false; then :
@@ -15639,6 +15658,7 @@ _ACEOF
 
 fi
 
+fi
 
 # Checks for header files.
 

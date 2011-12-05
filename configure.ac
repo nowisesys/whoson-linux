@@ -22,10 +22,10 @@ AC_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG
 
 # Test whether to build static linked client programs:
-AC_ARG_ENABLE([static-clients],
+AC_ARG_ENABLE([all-static],
   [AS_HELP_STRING(
-    [--enable-static-clients],
-    [Link all client programs static (default is no)])],
+    [--enable-all-static],
+    [Link all libraries and clients static (no)])],
   [static_clients=$enableval],
   [static_clients=no])
 AC_MSG_CHECKING([whether to build static clients])
@@ -42,6 +42,18 @@ AC_ARG_ENABLE([examples],
 AC_MSG_CHECKING([whether to build examples])
 AC_MSG_RESULT([${build_examples}])
 AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
+
+# Disable wbclient by default if --enable-all-static=yes:
+with_wbclient=yes
+if test x${static_clients} = xyes; then
+  with_wbclient=no
+fi
+AC_ARG_WITH([wbclient],
+  [AS_HELP_STRING(
+    [--with-wbclient],
+    [Use wbclient from samba (yes)])],
+    [with_wbclient=$withval],
+    [with_wbclient=${with_wbclient}])
 
 # Checks for libraries.
 
@@ -96,7 +108,9 @@ fi
 ## ------------------------------------
 ##  Samba (winbind)
 ## ------------------------------------
+if test "x${with_wbclient}" = "xyes"; then
 AC_CHECK_LIB([wbclient], [wb_context_init])
+fi
 
 # Checks for header files.
 AC_CHECK_HEADERS([arpa/inet.h inttypes.h netinet/in.h stdint.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])
