@@ -618,8 +618,8 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-gSOAP_LIBS
-gSOAP_CFLAGS
+gsoap_LIBS
+gsoap_CFLAGS
 BUILD_EXAMPLES_FALSE
 BUILD_EXAMPLES_TRUE
 STATIC_CLIENTS_FALSE
@@ -753,8 +753,10 @@ with_gnu_ld
 with_sysroot
 enable_libtool_lock
 with_gnu_ld
-enable_all_static
+enable_static_all
 enable_examples
+with_gsoap
+with_gsoap
 with_wbclient
 '
       ac_precious_vars='build_alias
@@ -778,8 +780,8 @@ CPPFLAGS
 PKG_CONFIG
 PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR
-gSOAP_CFLAGS
-gSOAP_LIBS'
+gsoap_CFLAGS
+gsoap_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1407,7 +1409,7 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
-  --enable-all-static     Link all libraries and clients static (no)
+  --enable-static-all     Link all libraries and clients static (no)
   --enable-examples       Build example programs
 
 Optional Packages:
@@ -1418,7 +1420,11 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot=DIR Search for dependent libraries within DIR
                         (or the compiler's sysroot if not specified).
-  --with-wbclient         Use wbclient from samba (yes)
+  --with-gsoap=PATH       Check for gSOAP installation in PATH
+  --with-gsoap-include=PATH
+                          Check for gSOAP header files in PATH
+  --with-gsoap-libs=PATH  Check for gSOAP libraries in PATH
+  --with-wbclient         Check for wbclient library from SAMBA (yes)
 
 Some influential environment variables:
   CXX         C++ compiler command
@@ -1437,9 +1443,9 @@ Some influential environment variables:
               directories to add to pkg-config's search path
   PKG_CONFIG_LIBDIR
               path overriding pkg-config's built-in search path
-  gSOAP_CFLAGS
-              C compiler flags for gSOAP, overriding pkg-config
-  gSOAP_LIBS  linker flags for gSOAP, overriding pkg-config
+  gsoap_CFLAGS
+              C compiler flags for gsoap, overriding pkg-config
+  gsoap_LIBS  linker flags for gsoap, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -8554,6 +8560,10 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
+## CAVEAT EMPTOR:
+## There is no encapsulation within the following macros, do not change
+## the running order or otherwise move them around unless you know exactly
+## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -15425,9 +15435,9 @@ $as_echo "no" >&6; }
 fi
 
 # Test whether to build static linked client programs:
-# Check whether --enable-all-static was given.
-if test "${enable_all_static+set}" = set; then :
-  enableval=$enable_all_static; static_clients=$enableval
+# Check whether --enable-static-all was given.
+if test "${enable_static_all+set}" = set; then :
+  enableval=$enable_static_all; static_clients=$enableval
 else
   static_clients=no
 fi
@@ -15466,7 +15476,28 @@ else
 fi
 
 
-# Disable wbclient by default if --enable-all-static=yes:
+
+# Check whether --with-gsoap was given.
+if test "${with_gsoap+set}" = set; then :
+  withval=$with_gsoap; with_gsoap=$withval
+fi
+
+
+
+# Check whether --with-gsoap was given.
+if test "${with_gsoap+set}" = set; then :
+  withval=$with_gsoap; with_gsoap_inc=$withval
+fi
+
+
+
+# Check whether --with-gsoap was given.
+if test "${with_gsoap+set}" = set; then :
+  withval=$with_gsoap; with_gsoap_lib=$withval
+fi
+
+
+# Disable wbclient by default if --enable-static-all:
 with_wbclient=yes
 if test x${static_clients} = xyes; then
   with_wbclient=no
@@ -15478,6 +15509,10 @@ if test "${with_wbclient+set}" = set; then :
 else
   with_wbclient=${with_wbclient}
 fi
+
+
+# Strips leading/trailing whitespace:
+function whoson_trim() { echo $1; }
 
 
 # Checks for libraries.
@@ -15504,11 +15539,11 @@ if test -n "$PKG_CONFIG" && \
   test $ac_status = 0; }; then
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gSOAP" >&5
-$as_echo_n "checking for gSOAP... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gsoap" >&5
+$as_echo_n "checking for gsoap... " >&6; }
 
-if test -n "$gSOAP_CFLAGS"; then
-    pkg_cv_gSOAP_CFLAGS="$gSOAP_CFLAGS"
+if test -n "$gsoap_CFLAGS"; then
+    pkg_cv_gsoap_CFLAGS="$gsoap_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gsoap++\""; } >&5
@@ -15516,7 +15551,7 @@ if test -n "$gSOAP_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_gSOAP_CFLAGS=`$PKG_CONFIG --cflags "gsoap++" 2>/dev/null`
+  pkg_cv_gsoap_CFLAGS=`$PKG_CONFIG --cflags "gsoap++" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -15524,8 +15559,8 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$gSOAP_LIBS"; then
-    pkg_cv_gSOAP_LIBS="$gSOAP_LIBS"
+if test -n "$gsoap_LIBS"; then
+    pkg_cv_gsoap_LIBS="$gsoap_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"gsoap++\""; } >&5
@@ -15533,7 +15568,7 @@ if test -n "$gSOAP_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_gSOAP_LIBS=`$PKG_CONFIG --libs "gsoap++" 2>/dev/null`
+  pkg_cv_gsoap_LIBS=`$PKG_CONFIG --libs "gsoap++" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -15554,12 +15589,12 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        gSOAP_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "gsoap++" 2>&1`
+	        gsoap_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "gsoap++" 2>&1`
         else
-	        gSOAP_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "gsoap++" 2>&1`
+	        gsoap_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "gsoap++" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$gSOAP_PKG_ERRORS" >&5
+	echo "$gsoap_PKG_ERRORS" >&5
 
 	 whoson_have_gsoap_cxx="no"
 
@@ -15569,22 +15604,37 @@ $as_echo "no" >&6; }
 	 whoson_have_gsoap_cxx="no"
 
 else
-	gSOAP_CFLAGS=$pkg_cv_gSOAP_CFLAGS
-	gSOAP_LIBS=$pkg_cv_gSOAP_LIBS
+	gsoap_CFLAGS=$pkg_cv_gsoap_CFLAGS
+	gsoap_LIBS=$pkg_cv_gsoap_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
-      GSOAP_LIBS="${pkg_cv_gSOAP_LIBS}"
-      GSOAP_CXXFLAGS="${pkg_cv_gSOAP_CFLAGS}"
+      GSOAP_LIBS="$(whoson_trim ${pkg_cv_gsoap_LIBS})"
+      GSOAP_CXXFLAGS="$(whoson_trim ${pkg_cv_gsoap_CFLAGS})"
       whoson_have_gsoap_cxx="yes"
 
 fi
 
 fi
 
-if test "x${whoson_have_gsoap_cxx}" = "xno" ; then
+#
+# Try to find library and header in --with-gsoap-xxx:
+#
+if test -n "x${with_gsoap_lib}" ; then
+  if test -e "${with_gsoap_lib}/libgsoap++.a" ; then
+    GSOAP_LIBS="-L${with_gsoap_lib} -lgsoap++"
+    whoson_have_gsoap_cxx="yes"
+  fi
+fi
+if test -n "x${with_gsoap_inc}" ; then
+  if test -e "${with_gsoap_inc}/stdsoap2.h" ; then
+    GSOAP_CXXFLAGS="-I${with_gsoap_inc}"
+  fi
+fi
+
+if test "x${whoson_have_gsoap_cxx}" = "xno" -o "${with_gsoap}" != "" ; then
   # Using the standard AC_CHECK_LIB() won't work.
-  for d in /usr /usr/local /usr/local/gsoap /opt /opt/gsoap; do
+  for d in ${with_gsoap} /usr /usr/local /usr/local/gsoap /opt /opt/gsoap; do
     if test -e "$d/lib/libgsoap++.a" ; then
       GSOAP_LIBS="-L$d/lib -lgsoap++"
       whoson_have_gsoap_cxx="yes"
@@ -15595,17 +15645,17 @@ if test "x${whoson_have_gsoap_cxx}" = "xno" ; then
   done
 fi
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether gSOAP was found" >&5
-$as_echo_n "checking whether gSOAP was found... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking how to link gsoap" >&5
+$as_echo_n "checking how to link gsoap... " >&6; }
 if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, (libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS})" >&5
-$as_echo "yes, (libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS})" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS}" >&5
+$as_echo "libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS}" >&6; }
 
 $as_echo "#define HAVE_LIBGSOAP_CXX 1" >>confdefs.h
 
 else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: missing" >&5
+$as_echo "missing" >&6; }
   as_fn_error $? "The gSOAP Toolkit was not found. Please download and install it from http://gsoap2.sourceforge.net/" "$LINENO" 5
 fi
 

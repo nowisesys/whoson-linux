@@ -22,9 +22,9 @@ AC_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG
 
 # Test whether to build static linked client programs:
-AC_ARG_ENABLE([all-static],
+AC_ARG_ENABLE([static-all],
   [AS_HELP_STRING(
-    [--enable-all-static],
+    [--enable-static-all],
     [Link all libraries and clients static (no)])],
   [static_clients=$enableval],
   [static_clients=no])
@@ -43,7 +43,25 @@ AC_MSG_CHECKING([whether to build examples])
 AC_MSG_RESULT([${build_examples}])
 AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
 
-# Disable wbclient by default if --enable-all-static=yes:
+AC_ARG_WITH([gsoap],
+  [AS_HELP_STRING(
+    [--with-gsoap=PATH],
+    [Check for gSOAP installation in PATH])],
+    [with_gsoap=$withval])
+
+AC_ARG_WITH([gsoap],
+  [AS_HELP_STRING(
+    [--with-gsoap-include=PATH],
+    [Check for gSOAP header files in PATH])],
+    [with_gsoap_inc=$withval])
+
+AC_ARG_WITH([gsoap],
+  [AS_HELP_STRING(
+    [--with-gsoap-libs=PATH],
+    [Check for gSOAP libraries in PATH])],
+    [with_gsoap_lib=$withval])
+
+# Disable wbclient by default if --enable-static-all:
 with_wbclient=yes
 if test x${static_clients} = xyes; then
   with_wbclient=no
@@ -51,9 +69,13 @@ fi
 AC_ARG_WITH([wbclient],
   [AS_HELP_STRING(
     [--with-wbclient],
-    [Use wbclient from samba (yes)])],
+    [Check for wbclient library from SAMBA (yes)])],
     [with_wbclient=$withval],
     [with_wbclient=${with_wbclient}])
+
+# Strips leading/trailing whitespace:
+function whoson_trim() { echo $1; }
+
 
 # Checks for libraries.
 
@@ -73,19 +95,34 @@ whoson_have_gsoap_cxx="no"
 
 PKG_CHECK_EXISTS([gsoap++],
   [PKG_CHECK_MODULES(
-    [gSOAP], [gsoap++],
+    [gsoap], [gsoap++],
     [
-      GSOAP_LIBS="${pkg_cv_gSOAP_LIBS}"
-      GSOAP_CXXFLAGS="${pkg_cv_gSOAP_CFLAGS}"
+      GSOAP_LIBS="$(whoson_trim ${pkg_cv_gsoap_LIBS})"
+      GSOAP_CXXFLAGS="$(whoson_trim ${pkg_cv_gsoap_CFLAGS})"
       whoson_have_gsoap_cxx="yes"
     ],
     [ whoson_have_gsoap_cxx="no" ]
     )]
 )
 
-if test "x${whoson_have_gsoap_cxx}" = "xno" ; then
+#
+# Try to find library and header in --with-gsoap-xxx:
+# 
+if test -n "x${with_gsoap_lib}" ; then
+  if test -e "${with_gsoap_lib}/libgsoap++.a" ; then
+    GSOAP_LIBS="-L${with_gsoap_lib} -lgsoap++"
+    whoson_have_gsoap_cxx="yes"
+  fi
+fi
+if test -n "x${with_gsoap_inc}" ; then
+  if test -e "${with_gsoap_inc}/stdsoap2.h" ; then
+    GSOAP_CXXFLAGS="-I${with_gsoap_inc}"
+  fi
+fi
+
+if test "x${whoson_have_gsoap_cxx}" = "xno" -o "${with_gsoap}" != "" ; then
   # Using the standard AC_CHECK_LIB() won't work.
-  for d in /usr /usr/local /usr/local/gsoap /opt /opt/gsoap; do
+  for d in ${with_gsoap} /usr /usr/local /usr/local/gsoap /opt /opt/gsoap; do
     if test -e "$d/lib/libgsoap++.a" ; then
       GSOAP_LIBS="-L$d/lib -lgsoap++"
       whoson_have_gsoap_cxx="yes"
@@ -96,12 +133,12 @@ if test "x${whoson_have_gsoap_cxx}" = "xno" ; then
   done
 fi
 
-AC_MSG_CHECKING([whether gSOAP was found])
+AC_MSG_CHECKING([how to link gsoap])
 if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
-  AC_MSG_RESULT([yes, (libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS})])
+  AC_MSG_RESULT([libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS}])
   AC_DEFINE([HAVE_LIBGSOAP_CXX], [1], [Define to 1 if libgsoap++ was found])
 else 
-  AC_MSG_RESULT([no])
+  AC_MSG_RESULT([missing])
   AC_MSG_ERROR([The gSOAP Toolkit was not found. Please download and install it from http://gsoap2.sourceforge.net/])
 fi
 
