@@ -50,7 +50,8 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_whoson_OBJECTS = main.$(OBJEXT) options.$(OBJEXT)
+am_whoson_OBJECTS = main.$(OBJEXT) options.$(OBJEXT) \
+	datetime.$(OBJEXT)
 whoson_OBJECTS = $(am_whoson_OBJECTS)
 whoson_DEPENDENCIES = ../libwhoson/libwhoson.la
 whoson_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
@@ -206,7 +207,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-whoson_SOURCES = main.cpp options.cpp options.hpp
+whoson_SOURCES = main.cpp options.cpp options.hpp datetime.hpp datetime.cpp
 whoson_LDADD = ../libwhoson/libwhoson.la
 @STATIC_CLIENTS_TRUE@whoson_LDFLAGS = -static --static
 all: all-am
@@ -296,6 +297,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/datetime.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/options.Po@am__quote@
 

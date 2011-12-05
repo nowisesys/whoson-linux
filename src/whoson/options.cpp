@@ -16,6 +16,7 @@
 #include <getopt.h>
 
 #include "options.hpp"
+#include "datetime.hpp"
 
 Options::ArgumentException::ArgumentException(const char *opt)
 {
@@ -70,7 +71,8 @@ void Options::Usage()
 		<< "SOAP:\n"
 		<< "  -s,--endpoint=url: The SOAP service endpoint.\n"
 		<< "\n"
-		<< "The --between, --before and --after can only be used with the --start, --end (and --id) filter.\n"
+		<< "Notes:\n"
+		<< "1. The --between, --before and --after can only be used with the --start, --end (and --id) filter.\n"
 		<< "\n"
 		<< "Copyright (C) 2011 Anders Lövgren (QNET/Compdept BMC)\n";
 }
@@ -192,10 +194,10 @@ void Options::Parse(int argc, char **argv)
 			filter.EventID = atoi(optarg);
 			break;
 		case OpStart:
-			filter.StartTime = mktime(getdate(optarg));
+			filter.StartTime = DateTime(optarg);
 			break;
 		case OpEnd:
-			filter.EndTime = mktime(getdate(optarg));
+			filter.EndTime = DateTime(optarg);
 			break;
 		case OpComp:
 			filter.SetWorkstation(optarg);

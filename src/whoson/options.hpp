@@ -2,6 +2,7 @@
 #define __OPTIONS_HPP__
 
 #include <string>
+
 #include "whoson.hpp"
 
 class Options

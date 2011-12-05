@@ -1,5 +1,5 @@
 bin_PROGRAMS = whoson
-whoson_SOURCES = main.cpp options.cpp options.hpp
+whoson_SOURCES = main.cpp options.cpp options.hpp datetime.hpp datetime.cpp
 whoson_LDADD = ../libwhoson/libwhoson.la
 
 ##
