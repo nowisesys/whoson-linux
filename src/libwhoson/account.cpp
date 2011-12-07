@@ -62,7 +62,7 @@ namespace {
 		void Lookup() 
 		{
 			const char *name = 0, *prog = "";
-			char *pnam;
+			char *pnam, *pdom;
 			
 			if((code = krb5_init_context(&context))) {
 				com_err(prog, code, "failed initialize context");
@@ -97,13 +97,15 @@ namespace {
 				throw AccountProvider::Exception();
 			}
 			
-			char *ppd = strchr(pnam, '@');
-			if(ppd) {
-				*ppd++ = '\0';
+			if((pdom = strchr(pnam, '@'))) {
+				*pdom++ = '\0';
+			} else {
+				com_err(prog, 0, "failed match '@' in principal name");
+				throw AccountProvider::Exception();
 			}
 			
-			user = pnam;
-			domain = *ppd;
+			user   = pnam;
+			domain = pdom;
 		}
 	private:
 		krb5_error_code code;
