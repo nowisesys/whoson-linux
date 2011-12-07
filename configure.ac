@@ -43,23 +43,31 @@ AC_MSG_CHECKING([whether to build examples])
 AC_MSG_RESULT([${build_examples}])
 AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
 
+with_krb5=yes
+AC_ARG_WITH([krb5],
+  [AS_HELP_STRING(
+    [--with-krb5],
+    [Enable Kerberos v5 (yes)])],
+  [with_krb5=$withval],
+  [with_krb5=${with_krb5}])
+
 AC_ARG_WITH([gsoap],
   [AS_HELP_STRING(
     [--with-gsoap=PATH],
     [Check for gSOAP installation in PATH])],
-    [with_gsoap=$withval])
+  [with_gsoap=$withval])
 
 AC_ARG_WITH([gsoap],
   [AS_HELP_STRING(
     [--with-gsoap-include=PATH],
     [Check for gSOAP header files in PATH])],
-    [with_gsoap_inc=$withval])
+  [with_gsoap_inc=$withval])
 
 AC_ARG_WITH([gsoap],
   [AS_HELP_STRING(
     [--with-gsoap-libs=PATH],
     [Check for gSOAP libraries in PATH])],
-    [with_gsoap_lib=$withval])
+  [with_gsoap_lib=$withval])
 
 # Disable wbclient by default if --enable-static-all:
 with_wbclient=yes
@@ -70,8 +78,9 @@ AC_ARG_WITH([wbclient],
   [AS_HELP_STRING(
     [--with-wbclient],
     [Check for wbclient library from SAMBA (yes)])],
-    [with_wbclient=$withval],
-    [with_wbclient=${with_wbclient}])
+  [with_wbclient=$withval],
+  [with_wbclient=${with_wbclient}])
+  
 
 # Strips leading/trailing whitespace:
 function whoson_trim() { echo $1; }
@@ -146,11 +155,28 @@ fi
 ##  Samba (winbind)
 ## ------------------------------------
 if test "x${with_wbclient}" = "xyes"; then
-AC_CHECK_LIB([wbclient], [wb_context_init])
+  AC_CHECK_LIB([wbclient], [wb_context_init])
+fi
+
+## ------------------------------------
+##  Kerberos V5
+## ------------------------------------
+if test "x${with_krb5}" = "xyes"; then
+  AC_CHECK_LIB([krb5], [krb5_init_context])
+  AC_CHECK_FUNC([com_err], 
+                [AC_DEFINE([HAVE_COM_ERR], [1],
+		           [Define to 1 if you have the 'com_err' function.])
+		])
+  # if test x${ac_cv_func_com_err} = xno ; then
+  #   AC_CHECK_LIB([com_err], [com_err])
+  # fi
 fi
 
 # Checks for header files.
 AC_CHECK_HEADERS([arpa/inet.h inttypes.h netinet/in.h stdint.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])
+if test "x${with_krb5}" = "xyes"; then
+  AC_CHECK_HEADERS([krb5.h com_err.h])
+fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL

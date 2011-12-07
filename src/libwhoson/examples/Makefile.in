@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = network$(EXEEXT) getip$(EXEEXT)
+noinst_PROGRAMS = network$(EXEEXT) account$(EXEEXT) getip$(EXEEXT)
 subdir = src/libwhoson/examples
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -49,6 +49,9 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
+am_account_OBJECTS = account.$(OBJEXT)
+account_OBJECTS = $(am_account_OBJECTS)
+account_LDADD = $(LDADD)
 am_getip_OBJECTS = getip.$(OBJEXT)
 getip_OBJECTS = $(am_getip_OBJECTS)
 getip_LDADD = $(LDADD)
@@ -68,8 +71,8 @@ CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(getip_SOURCES) $(network_SOURCES)
-DIST_SOURCES = $(getip_SOURCES) $(network_SOURCES)
+SOURCES = $(account_SOURCES) $(getip_SOURCES) $(network_SOURCES)
+DIST_SOURCES = $(account_SOURCES) $(getip_SOURCES) $(network_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -197,6 +200,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 network_SOURCES = ../network.cpp
+account_SOURCES = ../account.cpp
 getip_SOURCES = getip.cpp
 AM_CPPFLAGS = -I../../..
 AM_CXXFLAGS = -DHAVE_CONFIG_H=1 -D__LIBWHOSON_HAS_MAIN__=1
@@ -244,6 +248,9 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+account$(EXEEXT): $(account_OBJECTS) $(account_DEPENDENCIES) 
+	@rm -f account$(EXEEXT)
+	$(CXXLINK) $(account_OBJECTS) $(account_LDADD) $(LIBS)
 getip$(EXEEXT): $(getip_OBJECTS) $(getip_DEPENDENCIES) 
 	@rm -f getip$(EXEEXT)
 	$(CXXLINK) $(getip_OBJECTS) $(getip_LDADD) $(LIBS)
@@ -257,6 +264,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/account.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/getip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Po@am__quote@
 
@@ -280,6 +288,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
+
+account.o: ../account.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT account.o -MD -MP -MF $(DEPDIR)/account.Tpo -c -o account.o `test -f '../account.cpp' || echo '$(srcdir)/'`../account.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/account.Tpo $(DEPDIR)/account.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../account.cpp' object='account.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o account.o `test -f '../account.cpp' || echo '$(srcdir)/'`../account.cpp
+
+account.obj: ../account.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT account.obj -MD -MP -MF $(DEPDIR)/account.Tpo -c -o account.obj `if test -f '../account.cpp'; then $(CYGPATH_W) '../account.cpp'; else $(CYGPATH_W) '$(srcdir)/../account.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/account.Tpo $(DEPDIR)/account.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='../account.cpp' object='account.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o account.obj `if test -f '../account.cpp'; then $(CYGPATH_W) '../account.cpp'; else $(CYGPATH_W) '$(srcdir)/../account.cpp'; fi`
 
 network.o: ../network.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT network.o -MD -MP -MF $(DEPDIR)/network.Tpo -c -o network.o `test -f '../network.cpp' || echo '$(srcdir)/'`../network.cpp

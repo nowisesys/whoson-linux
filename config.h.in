@@ -6,14 +6,26 @@
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
 
+/* Define to 1 if you have the 'com_err' function. */
+#undef HAVE_COM_ERR
+
+/* Define to 1 if you have the <com_err.h> header file. */
+#undef HAVE_COM_ERR_H
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* Define to 1 if you have the <krb5.h> header file. */
+#undef HAVE_KRB5_H
+
 /* Define to 1 if libgsoap++ was found */
 #undef HAVE_LIBGSOAP_CXX
+
+/* Define to 1 if you have the `krb5' library (-lkrb5). */
+#undef HAVE_LIBKRB5
 
 /* Define to 1 if you have the `wbclient' library (-lwbclient). */
 #undef HAVE_LIBWBCLIENT

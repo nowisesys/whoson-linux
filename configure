@@ -755,7 +755,7 @@ enable_libtool_lock
 with_gnu_ld
 enable_static_all
 enable_examples
-with_gsoap
+with_krb5
 with_gsoap
 with_wbclient
 '
@@ -1420,6 +1420,7 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot=DIR Search for dependent libraries within DIR
                         (or the compiler's sysroot if not specified).
+  --with-krb5             Enable Kerberos v5 (yes)
   --with-gsoap=PATH       Check for gSOAP installation in PATH
   --with-gsoap-include=PATH
                           Check for gSOAP header files in PATH
@@ -1909,6 +1910,73 @@ fi
 
 } # ac_fn_cxx_try_link
 
+# ac_fn_cxx_check_func LINENO FUNC VAR
+# ------------------------------------
+# Tests whether FUNC exists, setting the cache variable VAR accordingly
+ac_fn_cxx_check_func ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
+$as_echo_n "checking for $2... " >&6; }
+if eval \${$3+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+/* Define $2 to an innocuous variant, in case <limits.h> declares $2.
+   For example, HP-UX 11i <limits.h> declares gettimeofday.  */
+#define $2 innocuous_$2
+
+/* System header to define __stub macros and hopefully few prototypes,
+    which can conflict with char $2 (); below.
+    Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
+    <limits.h> exists even on freestanding compilers.  */
+
+#ifdef __STDC__
+# include <limits.h>
+#else
+# include <assert.h>
+#endif
+
+#undef $2
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char $2 ();
+/* The GNU C library defines this for functions which it implements
+    to always fail with ENOSYS.  Some functions are actually named
+    something starting with __ and the normal name is an alias.  */
+#if defined __stub_$2 || defined __stub___$2
+choke me
+#endif
+
+int
+main ()
+{
+return $2 ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_link "$LINENO"; then :
+  eval "$3=yes"
+else
+  eval "$3=no"
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+fi
+eval ac_res=\$$3
+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
+$as_echo "$ac_res" >&6; }
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+
+} # ac_fn_cxx_check_func
+
 # ac_fn_cxx_check_header_mongrel LINENO HEADER VAR INCLUDES
 # ---------------------------------------------------------
 # Tests whether HEADER exists, giving a warning if it cannot be compiled using
@@ -2137,73 +2205,6 @@ $as_echo "$ac_res" >&6; }
   eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
 
 } # ac_fn_cxx_check_header_compile
-
-# ac_fn_cxx_check_func LINENO FUNC VAR
-# ------------------------------------
-# Tests whether FUNC exists, setting the cache variable VAR accordingly
-ac_fn_cxx_check_func ()
-{
-  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
-$as_echo_n "checking for $2... " >&6; }
-if eval \${$3+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-/* Define $2 to an innocuous variant, in case <limits.h> declares $2.
-   For example, HP-UX 11i <limits.h> declares gettimeofday.  */
-#define $2 innocuous_$2
-
-/* System header to define __stub macros and hopefully few prototypes,
-    which can conflict with char $2 (); below.
-    Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
-    <limits.h> exists even on freestanding compilers.  */
-
-#ifdef __STDC__
-# include <limits.h>
-#else
-# include <assert.h>
-#endif
-
-#undef $2
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char $2 ();
-/* The GNU C library defines this for functions which it implements
-    to always fail with ENOSYS.  Some functions are actually named
-    something starting with __ and the normal name is an alias.  */
-#if defined __stub_$2 || defined __stub___$2
-choke me
-#endif
-
-int
-main ()
-{
-return $2 ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_link "$LINENO"; then :
-  eval "$3=yes"
-else
-  eval "$3=no"
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-fi
-eval ac_res=\$$3
-	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-$as_echo "$ac_res" >&6; }
-  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-
-} # ac_fn_cxx_check_func
 
 # ac_fn_cxx_try_run LINENO
 # ------------------------
@@ -15476,6 +15477,16 @@ else
 fi
 
 
+with_krb5=yes
+
+# Check whether --with-krb5 was given.
+if test "${with_krb5+set}" = set; then :
+  withval=$with_krb5; with_krb5=$withval
+else
+  with_krb5=${with_krb5}
+fi
+
+
 
 # Check whether --with-gsoap was given.
 if test "${with_gsoap+set}" = set; then :
@@ -15509,6 +15520,7 @@ if test "${with_wbclient+set}" = set; then :
 else
   with_wbclient=${with_wbclient}
 fi
+
 
 
 # Strips leading/trailing whitespace:
@@ -15663,7 +15675,7 @@ fi
 ##  Samba (winbind)
 ## ------------------------------------
 if test "x${with_wbclient}" = "xyes"; then
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for wb_context_init in -lwbclient" >&5
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for wb_context_init in -lwbclient" >&5
 $as_echo_n "checking for wb_context_init in -lwbclient... " >&6; }
 if ${ac_cv_lib_wbclient_wb_context_init+:} false; then :
   $as_echo_n "(cached) " >&6
@@ -15710,6 +15722,68 @@ fi
 
 fi
 
+## ------------------------------------
+##  Kerberos V5
+## ------------------------------------
+if test "x${with_krb5}" = "xyes"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for krb5_init_context in -lkrb5" >&5
+$as_echo_n "checking for krb5_init_context in -lkrb5... " >&6; }
+if ${ac_cv_lib_krb5_krb5_init_context+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lkrb5  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char krb5_init_context ();
+int
+main ()
+{
+return krb5_init_context ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_link "$LINENO"; then :
+  ac_cv_lib_krb5_krb5_init_context=yes
+else
+  ac_cv_lib_krb5_krb5_init_context=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_krb5_krb5_init_context" >&5
+$as_echo "$ac_cv_lib_krb5_krb5_init_context" >&6; }
+if test "x$ac_cv_lib_krb5_krb5_init_context" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBKRB5 1
+_ACEOF
+
+  LIBS="-lkrb5 $LIBS"
+
+fi
+
+  ac_fn_cxx_check_func "$LINENO" "com_err" "ac_cv_func_com_err"
+if test "x$ac_cv_func_com_err" = xyes; then :
+
+$as_echo "#define HAVE_COM_ERR 1" >>confdefs.h
+
+
+fi
+
+  # if test x${ac_cv_func_com_err} = xno ; then
+  #   AC_CHECK_LIB([com_err], [com_err])
+  # fi
+fi
+
 # Checks for header files.
 
 for ac_header in arpa/inet.h inttypes.h netinet/in.h stdint.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h
@@ -15725,6 +15799,21 @@ fi
 
 done
 
+if test "x${with_krb5}" = "xyes"; then
+  for ac_header in krb5.h com_err.h
+do :
+  as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
+ac_fn_cxx_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
+if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
+  cat >>confdefs.h <<_ACEOF
+#define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
+_ACEOF
+
+fi
+
+done
+
+fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for stdbool.h that conforms to C99" >&5
