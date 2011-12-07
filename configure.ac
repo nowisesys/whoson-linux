@@ -6,6 +6,7 @@ AC_INIT([whoson], [1.0.0], [anders.lovgren@bmc.uu.se])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
+AC_CANONICAL_HOST
 
 AC_LANG(C++)
 AC_CONFIG_MACRO_DIR([m4])
@@ -20,6 +21,13 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG
+
+dnl Platform-specific Makefile setup
+EXAMPLE_LDFLAGS=
+case "${host}" in
+ *-*-linux*) EXAMPLE_LDFLAGS="-Wl,-rpath=../.libs" ;;
+esac
+AC_SUBST([EXAMPLE_LDFLAGS])
 
 # Test whether to build static linked client programs:
 AC_ARG_ENABLE([static-all],
