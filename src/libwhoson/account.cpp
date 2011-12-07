@@ -27,21 +27,7 @@ void com_err(const char *, long, const char *, ...) {}
 
 namespace {
 	
-	class AccountProvider
-	{
-	public:
-		struct Exception {};
-		
-		virtual ~AccountProvider() {};
-		virtual void Lookup() = 0;
-		
-		const std::string & GetUser() const { return user; }
-		const std::string & GetDomain() const { return domain; }
-
-	protected:
-		std::string user;
-		std::string domain;
-	};
+	using namespace WhosOn;
 	
 #ifdef HAVE_LIBKRB5
 	class KerberosAccount : public AccountProvider
@@ -57,6 +43,11 @@ namespace {
 		~KerberosAccount() 
 		{
 			krb5_free_context(context);
+		}
+		
+		std::string GetName() const 
+		{
+			return "Kerberos V5";
 		}
 		
 		void Lookup() 
@@ -120,6 +111,11 @@ namespace {
 	class SystemAccount : public AccountProvider
 	{
 	public:
+		std::string GetName() const 
+		{
+			return "System DB/NSS";
+		}
+		
 		void Lookup() 
 		{
 			struct passwd *pw = getpwuid(geteuid());
@@ -141,6 +137,16 @@ namespace {
 				user   = pu;
 			}
 		}
+	};
+
+	// 
+	// Just in case ;-)
+	// 
+	class DefaultProvider : public AccountProvider
+	{
+	public:
+		void Lookup() {}
+		std::string GetName() const { return "Default"; }
 	};
 
 }       // namespace
@@ -168,29 +174,27 @@ namespace WhosOn {
 	// 
 	Account::Account()
 	{
-		std::vector<AccountProvider *> providers;
 		
 #ifdef HAVE_LIBKRB5
 		providers.push_back(new KerberosAccount());
 #endif 
 		providers.push_back(new SystemAccount());
+		providers.push_back(new DefaultProvider());
 		
-		typedef std::vector<AccountProvider *>::iterator iterator;
-		for(iterator it = providers.begin(); it != providers.end(); ++it) {
-			AccountProvider *provider = *it;
-			
+		for(Iterator it = providers.begin(); it != providers.end(); ++it) {
 			try {
-				provider->Lookup();
+				selected = *it;
+				selected->Lookup();
 			} catch(AccountProvider::Exception) {
 				continue;
 			}
-			
-			user   = provider->GetUser();
-			domain = provider->GetDomain();
 			break;   // we are done!
 		}
-		
-		for(iterator it = providers.begin(); it != providers.end(); ++it) {
+	}
+	
+	Account::~Account()
+	{
+		for(Iterator it = providers.begin(); it != providers.end(); ++it) {
 			delete *it;
 		}
 	}
@@ -203,8 +207,18 @@ namespace WhosOn {
 // 
 #include <iostream>
 int main()
-{
+{	
 	const WhosOn::Account *acc = WhosOn::Account::GetInstance();
+	
+	const std::vector<AccountProvider *> * providers = acc->GetProviders();
+	typedef WhosOn::Account::Iterator Iterator;
+	std::cout << "Providers:\n";
+	for(Iterator it = providers->begin(); it != providers->end(); ++it) {
+		AccountProvider *provider = *it;
+		std::cout << "  Name: " << provider->GetName() << std::endl;
+	}
+	std::cout << "  Selected: " << acc->GetProvider()->GetName() << std::endl << std::endl;
+	
 	std::cout 
 		<< "Account:\n"
 		<< "-----------------------\n"
