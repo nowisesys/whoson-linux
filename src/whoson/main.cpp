@@ -69,7 +69,7 @@ private:
 	
 	void Login(const WhosOn::LogonEventAdapter *adapter) const
 	{
-		adapter->Add(opts->GetFilter());
+		adapter->Add();
 	}
 	
 	void Logout(const WhosOn::LogonEventAdapter *adapter) const
