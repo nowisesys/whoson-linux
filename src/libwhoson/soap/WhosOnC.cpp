@@ -12,7 +12,7 @@
 
 #include "WhosOnH.h"
 
-SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2011-12-01 16:57:14 GMT")
+SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2011-12-16 02:01:12 GMT")
 
 
 #ifndef WITH_NOGLOBAL

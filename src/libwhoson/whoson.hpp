@@ -4,19 +4,19 @@
 #include <vector>
 #include <string>
 
-class LogonEventServiceSoap12Proxy;      // SOAP 2.0 proxy
-class LogonEventServiceSoapProxy;        // SOAP 1.1 proxy
+class LogonAccountingServiceSoap12Proxy;      // SOAP 2.0 proxy
+class LogonAccountingServiceSoapProxy;        // SOAP 1.1 proxy
 
 #ifndef  WHOSON_SOAP_VERSION
 # define WHOSON_SOAP_VERSION 12
 #endif
 
 #if WHOSON_SOAP_VERSION == 12
-# define SoapServiceProxy LogonEventServiceSoap12Proxy
-# include "soap/WhosOnLogonEventServiceSoap12Proxy.h"
+# define SoapServiceProxy LogonAccountingServiceSoap12Proxy
+# include "soap/WhosOnLogonAccountingServiceSoap12Proxy.h"
 #else
-# define SoapServiceProxy LogonEventServiceSoapProxy
-# include "soap/WhosOnLogonEventServiceSoapProxy.h"
+# define SoapServiceProxy LogonAccountingServiceSoapProxy
+# include "soap/WhosOnLogonAccountingServiceSoapProxy.h"
 #endif
 
 namespace WhosOn {

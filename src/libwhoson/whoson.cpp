@@ -6,8 +6,8 @@
 #include "network.hpp"
 #include "account.hpp"
 
-#include "soap/LogonEventServiceSoap12.nsmap"
-#include "soap/WhosOnLogonEventServiceSoap12Proxy.h"
+#include "soap/LogonAccountingServiceSoap12.nsmap"
+#include "soap/WhosOnLogonAccountingServiceSoap12Proxy.h"
 
 namespace WhosOn {
 	

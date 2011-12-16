@@ -74,8 +74,8 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libwhoson_la_LIBADD =
 am_libwhoson_la_OBJECTS = whoson.lo account.lo network.lo mac.lo \
-	WhosOnLogonEventServiceSoap12Proxy.lo \
-	WhosOnLogonEventServiceSoapProxy.lo WhosOnC.lo
+	WhosOnLogonAccountingServiceSoap12Proxy.lo \
+	WhosOnLogonAccountingServiceSoapProxy.lo WhosOnC.lo
 libwhoson_la_OBJECTS = $(am_libwhoson_la_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -272,10 +272,10 @@ lib_LTLIBRARIES = libwhoson.la
 libwhoson_la_SOURCES = \
   whoson.cpp account.hpp account.cpp network.hpp network.cpp \
   mac.c \
-  soap/WhosOnLogonEventServiceSoap12Proxy.cpp \
-  soap/WhosOnLogonEventServiceSoap12Proxy.h \
-  soap/WhosOnLogonEventServiceSoapProxy.cpp \
-  soap/WhosOnLogonEventServiceSoapProxy.h \
+  soap/WhosOnLogonAccountingServiceSoap12Proxy.cpp \
+  soap/WhosOnLogonAccountingServiceSoap12Proxy.h \
+  soap/WhosOnLogonAccountingServiceSoapProxy.cpp \
+  soap/WhosOnLogonAccountingServiceSoapProxy.h \
   soap/WhosOnC.cpp \
   soap/WhosOnH.h \
   soap/WhosOnStub.h
@@ -356,8 +356,8 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WhosOnC.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WhosOnLogonEventServiceSoap12Proxy.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WhosOnLogonEventServiceSoapProxy.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WhosOnLogonAccountingServiceSoap12Proxy.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WhosOnLogonAccountingServiceSoapProxy.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/account.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mac.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/network.Plo@am__quote@
@@ -405,19 +405,19 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
 
-WhosOnLogonEventServiceSoap12Proxy.lo: soap/WhosOnLogonEventServiceSoap12Proxy.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT WhosOnLogonEventServiceSoap12Proxy.lo -MD -MP -MF $(DEPDIR)/WhosOnLogonEventServiceSoap12Proxy.Tpo -c -o WhosOnLogonEventServiceSoap12Proxy.lo `test -f 'soap/WhosOnLogonEventServiceSoap12Proxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonEventServiceSoap12Proxy.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/WhosOnLogonEventServiceSoap12Proxy.Tpo $(DEPDIR)/WhosOnLogonEventServiceSoap12Proxy.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='soap/WhosOnLogonEventServiceSoap12Proxy.cpp' object='WhosOnLogonEventServiceSoap12Proxy.lo' libtool=yes @AMDEPBACKSLASH@
+WhosOnLogonAccountingServiceSoap12Proxy.lo: soap/WhosOnLogonAccountingServiceSoap12Proxy.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT WhosOnLogonAccountingServiceSoap12Proxy.lo -MD -MP -MF $(DEPDIR)/WhosOnLogonAccountingServiceSoap12Proxy.Tpo -c -o WhosOnLogonAccountingServiceSoap12Proxy.lo `test -f 'soap/WhosOnLogonAccountingServiceSoap12Proxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonAccountingServiceSoap12Proxy.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/WhosOnLogonAccountingServiceSoap12Proxy.Tpo $(DEPDIR)/WhosOnLogonAccountingServiceSoap12Proxy.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='soap/WhosOnLogonAccountingServiceSoap12Proxy.cpp' object='WhosOnLogonAccountingServiceSoap12Proxy.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o WhosOnLogonEventServiceSoap12Proxy.lo `test -f 'soap/WhosOnLogonEventServiceSoap12Proxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonEventServiceSoap12Proxy.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o WhosOnLogonAccountingServiceSoap12Proxy.lo `test -f 'soap/WhosOnLogonAccountingServiceSoap12Proxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonAccountingServiceSoap12Proxy.cpp
 
-WhosOnLogonEventServiceSoapProxy.lo: soap/WhosOnLogonEventServiceSoapProxy.cpp
-@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT WhosOnLogonEventServiceSoapProxy.lo -MD -MP -MF $(DEPDIR)/WhosOnLogonEventServiceSoapProxy.Tpo -c -o WhosOnLogonEventServiceSoapProxy.lo `test -f 'soap/WhosOnLogonEventServiceSoapProxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonEventServiceSoapProxy.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/WhosOnLogonEventServiceSoapProxy.Tpo $(DEPDIR)/WhosOnLogonEventServiceSoapProxy.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='soap/WhosOnLogonEventServiceSoapProxy.cpp' object='WhosOnLogonEventServiceSoapProxy.lo' libtool=yes @AMDEPBACKSLASH@
+WhosOnLogonAccountingServiceSoapProxy.lo: soap/WhosOnLogonAccountingServiceSoapProxy.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT WhosOnLogonAccountingServiceSoapProxy.lo -MD -MP -MF $(DEPDIR)/WhosOnLogonAccountingServiceSoapProxy.Tpo -c -o WhosOnLogonAccountingServiceSoapProxy.lo `test -f 'soap/WhosOnLogonAccountingServiceSoapProxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonAccountingServiceSoapProxy.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/WhosOnLogonAccountingServiceSoapProxy.Tpo $(DEPDIR)/WhosOnLogonAccountingServiceSoapProxy.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='soap/WhosOnLogonAccountingServiceSoapProxy.cpp' object='WhosOnLogonAccountingServiceSoapProxy.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o WhosOnLogonEventServiceSoapProxy.lo `test -f 'soap/WhosOnLogonEventServiceSoapProxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonEventServiceSoapProxy.cpp
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o WhosOnLogonAccountingServiceSoapProxy.lo `test -f 'soap/WhosOnLogonAccountingServiceSoapProxy.cpp' || echo '$(srcdir)/'`soap/WhosOnLogonAccountingServiceSoapProxy.cpp
 
 WhosOnC.lo: soap/WhosOnC.cpp
 @am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT WhosOnC.lo -MD -MP -MF $(DEPDIR)/WhosOnC.Tpo -c -o WhosOnC.lo `test -f 'soap/WhosOnC.cpp' || echo '$(srcdir)/'`soap/WhosOnC.cpp
