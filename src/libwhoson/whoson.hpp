@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-class LogonAccountingServiceSoap12Proxy;      // SOAP 2.0 proxy
+class LogonAccountingServiceSoap12Proxy;      // SOAP 1.2 proxy
 class LogonAccountingServiceSoapProxy;        // SOAP 1.1 proxy
 
 #ifndef  WHOSON_SOAP_VERSION
@@ -20,39 +20,14 @@ class LogonAccountingServiceSoapProxy;        // SOAP 1.1 proxy
 #endif
 
 namespace WhosOn {
+
+	typedef WhosOn__LogonEvent LogonEvent;
 	
 	struct SoapServiceException 
 	{
 		SoapServiceProxy *proxy;
 		SoapServiceException(SoapServiceProxy *proxy) : proxy(proxy) {}
 		void Write(std::ostream &stream) const { proxy->soap_stream_fault(stream); }
-	};
-
-	struct LogonEvent : public WhosOn__LogonEvent
-	{
-		LogonEvent() {}
-		LogonEvent(int EventID) { this->EventID = EventID; }
-		virtual ~LogonEvent();
-		
-		operator int() { return EventID; }
-		int GetEventID() const { return EventID; }
-		
-		void SetUsername(const std::string &user);
-		void SetDomain(const std::string &domain);
-		void SetHwAddress(const std::string &hwaddr);
-		void SetIpAddress(const std::string &ipaddr);
-		void SetHostname(const std::string &hostname);
-		void SetWorkstation(const std::string &wksta);
-		
-		std::string GetUsername() const;
-		std::string GetDomain() const;
-		std::string GetHwAddress() const;
-		std::string GetIpAddress() const;
-		std::string GetHostname() const;
-		std::string GetWorkstation() const;
-		
-		time_t GetStartTime() const { return StartTime; }
-		time_t GetEndTime() const { return EndTime; }
 	};
 	
 	enum LogonEventMatch
@@ -77,7 +52,7 @@ namespace WhosOn {
 		void Delete(int event) const;
 		void Delete(const LogonEvent *event) const;
 		
-		std::vector<LogonEvent *> Find(const LogonEvent *filter, LogonEventMatch match = MatchExact) const;
+		void Find(std::vector<LogonEvent *> &result, const LogonEvent *filter, LogonEventMatch match = MatchExact) const;
 		LogonEvent Find(const std::string &username, const std::string &domain, const std::string &workstation) const;
 		LogonEvent Find() const;    // Detect user and computer.
 		
@@ -99,7 +74,7 @@ namespace WhosOn {
 		void Close(LogonEventAdapter *adapter);
 		void Delete(LogonEventAdapter *adapter);
 		
-		std::vector<LogonEvent *> Find(LogonEventAdapter *adapter, LogonEventMatch match = MatchExact);
+		void Find(std::vector<LogonEvent *> &result, LogonEventAdapter *adapter, LogonEventMatch match = MatchExact);
 	};
 	
 	inline void LogonEventAdapter::Close(const LogonEvent *event) const
@@ -127,9 +102,9 @@ namespace WhosOn {
 		adapter->Delete(this);
 	}
 	
-	inline std::vector<LogonEvent *> LogonEventProxy::Find(LogonEventAdapter *adapter, LogonEventMatch match)
+	inline void LogonEventProxy::Find(std::vector<LogonEvent *> &result, LogonEventAdapter *adapter, LogonEventMatch match)
 	{
-		return adapter->Find(this, match);
+		return adapter->Find(result, this, match);
 	}
 	
 }       // namespace WhosOn

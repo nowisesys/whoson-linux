@@ -25,7 +25,14 @@ Options::ArgumentException::ArgumentException(const char *opt)
 	msg += "'";
 }
 
-Options::Options() : endpoint(0)
+Options::Options() : proxy(0)
+{
+	reason = Unknown;
+	format = Compact;
+	match  = WhosOn::MatchExact;
+}
+
+Options::Options(SoapServiceProxy *proxy) : proxy(proxy)
 {
 	reason = Unknown;
 	format = Compact;
@@ -95,19 +102,24 @@ void Options::Show() const
 		<< "  Match:  " << mMatch[match] << "\n"
 		<< "  Filter: \n"
 		<< "  --------------------------------------\n"
-		<< "       Event ID: " << filter.GetEventID() << "\n"
-		<< "     Start Time: " << filter.GetStartTime() << "\n"
-		<< "       End Time: " << filter.GetEndTime() << "\n"
-		<< "       Computer: " << filter.GetWorkstation() << "\n"
-		<< "       Hostname: " << filter.GetHostname() << "\n"
-		<< "     IP-address: " << filter.GetIpAddress() << "\n"
-		<< "    MAC-address: " << filter.GetHwAddress() << "\n"
-		<< "       Username: " << filter.GetUsername() << "\n"
-		<< "         Domain: " << filter.GetDomain() << "\n"
+		<< "       Event ID: " << filter.EventID << "\n"
+		<< "     Start Time: " << filter.StartTime << "\n"
+		<< "       End Time: " << filter.EndTime << "\n"
+		<< "       Computer: " << filter.Workstation << "\n"
+		<< "       Hostname: " << filter.Hostname << "\n"
+		<< "     IP-address: " << filter.IpAddress << "\n"
+		<< "    MAC-address: " << filter.HwAddress << "\n"
+		<< "       Username: " << filter.Username << "\n"
+		<< "         Domain: " << filter.Domain << "\n"
 		<< "  SOAP:\n"
 		<< "  --------------------------------------\n"
-		<< "       Endpoint: " << (endpoint ? endpoint : "") << "\n"
+		<< "       Endpoint: " << GetEndpoint() << "\n"
 		<< std::endl;
+}
+
+const char * Options::GetEndpoint() const
+{
+	return (proxy && proxy->soap_endpoint) ? proxy->soap_endpoint : "";
 }
 
 void Options::Parse(int argc, char **argv)
@@ -119,8 +131,8 @@ void Options::Parse(int argc, char **argv)
 		{ "version",  0, 0, OpVersion },
 		{ "verbose",  0, 0, OpVerbose },
 		{ "debug",    0, 0, OpDebug },
-		// Reason:
 		{ "logon",    0, 0, OpLogon },
+		// Reason:
 		{ "logout",   0, 0, OpLogout },
 		{ "list",     0, 0, OpList },
 		// Filter:
@@ -200,22 +212,22 @@ void Options::Parse(int argc, char **argv)
 			filter.EndTime = DateTime(optarg);
 			break;
 		case OpComp:
-			filter.SetWorkstation(optarg);
+			filter.Workstation = optarg;
 			break;
 		case OpHost:
-			filter.SetHostname(optarg);
+			filter.Hostname = optarg;
 			break;
 		case OpIp:
-			filter.SetIpAddress(optarg);
+			filter.IpAddress = optarg;
 			break;
 		case OpHw:
-			filter.SetHwAddress(optarg);
+			filter.HwAddress = optarg;
 			break;
 		case OpUser:
-			filter.SetUsername(optarg);
+			filter.Username = optarg;
 			break;
 		case OpDomain:
-			filter.SetDomain(optarg);
+			filter.Domain = optarg;
 			break;
 			
 			// 
@@ -260,7 +272,9 @@ void Options::Parse(int argc, char **argv)
 			// SOAP:
 			// 
 		case OpEndpoint:
-			endpoint = optarg;
+			if(proxy) {
+				proxy->soap_endpoint = optarg;
+			}
 			break;
 
 		default:
