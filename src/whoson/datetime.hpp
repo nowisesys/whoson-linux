@@ -137,9 +137,9 @@ public:
 	DateTime & operator -=(int sec);
 #endif
 	
-	operator std::time_t() { return GetTimestamp(); }      // time_t t = DateTime(...);
-		
-	std::time_t GetTimestamp() { return std::mktime(&d.tm); }
+	operator std::time_t() const { return GetTimestamp(); }      // time_t t = DateTime(...);
+	
+	std::time_t GetTimestamp() const { tm t = d.tm; return std::mktime(&t); }
 	const std::tm & GetDateTime() const { return d.tm; }
 		
 	static const char * GetFormat() { return fmt; }        // Get default input/output format
