@@ -18,10 +18,10 @@ public:
 	Application(Options *options) : opts(options) 
 	{
 		if(getenv("WHOSON_DEBUG")) {
-			opts->Debug = atoi("WHOSON_DEBUG") > 0;
+			opts->Debug = atoi(getenv("WHOSON_DEBUG")) > 0;
 		}
 		if(getenv("WHOSON_VERBOSE")) {
-			opts->Verbose = atoi("WHOSON_VERBOSE");
+			opts->Verbose = atoi(getenv("WHOSON_VERBOSE"));
 		}
 		if(getenv("WHOSON_SOAP_ENDPOINT")) {
 			proxy.soap_endpoint = getenv("WHOSON_SOAP_ENDPOINT");
