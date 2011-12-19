@@ -66,7 +66,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_int(struct soap*, const int *, const char*, c
 SOAP_FMAC3 int * SOAP_FMAC4 soap_get_int(struct soap*, int *, const char*, const char*);
 
 #ifndef SOAP_TYPE_time
-#define SOAP_TYPE_time (23)
+#define SOAP_TYPE_time (22)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_time(struct soap*, time_t *);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_time(struct soap*, const char*, int, const time_t *, const char*);
@@ -393,7 +393,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_WhosOn__LogonEvent(struct soap*, int, int, 
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (65)
+#define SOAP_TYPE_SOAP_ENV__Fault (64)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Fault(struct soap*, struct SOAP_ENV__Fault *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Fault(struct soap*, const struct SOAP_ENV__Fault *);
@@ -422,7 +422,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Fault(struct soap*, int, int, voi
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (64)
+#define SOAP_TYPE_SOAP_ENV__Reason (63)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Reason(struct soap*, const struct SOAP_ENV__Reason *);
@@ -451,7 +451,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Reason(struct soap*, int, int, vo
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (61)
+#define SOAP_TYPE_SOAP_ENV__Detail (60)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Detail(struct soap*, const struct SOAP_ENV__Detail *);
@@ -480,7 +480,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Detail(struct soap*, int, int, vo
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (59)
+#define SOAP_TYPE_SOAP_ENV__Code (58)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Code(struct soap*, const struct SOAP_ENV__Code *);
@@ -509,7 +509,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Code(struct soap*, int, int, void
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (58)
+#define SOAP_TYPE_SOAP_ENV__Header (57)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_SOAP_ENV__Header(struct soap*, struct SOAP_ENV__Header *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_SOAP_ENV__Header(struct soap*, const struct SOAP_ENV__Header *);
@@ -536,7 +536,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy_SOAP_ENV__Header(struct soap*, int, int, vo
 #endif
 
 #ifndef SOAP_TYPE___ns2__FindLogonEvents
-#define SOAP_TYPE___ns2__FindLogonEvents (57)
+#define SOAP_TYPE___ns2__FindLogonEvents (56)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns2__FindLogonEvents(struct soap*, struct __ns2__FindLogonEvents *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns2__FindLogonEvents(struct soap*, const struct __ns2__FindLogonEvents *);
@@ -561,7 +561,7 @@ SOAP_FMAC1 struct __ns2__FindLogonEvents * SOAP_FMAC2 soap_instantiate___ns2__Fi
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns2__FindLogonEvents(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns2__FindLogonEvent
-#define SOAP_TYPE___ns2__FindLogonEvent (55)
+#define SOAP_TYPE___ns2__FindLogonEvent (54)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns2__FindLogonEvent(struct soap*, struct __ns2__FindLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns2__FindLogonEvent(struct soap*, const struct __ns2__FindLogonEvent *);
@@ -586,7 +586,7 @@ SOAP_FMAC1 struct __ns2__FindLogonEvent * SOAP_FMAC2 soap_instantiate___ns2__Fin
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns2__FindLogonEvent(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns2__DeleteLogonEvent
-#define SOAP_TYPE___ns2__DeleteLogonEvent (53)
+#define SOAP_TYPE___ns2__DeleteLogonEvent (52)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns2__DeleteLogonEvent(struct soap*, struct __ns2__DeleteLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns2__DeleteLogonEvent(struct soap*, const struct __ns2__DeleteLogonEvent *);
@@ -611,7 +611,7 @@ SOAP_FMAC1 struct __ns2__DeleteLogonEvent * SOAP_FMAC2 soap_instantiate___ns2__D
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns2__DeleteLogonEvent(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns2__CloseLogonEvent
-#define SOAP_TYPE___ns2__CloseLogonEvent (51)
+#define SOAP_TYPE___ns2__CloseLogonEvent (50)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns2__CloseLogonEvent(struct soap*, struct __ns2__CloseLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns2__CloseLogonEvent(struct soap*, const struct __ns2__CloseLogonEvent *);
@@ -636,7 +636,7 @@ SOAP_FMAC1 struct __ns2__CloseLogonEvent * SOAP_FMAC2 soap_instantiate___ns2__Cl
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns2__CloseLogonEvent(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns2__CreateLogonEvent
-#define SOAP_TYPE___ns2__CreateLogonEvent (49)
+#define SOAP_TYPE___ns2__CreateLogonEvent (48)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns2__CreateLogonEvent(struct soap*, struct __ns2__CreateLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns2__CreateLogonEvent(struct soap*, const struct __ns2__CreateLogonEvent *);
@@ -661,7 +661,7 @@ SOAP_FMAC1 struct __ns2__CreateLogonEvent * SOAP_FMAC2 soap_instantiate___ns2__C
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns2__CreateLogonEvent(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns1__FindLogonEvents
-#define SOAP_TYPE___ns1__FindLogonEvents (47)
+#define SOAP_TYPE___ns1__FindLogonEvents (46)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__FindLogonEvents(struct soap*, struct __ns1__FindLogonEvents *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__FindLogonEvents(struct soap*, const struct __ns1__FindLogonEvents *);
@@ -686,7 +686,7 @@ SOAP_FMAC1 struct __ns1__FindLogonEvents * SOAP_FMAC2 soap_instantiate___ns1__Fi
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns1__FindLogonEvents(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns1__FindLogonEvent
-#define SOAP_TYPE___ns1__FindLogonEvent (43)
+#define SOAP_TYPE___ns1__FindLogonEvent (42)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__FindLogonEvent(struct soap*, struct __ns1__FindLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__FindLogonEvent(struct soap*, const struct __ns1__FindLogonEvent *);
@@ -711,7 +711,7 @@ SOAP_FMAC1 struct __ns1__FindLogonEvent * SOAP_FMAC2 soap_instantiate___ns1__Fin
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns1__FindLogonEvent(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns1__DeleteLogonEvent
-#define SOAP_TYPE___ns1__DeleteLogonEvent (39)
+#define SOAP_TYPE___ns1__DeleteLogonEvent (38)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__DeleteLogonEvent(struct soap*, struct __ns1__DeleteLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__DeleteLogonEvent(struct soap*, const struct __ns1__DeleteLogonEvent *);
@@ -736,7 +736,7 @@ SOAP_FMAC1 struct __ns1__DeleteLogonEvent * SOAP_FMAC2 soap_instantiate___ns1__D
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns1__DeleteLogonEvent(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns1__CloseLogonEvent
-#define SOAP_TYPE___ns1__CloseLogonEvent (35)
+#define SOAP_TYPE___ns1__CloseLogonEvent (34)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__CloseLogonEvent(struct soap*, struct __ns1__CloseLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__CloseLogonEvent(struct soap*, const struct __ns1__CloseLogonEvent *);
@@ -761,7 +761,7 @@ SOAP_FMAC1 struct __ns1__CloseLogonEvent * SOAP_FMAC2 soap_instantiate___ns1__Cl
 SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns1__CloseLogonEvent(struct soap*, int, int, void*, size_t, const void*, size_t);
 
 #ifndef SOAP_TYPE___ns1__CreateLogonEvent
-#define SOAP_TYPE___ns1__CreateLogonEvent (31)
+#define SOAP_TYPE___ns1__CreateLogonEvent (30)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default___ns1__CreateLogonEvent(struct soap*, struct __ns1__CreateLogonEvent *);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize___ns1__CreateLogonEvent(struct soap*, const struct __ns1__CreateLogonEvent *);
@@ -788,7 +788,7 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy___ns1__CreateLogonEvent(struct soap*, int, 
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Reason
-#define SOAP_TYPE_PointerToSOAP_ENV__Reason (67)
+#define SOAP_TYPE_PointerToSOAP_ENV__Reason (66)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Reason(struct soap*, struct SOAP_ENV__Reason *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Reason(struct soap*, const char *, int, struct SOAP_ENV__Reason *const*, const char *);
@@ -807,7 +807,7 @@ SOAP_FMAC3 struct SOAP_ENV__Reason ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Rea
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Detail
-#define SOAP_TYPE_PointerToSOAP_ENV__Detail (66)
+#define SOAP_TYPE_PointerToSOAP_ENV__Detail (65)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Detail(struct soap*, struct SOAP_ENV__Detail *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Detail(struct soap*, const char *, int, struct SOAP_ENV__Detail *const*, const char *);
@@ -826,7 +826,7 @@ SOAP_FMAC3 struct SOAP_ENV__Detail ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Det
 #ifndef WITH_NOGLOBAL
 
 #ifndef SOAP_TYPE_PointerToSOAP_ENV__Code
-#define SOAP_TYPE_PointerToSOAP_ENV__Code (60)
+#define SOAP_TYPE_PointerToSOAP_ENV__Code (59)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToSOAP_ENV__Code(struct soap*, struct SOAP_ENV__Code *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToSOAP_ENV__Code(struct soap*, const char *, int, struct SOAP_ENV__Code *const*, const char *);
@@ -843,7 +843,7 @@ SOAP_FMAC3 struct SOAP_ENV__Code ** SOAP_FMAC4 soap_get_PointerToSOAP_ENV__Code(
 #endif
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__FindLogonEventsResponse
-#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEventsResponse (45)
+#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEventsResponse (44)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__FindLogonEventsResponse(struct soap*, _WhosOn__FindLogonEventsResponse *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__FindLogonEventsResponse(struct soap*, const char *, int, _WhosOn__FindLogonEventsResponse *const*, const char *);
@@ -858,7 +858,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__FindLogonEventsResponse(str
 SOAP_FMAC3 _WhosOn__FindLogonEventsResponse ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__FindLogonEventsResponse(struct soap*, _WhosOn__FindLogonEventsResponse **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__FindLogonEvents
-#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEvents (44)
+#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEvents (43)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__FindLogonEvents(struct soap*, _WhosOn__FindLogonEvents *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__FindLogonEvents(struct soap*, const char *, int, _WhosOn__FindLogonEvents *const*, const char *);
@@ -873,7 +873,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__FindLogonEvents(struct soap
 SOAP_FMAC3 _WhosOn__FindLogonEvents ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__FindLogonEvents(struct soap*, _WhosOn__FindLogonEvents **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__FindLogonEventResponse
-#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEventResponse (41)
+#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEventResponse (40)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__FindLogonEventResponse(struct soap*, _WhosOn__FindLogonEventResponse *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__FindLogonEventResponse(struct soap*, const char *, int, _WhosOn__FindLogonEventResponse *const*, const char *);
@@ -888,7 +888,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__FindLogonEventResponse(stru
 SOAP_FMAC3 _WhosOn__FindLogonEventResponse ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__FindLogonEventResponse(struct soap*, _WhosOn__FindLogonEventResponse **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__FindLogonEvent
-#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEvent (40)
+#define SOAP_TYPE_PointerTo_WhosOn__FindLogonEvent (39)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__FindLogonEvent(struct soap*, _WhosOn__FindLogonEvent *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__FindLogonEvent(struct soap*, const char *, int, _WhosOn__FindLogonEvent *const*, const char *);
@@ -903,7 +903,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__FindLogonEvent(struct soap*
 SOAP_FMAC3 _WhosOn__FindLogonEvent ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__FindLogonEvent(struct soap*, _WhosOn__FindLogonEvent **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__DeleteLogonEventResponse
-#define SOAP_TYPE_PointerTo_WhosOn__DeleteLogonEventResponse (37)
+#define SOAP_TYPE_PointerTo_WhosOn__DeleteLogonEventResponse (36)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__DeleteLogonEventResponse(struct soap*, _WhosOn__DeleteLogonEventResponse *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__DeleteLogonEventResponse(struct soap*, const char *, int, _WhosOn__DeleteLogonEventResponse *const*, const char *);
@@ -918,7 +918,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__DeleteLogonEventResponse(st
 SOAP_FMAC3 _WhosOn__DeleteLogonEventResponse ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__DeleteLogonEventResponse(struct soap*, _WhosOn__DeleteLogonEventResponse **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__DeleteLogonEvent
-#define SOAP_TYPE_PointerTo_WhosOn__DeleteLogonEvent (36)
+#define SOAP_TYPE_PointerTo_WhosOn__DeleteLogonEvent (35)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__DeleteLogonEvent(struct soap*, _WhosOn__DeleteLogonEvent *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__DeleteLogonEvent(struct soap*, const char *, int, _WhosOn__DeleteLogonEvent *const*, const char *);
@@ -933,7 +933,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__DeleteLogonEvent(struct soa
 SOAP_FMAC3 _WhosOn__DeleteLogonEvent ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__DeleteLogonEvent(struct soap*, _WhosOn__DeleteLogonEvent **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__CloseLogonEventResponse
-#define SOAP_TYPE_PointerTo_WhosOn__CloseLogonEventResponse (33)
+#define SOAP_TYPE_PointerTo_WhosOn__CloseLogonEventResponse (32)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__CloseLogonEventResponse(struct soap*, _WhosOn__CloseLogonEventResponse *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__CloseLogonEventResponse(struct soap*, const char *, int, _WhosOn__CloseLogonEventResponse *const*, const char *);
@@ -948,7 +948,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__CloseLogonEventResponse(str
 SOAP_FMAC3 _WhosOn__CloseLogonEventResponse ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__CloseLogonEventResponse(struct soap*, _WhosOn__CloseLogonEventResponse **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__CloseLogonEvent
-#define SOAP_TYPE_PointerTo_WhosOn__CloseLogonEvent (32)
+#define SOAP_TYPE_PointerTo_WhosOn__CloseLogonEvent (31)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__CloseLogonEvent(struct soap*, _WhosOn__CloseLogonEvent *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__CloseLogonEvent(struct soap*, const char *, int, _WhosOn__CloseLogonEvent *const*, const char *);
@@ -963,7 +963,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__CloseLogonEvent(struct soap
 SOAP_FMAC3 _WhosOn__CloseLogonEvent ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__CloseLogonEvent(struct soap*, _WhosOn__CloseLogonEvent **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__CreateLogonEventResponse
-#define SOAP_TYPE_PointerTo_WhosOn__CreateLogonEventResponse (29)
+#define SOAP_TYPE_PointerTo_WhosOn__CreateLogonEventResponse (28)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__CreateLogonEventResponse(struct soap*, _WhosOn__CreateLogonEventResponse *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__CreateLogonEventResponse(struct soap*, const char *, int, _WhosOn__CreateLogonEventResponse *const*, const char *);
@@ -978,7 +978,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__CreateLogonEventResponse(st
 SOAP_FMAC3 _WhosOn__CreateLogonEventResponse ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__CreateLogonEventResponse(struct soap*, _WhosOn__CreateLogonEventResponse **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerTo_WhosOn__CreateLogonEvent
-#define SOAP_TYPE_PointerTo_WhosOn__CreateLogonEvent (28)
+#define SOAP_TYPE_PointerTo_WhosOn__CreateLogonEvent (27)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTo_WhosOn__CreateLogonEvent(struct soap*, _WhosOn__CreateLogonEvent *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTo_WhosOn__CreateLogonEvent(struct soap*, const char *, int, _WhosOn__CreateLogonEvent *const*, const char *);
@@ -993,7 +993,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTo_WhosOn__CreateLogonEvent(struct soa
 SOAP_FMAC3 _WhosOn__CreateLogonEvent ** SOAP_FMAC4 soap_get_PointerTo_WhosOn__CreateLogonEvent(struct soap*, _WhosOn__CreateLogonEvent **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerToWhosOn__ArrayOfLogonEvent
-#define SOAP_TYPE_PointerToWhosOn__ArrayOfLogonEvent (27)
+#define SOAP_TYPE_PointerToWhosOn__ArrayOfLogonEvent (26)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToWhosOn__ArrayOfLogonEvent(struct soap*, WhosOn__ArrayOfLogonEvent *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToWhosOn__ArrayOfLogonEvent(struct soap*, const char *, int, WhosOn__ArrayOfLogonEvent *const*, const char *);
@@ -1008,7 +1008,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToWhosOn__ArrayOfLogonEvent(struct soa
 SOAP_FMAC3 WhosOn__ArrayOfLogonEvent ** SOAP_FMAC4 soap_get_PointerToWhosOn__ArrayOfLogonEvent(struct soap*, WhosOn__ArrayOfLogonEvent **, const char*, const char*);
 
 #ifndef SOAP_TYPE_PointerToWhosOn__LogonEvent
-#define SOAP_TYPE_PointerToWhosOn__LogonEvent (25)
+#define SOAP_TYPE_PointerToWhosOn__LogonEvent (24)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerToWhosOn__LogonEvent(struct soap*, WhosOn__LogonEvent *const*);
 SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerToWhosOn__LogonEvent(struct soap*, const char *, int, WhosOn__LogonEvent *const*, const char *);
@@ -1021,21 +1021,6 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToWhosOn__LogonEvent(struct soap*, Who
 #define soap_read_PointerToWhosOn__LogonEvent(soap, data) ( soap_begin_recv(soap) || !soap_get_PointerToWhosOn__LogonEvent(soap, data, NULL, NULL) || soap_end_recv(soap) )
 
 SOAP_FMAC3 WhosOn__LogonEvent ** SOAP_FMAC4 soap_get_PointerToWhosOn__LogonEvent(struct soap*, WhosOn__LogonEvent **, const char*, const char*);
-
-#ifndef SOAP_TYPE_PointerTostd__string
-#define SOAP_TYPE_PointerTostd__string (22)
-#endif
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTostd__string(struct soap*, std::string *const*);
-SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTostd__string(struct soap*, const char *, int, std::string *const*, const char *);
-SOAP_FMAC3 std::string ** SOAP_FMAC4 soap_in_PointerTostd__string(struct soap*, const char*, std::string **, const char*);
-
-#define soap_write_PointerTostd__string(soap, data) ( soap_begin_send(soap) || (soap_serialize_PointerTostd__string(soap, data), 0) || soap_put_PointerTostd__string(soap, data, NULL, NULL) || soap_end_send(soap) )
-
-SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTostd__string(struct soap*, std::string *const*, const char*, const char*);
-
-#define soap_read_PointerTostd__string(soap, data) ( soap_begin_recv(soap) || !soap_get_PointerTostd__string(soap, data, NULL, NULL) || soap_end_recv(soap) )
-
-SOAP_FMAC3 std::string ** SOAP_FMAC4 soap_get_PointerTostd__string(struct soap*, std::string **, const char*, const char*);
 
 #ifndef SOAP_TYPE__QName
 #define SOAP_TYPE__QName (5)
@@ -1074,7 +1059,7 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_string(struct soap*, char *const*, const char
 SOAP_FMAC3 char ** SOAP_FMAC4 soap_get_string(struct soap*, char **, const char*, const char*);
 
 #ifndef SOAP_TYPE_std__vectorTemplateOfPointerToWhosOn__LogonEvent
-#define SOAP_TYPE_std__vectorTemplateOfPointerToWhosOn__LogonEvent (26)
+#define SOAP_TYPE_std__vectorTemplateOfPointerToWhosOn__LogonEvent (25)
 #endif
 SOAP_FMAC3 void SOAP_FMAC4 soap_default_std__vectorTemplateOfPointerToWhosOn__LogonEvent(struct soap*, std::vector<WhosOn__LogonEvent * >*);
 SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_std__vectorTemplateOfPointerToWhosOn__LogonEvent(struct soap*, const std::vector<WhosOn__LogonEvent * >*);

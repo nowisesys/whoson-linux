@@ -53,12 +53,12 @@ class SOAP_CMAC WhosOn__LogonEvent
 {
 public:
 	int EventID;	/* required element of type xsd:int */
-	std::string *Username;	/* optional element of type xsd:string */
-	std::string *Domain;	/* optional element of type xsd:string */
-	std::string *HwAddress;	/* optional element of type xsd:string */
-	std::string *IpAddress;	/* optional element of type xsd:string */
-	std::string *Hostname;	/* optional element of type xsd:string */
-	std::string *Workstation;	/* optional element of type xsd:string */
+	std::string Username;	/* optional element of type xsd:string */
+	std::string Domain;	/* optional element of type xsd:string */
+	std::string HwAddress;	/* optional element of type xsd:string */
+	std::string IpAddress;	/* optional element of type xsd:string */
+	std::string Hostname;	/* optional element of type xsd:string */
+	std::string Workstation;	/* optional element of type xsd:string */
 	time_t StartTime;	/* required element of type xsd:dateTime */
 	time_t EndTime;	/* required element of type xsd:dateTime */
 	struct soap *soap;	/* transient */
@@ -70,7 +70,7 @@ public:
 	virtual int soap_out(struct soap*, const char*, int, const char*) const;
 	virtual void *soap_get(struct soap*, const char*, const char*);
 	virtual void *soap_in(struct soap*, const char*, const char*);
-	         WhosOn__LogonEvent(): Username(NULL), Domain(NULL), HwAddress(NULL), IpAddress(NULL), Hostname(NULL), Workstation(NULL), soap(NULL) { WhosOn__LogonEvent::soap_default(NULL); }
+	         WhosOn__LogonEvent(): soap(NULL) { WhosOn__LogonEvent::soap_default(NULL); }
 	virtual ~WhosOn__LogonEvent() { }
 };
 #endif
@@ -102,10 +102,10 @@ public:
 class SOAP_CMAC _WhosOn__CreateLogonEvent
 {
 public:
-	std::string *user;	/* optional element of type xsd:string */
-	std::string *domain;	/* optional element of type xsd:string */
-	std::string *computer;	/* optional element of type xsd:string */
-	std::string *hwaddr;	/* optional element of type xsd:string */
+	std::string user;	/* optional element of type xsd:string */
+	std::string domain;	/* optional element of type xsd:string */
+	std::string computer;	/* optional element of type xsd:string */
+	std::string hwaddr;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
 	virtual int soap_type() const { return 10; } /* = unique id SOAP_TYPE__WhosOn__CreateLogonEvent */
@@ -115,7 +115,7 @@ public:
 	virtual int soap_out(struct soap*, const char*, int, const char*) const;
 	virtual void *soap_get(struct soap*, const char*, const char*);
 	virtual void *soap_in(struct soap*, const char*, const char*);
-	         _WhosOn__CreateLogonEvent(): user(NULL), domain(NULL), computer(NULL), hwaddr(NULL), soap(NULL) { _WhosOn__CreateLogonEvent::soap_default(NULL); }
+	         _WhosOn__CreateLogonEvent(): soap(NULL) { _WhosOn__CreateLogonEvent::soap_default(NULL); }
 	virtual ~_WhosOn__CreateLogonEvent() { }
 };
 #endif
@@ -229,9 +229,9 @@ public:
 class SOAP_CMAC _WhosOn__FindLogonEvent
 {
 public:
-	std::string *user;	/* optional element of type xsd:string */
-	std::string *domain;	/* optional element of type xsd:string */
-	std::string *computer;	/* optional element of type xsd:string */
+	std::string user;	/* optional element of type xsd:string */
+	std::string domain;	/* optional element of type xsd:string */
+	std::string computer;	/* optional element of type xsd:string */
 	struct soap *soap;	/* transient */
 public:
 	virtual int soap_type() const { return 16; } /* = unique id SOAP_TYPE__WhosOn__FindLogonEvent */
@@ -241,7 +241,7 @@ public:
 	virtual int soap_out(struct soap*, const char*, int, const char*) const;
 	virtual void *soap_get(struct soap*, const char*, const char*);
 	virtual void *soap_in(struct soap*, const char*, const char*);
-	         _WhosOn__FindLogonEvent(): user(NULL), domain(NULL), computer(NULL), soap(NULL) { _WhosOn__FindLogonEvent::soap_default(NULL); }
+	         _WhosOn__FindLogonEvent(): soap(NULL) { _WhosOn__FindLogonEvent::soap_default(NULL); }
 	virtual ~_WhosOn__FindLogonEvent() { }
 };
 #endif
@@ -311,7 +311,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__CreateLogonEvent
-#define SOAP_TYPE___ns1__CreateLogonEvent (31)
+#define SOAP_TYPE___ns1__CreateLogonEvent (30)
 /* Operation wrapper: */
 struct __ns1__CreateLogonEvent
 {
@@ -321,7 +321,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__CloseLogonEvent
-#define SOAP_TYPE___ns1__CloseLogonEvent (35)
+#define SOAP_TYPE___ns1__CloseLogonEvent (34)
 /* Operation wrapper: */
 struct __ns1__CloseLogonEvent
 {
@@ -331,7 +331,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__DeleteLogonEvent
-#define SOAP_TYPE___ns1__DeleteLogonEvent (39)
+#define SOAP_TYPE___ns1__DeleteLogonEvent (38)
 /* Operation wrapper: */
 struct __ns1__DeleteLogonEvent
 {
@@ -341,7 +341,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__FindLogonEvent
-#define SOAP_TYPE___ns1__FindLogonEvent (43)
+#define SOAP_TYPE___ns1__FindLogonEvent (42)
 /* Operation wrapper: */
 struct __ns1__FindLogonEvent
 {
@@ -351,7 +351,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns1__FindLogonEvents
-#define SOAP_TYPE___ns1__FindLogonEvents (47)
+#define SOAP_TYPE___ns1__FindLogonEvents (46)
 /* Operation wrapper: */
 struct __ns1__FindLogonEvents
 {
@@ -361,7 +361,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns2__CreateLogonEvent
-#define SOAP_TYPE___ns2__CreateLogonEvent (49)
+#define SOAP_TYPE___ns2__CreateLogonEvent (48)
 /* Operation wrapper: */
 struct __ns2__CreateLogonEvent
 {
@@ -371,7 +371,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns2__CloseLogonEvent
-#define SOAP_TYPE___ns2__CloseLogonEvent (51)
+#define SOAP_TYPE___ns2__CloseLogonEvent (50)
 /* Operation wrapper: */
 struct __ns2__CloseLogonEvent
 {
@@ -381,7 +381,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns2__DeleteLogonEvent
-#define SOAP_TYPE___ns2__DeleteLogonEvent (53)
+#define SOAP_TYPE___ns2__DeleteLogonEvent (52)
 /* Operation wrapper: */
 struct __ns2__DeleteLogonEvent
 {
@@ -391,7 +391,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns2__FindLogonEvent
-#define SOAP_TYPE___ns2__FindLogonEvent (55)
+#define SOAP_TYPE___ns2__FindLogonEvent (54)
 /* Operation wrapper: */
 struct __ns2__FindLogonEvent
 {
@@ -401,7 +401,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE___ns2__FindLogonEvents
-#define SOAP_TYPE___ns2__FindLogonEvents (57)
+#define SOAP_TYPE___ns2__FindLogonEvents (56)
 /* Operation wrapper: */
 struct __ns2__FindLogonEvents
 {
@@ -411,7 +411,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Header
-#define SOAP_TYPE_SOAP_ENV__Header (58)
+#define SOAP_TYPE_SOAP_ENV__Header (57)
 /* SOAP Header: */
 struct SOAP_ENV__Header
 {
@@ -423,7 +423,7 @@ private:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Code
-#define SOAP_TYPE_SOAP_ENV__Code (59)
+#define SOAP_TYPE_SOAP_ENV__Code (58)
 /* SOAP Fault Code: */
 struct SOAP_ENV__Code
 {
@@ -434,7 +434,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Detail
-#define SOAP_TYPE_SOAP_ENV__Detail (61)
+#define SOAP_TYPE_SOAP_ENV__Detail (60)
 /* SOAP-ENV:Detail */
 struct SOAP_ENV__Detail
 {
@@ -446,7 +446,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Reason
-#define SOAP_TYPE_SOAP_ENV__Reason (64)
+#define SOAP_TYPE_SOAP_ENV__Reason (63)
 /* SOAP-ENV:Reason */
 struct SOAP_ENV__Reason
 {
@@ -456,7 +456,7 @@ public:
 #endif
 
 #ifndef SOAP_TYPE_SOAP_ENV__Fault
-#define SOAP_TYPE_SOAP_ENV__Fault (65)
+#define SOAP_TYPE_SOAP_ENV__Fault (64)
 /* SOAP Fault: */
 struct SOAP_ENV__Fault
 {

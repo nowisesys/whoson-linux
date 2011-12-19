@@ -1,1 +1,3 @@
 WhosOn = "http://it.bmc.uu.se/whoson"
+xsd__string = | std::string | std::string
+xsd__dateTime = | time_t | time_t* 

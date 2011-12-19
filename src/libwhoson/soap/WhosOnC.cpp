@@ -12,7 +12,7 @@
 
 #include "WhosOnH.h"
 
-SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2011-12-16 02:01:12 GMT")
+SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2011-12-19 15:22:02 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -203,8 +203,6 @@ SOAP_FMAC3 void * SOAP_FMAC4 soap_getelement(struct soap *soap, int *type)
 		return soap_in_PointerToWhosOn__ArrayOfLogonEvent(soap, NULL, NULL, "WhosOn:ArrayOfLogonEvent");
 	case SOAP_TYPE_PointerToWhosOn__LogonEvent:
 		return soap_in_PointerToWhosOn__LogonEvent(soap, NULL, NULL, "WhosOn:LogonEvent");
-	case SOAP_TYPE_PointerTostd__string:
-		return soap_in_PointerTostd__string(soap, NULL, NULL, "xsd:string");
 	case SOAP_TYPE__QName:
 	{	char **s;
 		s = soap_in__QName(soap, NULL, NULL, "xsd:QName");
@@ -423,8 +421,6 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_putelement(struct soap *soap, const void *ptr, co
 		return soap_out_PointerToWhosOn__ArrayOfLogonEvent(soap, tag, id, (WhosOn__ArrayOfLogonEvent *const*)ptr, "WhosOn:ArrayOfLogonEvent");
 	case SOAP_TYPE_PointerToWhosOn__LogonEvent:
 		return soap_out_PointerToWhosOn__LogonEvent(soap, tag, id, (WhosOn__LogonEvent *const*)ptr, "WhosOn:LogonEvent");
-	case SOAP_TYPE_PointerTostd__string:
-		return soap_out_PointerTostd__string(soap, tag, id, (std::string *const*)ptr, "xsd:string");
 	case SOAP_TYPE__QName:
 		return soap_out_string(soap, tag, id, (char*const*)&ptr, "xsd:QName");
 	case SOAP_TYPE_string:
@@ -552,9 +548,6 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_markelement(struct soap *soap, const void *ptr, 
 		break;
 	case SOAP_TYPE_PointerToWhosOn__LogonEvent:
 		soap_serialize_PointerToWhosOn__LogonEvent(soap, (WhosOn__LogonEvent *const*)ptr);
-		break;
-	case SOAP_TYPE_PointerTostd__string:
-		soap_serialize_PointerTostd__string(soap, (std::string *const*)ptr);
 		break;
 	case SOAP_TYPE__QName:
 		soap_serialize_string(soap, (char*const*)&ptr);
@@ -1574,18 +1567,18 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy__WhosOn__FindLogonEventResponse(struct soap
 void _WhosOn__FindLogonEvent::soap_default(struct soap *soap)
 {
 	this->soap = soap;
-	this->_WhosOn__FindLogonEvent::user = NULL;
-	this->_WhosOn__FindLogonEvent::domain = NULL;
-	this->_WhosOn__FindLogonEvent::computer = NULL;
+	soap_default_std__string(soap, &this->_WhosOn__FindLogonEvent::user);
+	soap_default_std__string(soap, &this->_WhosOn__FindLogonEvent::domain);
+	soap_default_std__string(soap, &this->_WhosOn__FindLogonEvent::computer);
 	/* transient soap skipped */
 }
 
 void _WhosOn__FindLogonEvent::soap_serialize(struct soap *soap) const
 {
 	(void)soap; /* appease -Wall -Werror */
-	soap_serialize_PointerTostd__string(soap, &this->_WhosOn__FindLogonEvent::user);
-	soap_serialize_PointerTostd__string(soap, &this->_WhosOn__FindLogonEvent::domain);
-	soap_serialize_PointerTostd__string(soap, &this->_WhosOn__FindLogonEvent::computer);
+	soap_serialize_std__string(soap, &this->_WhosOn__FindLogonEvent::user);
+	soap_serialize_std__string(soap, &this->_WhosOn__FindLogonEvent::domain);
+	soap_serialize_std__string(soap, &this->_WhosOn__FindLogonEvent::computer);
 	/* transient soap skipped */
 }
 
@@ -1598,11 +1591,11 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out__WhosOn__FindLogonEvent(struct soap *soap, co
 {
 	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE__WhosOn__FindLogonEvent), type))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:user", -1, &(a->_WhosOn__FindLogonEvent::user), ""))
+	if (soap_out_std__string(soap, "WhosOn:user", -1, &(a->_WhosOn__FindLogonEvent::user), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:domain", -1, &(a->_WhosOn__FindLogonEvent::domain), ""))
+	if (soap_out_std__string(soap, "WhosOn:domain", -1, &(a->_WhosOn__FindLogonEvent::domain), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:computer", -1, &(a->_WhosOn__FindLogonEvent::computer), ""))
+	if (soap_out_std__string(soap, "WhosOn:computer", -1, &(a->_WhosOn__FindLogonEvent::computer), ""))
 		return soap->error;
 	/* transient soap skipped */
 	return soap_element_end_out(soap, tag);
@@ -1636,17 +1629,17 @@ SOAP_FMAC3 _WhosOn__FindLogonEvent * SOAP_FMAC4 soap_in__WhosOn__FindLogonEvent(
 		for (;;)
 		{	soap->error = SOAP_TAG_MISMATCH;
 			if (soap_flag_user1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:user", &(a->_WhosOn__FindLogonEvent::user), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:user", &(a->_WhosOn__FindLogonEvent::user), "xsd:string"))
 				{	soap_flag_user1--;
 					continue;
 				}
 			if (soap_flag_domain1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:domain", &(a->_WhosOn__FindLogonEvent::domain), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:domain", &(a->_WhosOn__FindLogonEvent::domain), "xsd:string"))
 				{	soap_flag_domain1--;
 					continue;
 				}
 			if (soap_flag_computer1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:computer", &(a->_WhosOn__FindLogonEvent::computer), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:computer", &(a->_WhosOn__FindLogonEvent::computer), "xsd:string"))
 				{	soap_flag_computer1--;
 					continue;
 				}
@@ -2389,20 +2382,20 @@ SOAP_FMAC3 void SOAP_FMAC4 soap_copy__WhosOn__CreateLogonEventResponse(struct so
 void _WhosOn__CreateLogonEvent::soap_default(struct soap *soap)
 {
 	this->soap = soap;
-	this->_WhosOn__CreateLogonEvent::user = NULL;
-	this->_WhosOn__CreateLogonEvent::domain = NULL;
-	this->_WhosOn__CreateLogonEvent::computer = NULL;
-	this->_WhosOn__CreateLogonEvent::hwaddr = NULL;
+	soap_default_std__string(soap, &this->_WhosOn__CreateLogonEvent::user);
+	soap_default_std__string(soap, &this->_WhosOn__CreateLogonEvent::domain);
+	soap_default_std__string(soap, &this->_WhosOn__CreateLogonEvent::computer);
+	soap_default_std__string(soap, &this->_WhosOn__CreateLogonEvent::hwaddr);
 	/* transient soap skipped */
 }
 
 void _WhosOn__CreateLogonEvent::soap_serialize(struct soap *soap) const
 {
 	(void)soap; /* appease -Wall -Werror */
-	soap_serialize_PointerTostd__string(soap, &this->_WhosOn__CreateLogonEvent::user);
-	soap_serialize_PointerTostd__string(soap, &this->_WhosOn__CreateLogonEvent::domain);
-	soap_serialize_PointerTostd__string(soap, &this->_WhosOn__CreateLogonEvent::computer);
-	soap_serialize_PointerTostd__string(soap, &this->_WhosOn__CreateLogonEvent::hwaddr);
+	soap_serialize_std__string(soap, &this->_WhosOn__CreateLogonEvent::user);
+	soap_serialize_std__string(soap, &this->_WhosOn__CreateLogonEvent::domain);
+	soap_serialize_std__string(soap, &this->_WhosOn__CreateLogonEvent::computer);
+	soap_serialize_std__string(soap, &this->_WhosOn__CreateLogonEvent::hwaddr);
 	/* transient soap skipped */
 }
 
@@ -2415,13 +2408,13 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out__WhosOn__CreateLogonEvent(struct soap *soap, 
 {
 	if (soap_element_begin_out(soap, tag, soap_embedded_id(soap, id, a, SOAP_TYPE__WhosOn__CreateLogonEvent), type))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:user", -1, &(a->_WhosOn__CreateLogonEvent::user), ""))
+	if (soap_out_std__string(soap, "WhosOn:user", -1, &(a->_WhosOn__CreateLogonEvent::user), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:domain", -1, &(a->_WhosOn__CreateLogonEvent::domain), ""))
+	if (soap_out_std__string(soap, "WhosOn:domain", -1, &(a->_WhosOn__CreateLogonEvent::domain), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:computer", -1, &(a->_WhosOn__CreateLogonEvent::computer), ""))
+	if (soap_out_std__string(soap, "WhosOn:computer", -1, &(a->_WhosOn__CreateLogonEvent::computer), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:hwaddr", -1, &(a->_WhosOn__CreateLogonEvent::hwaddr), ""))
+	if (soap_out_std__string(soap, "WhosOn:hwaddr", -1, &(a->_WhosOn__CreateLogonEvent::hwaddr), ""))
 		return soap->error;
 	/* transient soap skipped */
 	return soap_element_end_out(soap, tag);
@@ -2456,22 +2449,22 @@ SOAP_FMAC3 _WhosOn__CreateLogonEvent * SOAP_FMAC4 soap_in__WhosOn__CreateLogonEv
 		for (;;)
 		{	soap->error = SOAP_TAG_MISMATCH;
 			if (soap_flag_user1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:user", &(a->_WhosOn__CreateLogonEvent::user), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:user", &(a->_WhosOn__CreateLogonEvent::user), "xsd:string"))
 				{	soap_flag_user1--;
 					continue;
 				}
 			if (soap_flag_domain1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:domain", &(a->_WhosOn__CreateLogonEvent::domain), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:domain", &(a->_WhosOn__CreateLogonEvent::domain), "xsd:string"))
 				{	soap_flag_domain1--;
 					continue;
 				}
 			if (soap_flag_computer1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:computer", &(a->_WhosOn__CreateLogonEvent::computer), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:computer", &(a->_WhosOn__CreateLogonEvent::computer), "xsd:string"))
 				{	soap_flag_computer1--;
 					continue;
 				}
 			if (soap_flag_hwaddr1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:hwaddr", &(a->_WhosOn__CreateLogonEvent::hwaddr), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:hwaddr", &(a->_WhosOn__CreateLogonEvent::hwaddr), "xsd:string"))
 				{	soap_flag_hwaddr1--;
 					continue;
 				}
@@ -2685,12 +2678,12 @@ void WhosOn__LogonEvent::soap_default(struct soap *soap)
 {
 	this->soap = soap;
 	soap_default_int(soap, &this->WhosOn__LogonEvent::EventID);
-	this->WhosOn__LogonEvent::Username = NULL;
-	this->WhosOn__LogonEvent::Domain = NULL;
-	this->WhosOn__LogonEvent::HwAddress = NULL;
-	this->WhosOn__LogonEvent::IpAddress = NULL;
-	this->WhosOn__LogonEvent::Hostname = NULL;
-	this->WhosOn__LogonEvent::Workstation = NULL;
+	soap_default_std__string(soap, &this->WhosOn__LogonEvent::Username);
+	soap_default_std__string(soap, &this->WhosOn__LogonEvent::Domain);
+	soap_default_std__string(soap, &this->WhosOn__LogonEvent::HwAddress);
+	soap_default_std__string(soap, &this->WhosOn__LogonEvent::IpAddress);
+	soap_default_std__string(soap, &this->WhosOn__LogonEvent::Hostname);
+	soap_default_std__string(soap, &this->WhosOn__LogonEvent::Workstation);
 	soap_default_time(soap, &this->WhosOn__LogonEvent::StartTime);
 	soap_default_time(soap, &this->WhosOn__LogonEvent::EndTime);
 	/* transient soap skipped */
@@ -2699,12 +2692,12 @@ void WhosOn__LogonEvent::soap_default(struct soap *soap)
 void WhosOn__LogonEvent::soap_serialize(struct soap *soap) const
 {
 	(void)soap; /* appease -Wall -Werror */
-	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Username);
-	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Domain);
-	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::HwAddress);
-	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::IpAddress);
-	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Hostname);
-	soap_serialize_PointerTostd__string(soap, &this->WhosOn__LogonEvent::Workstation);
+	soap_serialize_std__string(soap, &this->WhosOn__LogonEvent::Username);
+	soap_serialize_std__string(soap, &this->WhosOn__LogonEvent::Domain);
+	soap_serialize_std__string(soap, &this->WhosOn__LogonEvent::HwAddress);
+	soap_serialize_std__string(soap, &this->WhosOn__LogonEvent::IpAddress);
+	soap_serialize_std__string(soap, &this->WhosOn__LogonEvent::Hostname);
+	soap_serialize_std__string(soap, &this->WhosOn__LogonEvent::Workstation);
 	/* transient soap skipped */
 }
 
@@ -2719,17 +2712,17 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_WhosOn__LogonEvent(struct soap *soap, const c
 		return soap->error;
 	if (soap_out_int(soap, "WhosOn:EventID", -1, &(a->WhosOn__LogonEvent::EventID), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:Username", -1, &(a->WhosOn__LogonEvent::Username), ""))
+	if (soap_out_std__string(soap, "WhosOn:Username", -1, &(a->WhosOn__LogonEvent::Username), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:Domain", -1, &(a->WhosOn__LogonEvent::Domain), ""))
+	if (soap_out_std__string(soap, "WhosOn:Domain", -1, &(a->WhosOn__LogonEvent::Domain), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:HwAddress", -1, &(a->WhosOn__LogonEvent::HwAddress), ""))
+	if (soap_out_std__string(soap, "WhosOn:HwAddress", -1, &(a->WhosOn__LogonEvent::HwAddress), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:IpAddress", -1, &(a->WhosOn__LogonEvent::IpAddress), ""))
+	if (soap_out_std__string(soap, "WhosOn:IpAddress", -1, &(a->WhosOn__LogonEvent::IpAddress), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:Hostname", -1, &(a->WhosOn__LogonEvent::Hostname), ""))
+	if (soap_out_std__string(soap, "WhosOn:Hostname", -1, &(a->WhosOn__LogonEvent::Hostname), ""))
 		return soap->error;
-	if (soap_out_PointerTostd__string(soap, "WhosOn:Workstation", -1, &(a->WhosOn__LogonEvent::Workstation), ""))
+	if (soap_out_std__string(soap, "WhosOn:Workstation", -1, &(a->WhosOn__LogonEvent::Workstation), ""))
 		return soap->error;
 	if (soap_out_time(soap, "WhosOn:StartTime", -1, &(a->WhosOn__LogonEvent::StartTime), ""))
 		return soap->error;
@@ -2778,32 +2771,32 @@ SOAP_FMAC3 WhosOn__LogonEvent * SOAP_FMAC4 soap_in_WhosOn__LogonEvent(struct soa
 					continue;
 				}
 			if (soap_flag_Username1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:Username", &(a->WhosOn__LogonEvent::Username), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:Username", &(a->WhosOn__LogonEvent::Username), "xsd:string"))
 				{	soap_flag_Username1--;
 					continue;
 				}
 			if (soap_flag_Domain1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:Domain", &(a->WhosOn__LogonEvent::Domain), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:Domain", &(a->WhosOn__LogonEvent::Domain), "xsd:string"))
 				{	soap_flag_Domain1--;
 					continue;
 				}
 			if (soap_flag_HwAddress1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:HwAddress", &(a->WhosOn__LogonEvent::HwAddress), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:HwAddress", &(a->WhosOn__LogonEvent::HwAddress), "xsd:string"))
 				{	soap_flag_HwAddress1--;
 					continue;
 				}
 			if (soap_flag_IpAddress1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:IpAddress", &(a->WhosOn__LogonEvent::IpAddress), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:IpAddress", &(a->WhosOn__LogonEvent::IpAddress), "xsd:string"))
 				{	soap_flag_IpAddress1--;
 					continue;
 				}
 			if (soap_flag_Hostname1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:Hostname", &(a->WhosOn__LogonEvent::Hostname), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:Hostname", &(a->WhosOn__LogonEvent::Hostname), "xsd:string"))
 				{	soap_flag_Hostname1--;
 					continue;
 				}
 			if (soap_flag_Workstation1 && (soap->error == SOAP_TAG_MISMATCH || soap->error == SOAP_NO_TAG))
-				if (soap_in_PointerTostd__string(soap, "WhosOn:Workstation", &(a->WhosOn__LogonEvent::Workstation), "xsd:string"))
+				if (soap_in_std__string(soap, "WhosOn:Workstation", &(a->WhosOn__LogonEvent::Workstation), "xsd:string"))
 				{	soap_flag_Workstation1--;
 					continue;
 				}
@@ -5304,57 +5297,6 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerToWhosOn__LogonEvent(struct soap *soap
 SOAP_FMAC3 WhosOn__LogonEvent ** SOAP_FMAC4 soap_get_PointerToWhosOn__LogonEvent(struct soap *soap, WhosOn__LogonEvent **p, const char *tag, const char *type)
 {
 	if ((p = soap_in_PointerToWhosOn__LogonEvent(soap, tag, p, type)))
-		if (soap_getindependent(soap))
-			return NULL;
-	return p;
-}
-
-SOAP_FMAC3 void SOAP_FMAC4 soap_serialize_PointerTostd__string(struct soap *soap, std::string *const*a)
-{
-	if (!soap_reference(soap, *a, SOAP_TYPE_std__string))
-		soap_serialize_std__string(soap, *a);
-}
-
-SOAP_FMAC3 int SOAP_FMAC4 soap_out_PointerTostd__string(struct soap *soap, const char *tag, int id, std::string *const*a, const char *type)
-{
-	id = soap_element_id(soap, tag, id, *a, NULL, 0, type, SOAP_TYPE_std__string);
-	if (id < 0)
-		return soap->error;
-	return soap_out_std__string(soap, tag, id, *a, type);
-}
-
-SOAP_FMAC3 std::string ** SOAP_FMAC4 soap_in_PointerTostd__string(struct soap *soap, const char *tag, std::string **a, const char *type)
-{
-	if (soap_element_begin_in(soap, tag, 1, NULL))
-		return NULL;
-	if (!a)
-		if (!(a = (std::string **)soap_malloc(soap, sizeof(std::string *))))
-			return NULL;
-	*a = NULL;
-	if (!soap->null && *soap->href != '#')
-	{	soap_revert(soap);
-		if (!(*a = soap_in_std__string(soap, tag, *a, type)))
-			return NULL;
-	}
-	else
-	{	a = (std::string **)soap_id_lookup(soap, soap->href, (void**)a, SOAP_TYPE_std__string, sizeof(std::string), 0);
-		if (soap->body && soap_element_end_in(soap, tag))
-			return NULL;
-	}
-	return a;
-}
-
-SOAP_FMAC3 int SOAP_FMAC4 soap_put_PointerTostd__string(struct soap *soap, std::string *const*a, const char *tag, const char *type)
-{
-	register int id = soap_embed(soap, (void*)a, NULL, 0, tag, SOAP_TYPE_PointerTostd__string);
-	if (soap_out_PointerTostd__string(soap, tag?tag:"string", id, a, type))
-		return soap->error;
-	return soap_putindependent(soap);
-}
-
-SOAP_FMAC3 std::string ** SOAP_FMAC4 soap_get_PointerTostd__string(struct soap *soap, std::string **p, const char *tag, const char *type)
-{
-	if ((p = soap_in_PointerTostd__string(soap, tag, p, type)))
 		if (soap_getindependent(soap))
 			return NULL;
 	return p;
