@@ -36,14 +36,19 @@ public:
 	};
 	
 	Options();
+	Options(SoapServiceProxy *proxy);
 	void Parse(int argc, char **argv);     // throws ArgumentException
+	
+	SoapServiceProxy * GetServiceProxy() { return proxy; }
+	void SetServiceProxy(SoapServiceProxy *proxy) { this->proxy = proxy; }
 	
 	Reason GetReason() const { return reason; }
 	Format GetFormat() const { return format; }
 	const WhosOn::LogonEvent * GetFilter() const { return &filter; }
 	WhosOn::LogonEventMatch GetMatch() const { return match; }
-	const char * GetEndpoint(const char *def = 0) const { return endpoint ? endpoint : def; }
-
+	
+	const char * GetEndpoint() const;
+	
 	int Verbose;
 	bool Debug;
 	
@@ -57,8 +62,7 @@ private:
 	Format format;
 	WhosOn::LogonEvent filter;
 	WhosOn::LogonEventMatch match;
-	
-	const char *endpoint;
+	SoapServiceProxy *proxy;
 };
 
 #endif  // __OPTIONS_HPP__
