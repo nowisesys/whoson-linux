@@ -11,12 +11,15 @@
 
 #include "whoson.hpp"     // library
 #include "options.hpp"
+#include "output.hpp"
 
 class Application
 {
 public:
 	Application(Options *options) : opts(options) 
 	{
+		opts->SetServiceProxy(&proxy);
+		
 		if(getenv("WHOSON_DEBUG")) {
 			opts->Debug = atoi(getenv("WHOSON_DEBUG")) > 0;
 		}
@@ -35,9 +38,6 @@ public:
 		} catch(Options::ArgumentException exception) {
 			std::cerr << exception.msg << std::endl;
 			exit(1);
-		}
-		if(opts->GetEndpoint()) {
-			proxy.soap_endpoint = opts->GetEndpoint();
 		}
 	}
 
@@ -80,6 +80,28 @@ private:
 	
 	void List(const WhosOn::LogonEventAdapter *adapter) const
 	{
+		std::vector<WhosOn::LogonEvent *> events;
+		adapter->Find(events, opts->GetFilter(), opts->GetMatch());
+		
+		ProgramOutput output;
+		switch(opts->GetFormat()) {
+                case Options::Compact:
+			output.SetFormat(new OutputFormatCompact());
+			output.Write(&events);
+			break;
+		case Options::Human:
+			output.SetFormat(new OutputFormatHuman());
+			output.Write(&events);
+			break;
+		case Options::Tabbed:
+			output.SetFormat(new OutputFormatTabbed());
+			output.Write(&events);
+			break;
+		case Options::XML:
+			output.SetFormat(new OutputFormatXML());
+			output.Write(&events);
+			break;
+		}
 	}
 	
 	SoapServiceProxy proxy;
