@@ -50,8 +50,8 @@ void OutputFormatTabbed::WriteRecord(const WhosOn::LogonEvent *record) const
 		<< record->IpAddress << "\t"
 		<< record->Hostname << "\t"
 		<< record->Workstation << "\t"
-		<< record->StartTime << "\t"
-		<< record->EndTime << "\n";
+		<< DateTime(record->StartTime) << "\t"
+		<< DateTime(record->EndTime) << "\n";
 }
 
 void OutputFormatCompact::WriteHeader() const
@@ -74,8 +74,8 @@ void OutputFormatCompact::WriteRecord(const WhosOn::LogonEvent *record) const
 		<< record->IpAddress << " "
 		<< record->Hostname << " "
 		<< record->Workstation << " "
-		<< record->StartTime << " "
-		<< record->EndTime << std::endl;
+		<< DateTime(record->StartTime) << " "
+		<< DateTime(record->EndTime) << std::endl;
 }
 
 void OutputFormatXML::WriteHeader() const
@@ -104,8 +104,8 @@ void OutputFormatXML::WriteRecord(const WhosOn::LogonEvent *record) const
 		<< "      <Workstation>" << record->Workstation << "</Workstation>\n"
 		<< "    </Computer>\n"
 		<< "    <Session>\n"
-		<< "      <StartTime>" << record->StartTime << "</StartTime>\n"
-		<< "      <EndTime>" << record->EndTime << "</EndTime>\n"
+		<< "      <StartTime>" << DateTime(record->StartTime) << "</StartTime>\n"
+		<< "      <EndTime>" << DateTime(record->EndTime) << "</EndTime>\n"
 		<< "    </Session>\n"
 		<< "  </LogonEvent>\n";
 }
