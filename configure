@@ -8562,10 +8562,6 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
-## CAVEAT EMPTOR:
-## There is no encapsulation within the following macros, do not change
-## the running order or otherwise move them around unless you know exactly
-## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -16300,7 +16296,7 @@ CPPFLAGS="$CPPFLAGS -I../libwhoson"
 CXXFLAGS="$CXXFLAGS ${GSOAP_CXXFLAGS}"
 LIBS="$LIBS ${GSOAP_LIBS}"
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/libwhoson/Makefile src/libwhoson/soap/Makefile src/libwhoson/examples/Makefile src/whoson/Makefile src/whosond/Makefile"
+ac_config_files="$ac_config_files Makefile src/Makefile src/libwhoson/Makefile src/libwhoson/soap/Makefile src/libwhoson/examples/Makefile src/whoson/Makefile src/whosond/Makefile docs/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -17430,6 +17426,7 @@ do
     "src/libwhoson/examples/Makefile") CONFIG_FILES="$CONFIG_FILES src/libwhoson/examples/Makefile" ;;
     "src/whoson/Makefile") CONFIG_FILES="$CONFIG_FILES src/whoson/Makefile" ;;
     "src/whosond/Makefile") CONFIG_FILES="$CONFIG_FILES src/whosond/Makefile" ;;
+    "docs/Makefile") CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

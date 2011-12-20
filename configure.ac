@@ -207,5 +207,6 @@ AC_CONFIG_FILES([Makefile
 		 src/libwhoson/soap/Makefile
 		 src/libwhoson/examples/Makefile
 		 src/whoson/Makefile
-		 src/whosond/Makefile])
+		 src/whosond/Makefile
+		 docs/Makefile])
 AC_OUTPUT
