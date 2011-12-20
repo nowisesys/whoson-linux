@@ -44,7 +44,7 @@ void Options::Usage()
 	std::cout << PACKAGE_NAME << " - Client side application for the whoson logon accounting program suite.\n";
 	std::cout 
 		<< "\n"
-		<< "Usage: whoson.exe [options...]\n"
+		<< "Usage: " << PACKAGE_NAME << " [options...]\n"
 		<< "Options:\n"
 		<< "  -i,--logon:        Store logon event.\n"
 		<< "  -o,--logout:       Store logoff event.\n"
@@ -53,6 +53,7 @@ void Options::Usage()
 		<< "  -V,--version:      Get version info.\n"
 		<< "  -v,--verbose:      Be more verbose.\n"
 		<< "  -d,--debug:        Enable debug mode.\n"
+		<< "  -S,--session:      Use session mode (login on start/logout on exit).\n"
 		<< "Filters:\n"
 		<< "     --id=num:       Filter on event ID.\n"
 		<< "     --start=date:   Filter on start date.\n"
@@ -91,7 +92,7 @@ void Options::Version()
 
 void Options::Show() const
 {
-	const char *mReason[] = { "Logout", "Login", "List", "Unknown" };
+	const char *mReason[] = { "Logout", "Login", "List", "Session", "Unknown" };
 	const char *mFormat[] = { "Compact", "Human", "Tabbed", "XML" };
 	const char *mMatch[]  = { "Before", "Between", "After", "Exact", "Active", "Closed" };
 	
@@ -131,10 +132,12 @@ void Options::Parse(int argc, char **argv)
 		{ "version",  0, 0, OpVersion },
 		{ "verbose",  0, 0, OpVerbose },
 		{ "debug",    0, 0, OpDebug },
-		{ "logon",    0, 0, OpLogon },
 		// Reason:
+		{ "logon",    0, 0, OpLogon },
 		{ "logout",   0, 0, OpLogout },
 		{ "list",     0, 0, OpList },
+		{ "session",  0, 0, OpSession },
+		{ "wait",     0, 0, OpSession }, // alias
 		// Filter:
 		{ "id",       1, 0, OpId },
 		{ "start",    1, 0, OpStart },
@@ -169,7 +172,7 @@ void Options::Parse(int argc, char **argv)
 	
 	opterr = 0;
 	
-	while((c = getopt_long(argc, argv, "acCdehHilos:TvVX", longopts, &index)) != -1) {
+	while((c = getopt_long(argc, argv, "acCdehHilos:STvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -197,6 +200,9 @@ void Options::Parse(int argc, char **argv)
 			break;
 		case OpList:
 			reason = List;
+			break;
+		case OpSession:
+			reason = Session;
 			break;
 			
 			// 

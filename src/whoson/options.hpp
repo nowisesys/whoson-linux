@@ -17,7 +17,7 @@ public:
 	
 	enum Reason 
 	{
-		Logout, Login, List, Unknown
+		Logout, Login, List, Session, Unknown
 	};
 	
 	enum Format 
@@ -27,11 +27,15 @@ public:
 	
 	enum Option
 	{
-		OpLogon = 'i',   OpLogout = 'o',  OpList = 'l',    OpHelp = 'h',   OpVersion = 'V',
-		OpId = 128,      OpStart = 129,   OpEnd = 130,     OpComp = 131,   OpHost = 132, 
-		OpIp = 133,      OpHw = 134,      OpUser = 135,    OpDomain = 136,
-		OpActive = 'a',  OpClosed = 'c',  OpBetween = 137, OpBefore = 138, OpAfter = 139, OpExact = 'e',
-		OpHuman = 'H',   OpCompact = 'C', OpTabbed = 'T',  OpXml = 'X',
+		OpLogon = 'i',   OpLogout = 'o',  OpList = 'l',     OpSession = 'S',
+		OpHelp  = 'h',   OpVersion = 'V',
+		
+		OpId = 128,      OpStart = 129,   OpEnd = 130,      OpComp = 131,   OpHost = 132, 
+		OpIp = 133,      OpHw = 134,      OpUser = 135,     OpDomain = 136,
+		
+		OpActive = 'a',  OpClosed = 'c',  OpBetween = 137,  OpBefore = 138, OpAfter = 139, OpExact = 'e',
+		
+	        OpHuman = 'H',   OpCompact = 'C', OpTabbed = 'T',   OpXml = 'X',
 		OpVerbose = 'v', OpDebug = 'd',   OpEndpoint = 's'
 	};
 	

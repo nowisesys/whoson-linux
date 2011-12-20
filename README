@@ -13,13 +13,20 @@
    The libwhoson library provides adapter and proxy classes (C++) for
    the WhosOn service.
    
-** APPLICATIONS:
+** LOGON/LOGOFF:
 
    The whoson application should be runned when an user logon or logoff,
    passing either -i or -o to record the event thru the SOAP service.
    
    Logon event can be queried using the -l option and relevant filter
    options. See -h or --help for more information.
+   
+** SESSION MODE:
+
+   Theres also an session mode (-S) were the process register an login
+   event on startup and waits for the parent process to exit. Once the
+   parent has exited, an logout event is logged and the application
+   exits.
 
 ** ENVIRONMENT:
 

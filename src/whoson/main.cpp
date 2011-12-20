@@ -11,6 +11,7 @@
 
 #include "whoson.hpp"     // library
 #include "options.hpp"
+#include "session.hpp"
 #include "output.hpp"
 
 class Application
@@ -56,6 +57,9 @@ public:
 			case Options::List:
 				List(&adapter);
 				break;
+			case Options::Session:
+				WaitHandler(&adapter);
+				break;
 			case Options::Unknown:
 				break;
 			}
@@ -70,6 +74,18 @@ private:
 	void Login(const WhosOn::LogonEventAdapter *adapter) const
 	{
 		adapter->Add();
+	}
+
+	void WaitHandler(const WhosOn::LogonEventAdapter *adapter) const
+	{
+		Session session(adapter, opts);
+		try {
+			session.Setup();
+			session.Start();
+		} catch(Session::Exception exception) {
+			exception.Write();
+			exit(1);
+		}
 	}
 	
 	void Logout(const WhosOn::LogonEventAdapter *adapter) const
