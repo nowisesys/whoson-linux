@@ -87,9 +87,7 @@ void Session::Start()
 void Session::SignalHandler(int sig)
 {
 	if(sig == SIGTERM || sig == SIGHUP) {
-		if(opts->Verbose) {
-			syslog(LOG_INFO, "Received signal %d, asking main loop to exit", sig);
-		}
+		syslog(LOG_INFO, "Received signal %d, asking main loop to exit", sig);
 		Done();
 	}
 }
