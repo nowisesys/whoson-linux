@@ -46,4 +46,12 @@ build the libraries with libtool?".
 
    A new patch might be needed to be created as described in step 1.
    
+3. Rebuild generated files:
+
+   The default location used for gSOAP support files are /usr/share/gsoap.
+   If gSOAP is located elsewhere, then pass --with-gsoap to set the
+   location, or required files (like stlvector.h) can't be imported:
+
+     bash> ./configure --with-gsoap=/usr/local/share/gsoap
+   
 // Anders Lövgren, 2011-11-24
