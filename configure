@@ -618,6 +618,7 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+GSOAPHOME
 gsoap_LIBS
 gsoap_CFLAGS
 BUILD_EXAMPLES_FALSE
@@ -8562,6 +8563,10 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
+## CAVEAT EMPTOR:
+## There is no encapsulation within the following macros, do not change
+## the running order or otherwise move them around unless you know exactly
+## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -15658,6 +15663,14 @@ if test "x${whoson_have_gsoap_cxx}" = "xno" -o "${with_gsoap}" != "" ; then
       GSOAP_CXXFLAGS="-I$d/include"
     fi
   done
+fi
+
+if test "${with_gsoap}" != ""; then
+  GSOAPHOME=${with_gsoap}
+
+else
+  GSOAPHOME=/usr/share/gsoap
+
 fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking how to link gsoap" >&5

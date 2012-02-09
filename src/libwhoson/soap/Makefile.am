@@ -1,5 +1,5 @@
 
-GSOAPHOME = /usr/share/gsoap
+GSOAPHOME = @GSOAPHOME@
 NAMESPACE = WhosOn
 
 all : soap-bindings

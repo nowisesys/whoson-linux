@@ -150,6 +150,12 @@ if test "x${whoson_have_gsoap_cxx}" = "xno" -o "${with_gsoap}" != "" ; then
   done
 fi
 
+if test "${with_gsoap}" != ""; then
+  AC_SUBST(GSOAPHOME, ${with_gsoap})
+else
+  AC_SUBST(GSOAPHOME, /usr/share/gsoap)
+fi
+
 AC_MSG_CHECKING([how to link gsoap])
 if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
   AC_MSG_RESULT([libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS}])
