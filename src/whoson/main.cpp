@@ -57,6 +57,9 @@ public:
 			case Options::List:
 				List(&adapter);
 				break;
+			case Options::Close:
+				Close(&adapter);
+				break;
 			case Options::Session:
 				WaitHandler(&adapter);
 				break;
@@ -117,6 +120,17 @@ private:
 			output.SetFormat(new OutputFormatXML());
 			output.Write(&events);
 			break;
+		}
+	}
+	
+	void Close(const WhosOn::LogonEventAdapter *adapter) const 
+	{
+		std::vector<WhosOn::LogonEvent *> events;
+		adapter->Find(events, opts->GetFilter(), opts->GetMatch());
+		
+		typedef std::vector<WhosOn::LogonEvent *>::const_iterator Iterator;
+		for(Iterator it = events.begin(); it != events.end(); ++it) {
+			adapter->Close(*it);
 		}
 	}
 	

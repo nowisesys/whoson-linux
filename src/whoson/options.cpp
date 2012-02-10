@@ -49,6 +49,7 @@ void Options::Usage()
 		<< "  -i,--logon:        Store logon event.\n"
 		<< "  -o,--logout:       Store logoff event.\n"
 		<< "  -l,--list:         List logon events (see filter and matching)\n"
+		<< "  -F,--close:        Close matching sessions\n"
 		<< "  -h,--help:         Show this help\n"
 		<< "  -V,--version:      Get version info.\n"
 		<< "  -v,--verbose:      Be more verbose.\n"
@@ -92,7 +93,7 @@ void Options::Version()
 
 void Options::Show() const
 {
-	const char *mReason[] = { "Logout", "Login", "List", "Session", "Unknown" };
+	const char *mReason[] = { "Logout", "Login", "List", "Close", "Session", "Unknown" };
 	const char *mFormat[] = { "Compact", "Human", "Tabbed", "XML" };
 	const char *mMatch[]  = { "Before", "Between", "After", "Exact", "Active", "Closed" };
 	
@@ -136,6 +137,7 @@ void Options::Parse(int argc, char **argv)
 		{ "logon",    0, 0, OpLogon },
 		{ "logout",   0, 0, OpLogout },
 		{ "list",     0, 0, OpList },
+		{ "close",    0, 0, OpClose },
 		{ "session",  0, 0, OpSession },
 		{ "wait",     0, 0, OpSession }, // alias
 		// Filter:
@@ -172,7 +174,7 @@ void Options::Parse(int argc, char **argv)
 	
 	opterr = 0;
 	
-	while((c = getopt_long(argc, argv, "acCdehHilos:STvVX", longopts, &index)) != -1) {
+	while((c = getopt_long(argc, argv, "acCdeFhHilos:STvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -200,6 +202,9 @@ void Options::Parse(int argc, char **argv)
 			break;
 		case OpList:
 			reason = List;
+			break;
+		case OpClose:
+			reason = Close;
 			break;
 		case OpSession:
 			reason = Session;
