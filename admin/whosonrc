@@ -1,0 +1,43 @@
+#!/bin/bash
+# 
+# Utility script to be sourced by ~/.bashrc or ~/.bash_logout to handle
+# logon and logoff events.
+#
+# Author: Anders Lövgren
+# Date:   2012-02-22
+#
+
+WHOSON_SOAP_ENDPOINT="http://bmc-mtws5.bmcmediatek.uu.se/compdept/websvc/whoson/LogonAccountingService.asmx"
+WHOSON_DEBUG=0
+WHOSON_VERBOSE=0
+
+WHOSON_PROGRAM=~/Programs/whoson/usr/local/bin/whoson
+
+function register_logon_event()
+{
+  if [ -x ${WHOSON_PROGRAM} ]; then
+    ${WHOSON_PROGRAM} -i
+  fi
+}
+
+function register_logoff_event()
+{
+  if [ -x ${WHOSON_PROGRAM} ]; then
+    ${WHOSON_PROGRAM} -o
+  fi
+}
+
+case "$1" in
+  logon)
+    register_logon_event
+    ;;
+  logon)
+    register_logoff_event
+    ;;
+  *)
+    echo "usage: $0 logon|logoff"
+    exit 1
+    ;;
+esac
+
+exit 0
