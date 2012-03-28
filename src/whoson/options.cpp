@@ -82,8 +82,9 @@ void Options::Usage()
 		<< "\n"
 		<< "Notes:\n"
 		<< "1. The --between, --before and --after can only be used with the --start, --end (and --id) filter.\n"
+		<< "2. The --active and --closed option can only be used with exact matching filter options, like --host=xxx.\n"
 		<< "\n"
-		<< "Copyright (C) 2011 Anders Lövgren (QNET/Compdept BMC)\n";
+		<< "Copyright (C) 2011-2012 Anders Lövgren (QNET/Compdept BMC)\n";
 }
 
 void Options::Version()
