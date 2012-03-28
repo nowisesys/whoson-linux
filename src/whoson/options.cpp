@@ -36,6 +36,7 @@
 
 #include "options.hpp"
 #include "datetime.hpp"
+#include "network.hpp"
 
 Options::ArgumentException::ArgumentException(const char *opt)
 {
@@ -91,6 +92,7 @@ void Options::Usage()
 		<< "     --before:       Match logons before.\n"
 		<< "     --after:        Match logons after.\n"
 		<< "  -e,--exact:        Match filter exact.\n"
+		<< "  -t,--this:         This host is implied.\n"
 		<< "Format:\n"
 		<< "  -H,--human:        Output formatted for human reading.\n"
 		<< "  -C,--compact:      Output formatted in compact style.\n"
@@ -181,6 +183,7 @@ void Options::Parse(int argc, char **argv)
 		{ "before",   0, 0, OpBefore },
 		{ "after",    0, 0, OpAfter },
 		{ "exact",    0, 0, OpExact },
+		{ "this",     0, 0, OpThis },
 		// Format:
 		{ "human",    0, 0, OpHuman },
 		{ "compact",  0, 0, OpCompact },
@@ -194,7 +197,7 @@ void Options::Parse(int argc, char **argv)
 	
 	opterr = 0;
 	
-	while((c = getopt_long(argc, argv, "acCdeFhHilos:STvVX", longopts, &index)) != -1) {
+	while((c = getopt_long(argc, argv, "acCdeFhHilos:StTvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -281,6 +284,13 @@ void Options::Parse(int argc, char **argv)
 			break;
 		case OpExact:
 			match = WhosOn::MatchExact;
+			break;
+		case OpThis:
+			{
+				const WhosOn::Network *network = WhosOn::Network::GetInstance();
+				filter.Workstation = network->GetComputer();
+				filter.HwAddress = network->GetMacAddress();
+			}
 			break;
 			
 			// 

@@ -53,6 +53,7 @@ public:
 		OpIp = 133,      OpHw = 134,      OpUser = 135,     OpDomain = 136,
 		
 		OpActive = 'a',  OpClosed = 'c',  OpBetween = 137,  OpBefore = 138, OpAfter = 139, OpExact = 'e',
+	        OpThis = 't',
 		
 	        OpHuman = 'H',   OpCompact = 'C', OpTabbed = 'T',   OpXml = 'X',
 		OpVerbose = 'v', OpDebug = 'd',   OpEndpoint = 's'
