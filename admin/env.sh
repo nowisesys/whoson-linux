@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# Author: Anders Lövgren
+# Author: Anders LÃ¶vgren
 # Date:   2011-12-19
 
 # Application settings:
-WHOSON_SOAP_ENDPOINT="http://localhost/websvc/whoson2/LogonAccountingService.asmx"
+WHOSON_SOAP_ENDPOINT="http://localhost/whoson/"
 WHOSON_DEBUG=0
 WHOSON_VERBOSE=0
 export WHOSON_SOAP_ENDPOINT WHOSON_DEBUG WHOSON_VERBOSE
