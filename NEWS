@@ -1,0 +1,23 @@
+Version 1.1.2 (2012-03-29)
+
+    * Added --this option functioning as alias for this host.
+    
+Version 1.1.0 (2012-03-28)
+
+    * Added -F (--close) option for closing all logon events matching
+      the filter preferences.
+      
+    * Session mode (-S) is now supported on Linux.
+    
+    * Added manual page and improving documentation. Applying GPL 3 to
+      the source code.
+      
+    * Support for extracting username and domain from Kerberos 5
+      tickets.
+      
+    * Ported code to Mac OS X.
+
+Version 1.0.0 (2011-11-23)
+
+    * Initial release
+    

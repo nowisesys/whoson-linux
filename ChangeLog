@@ -1,0 +1,309 @@
+------------------------------------------------------------------------
+r7367 | andlov | 2012-03-29 01:56:41 +0200 (Thu, 29 Mar 2012) | 1 line
+
+Added --this option functioning as alias for this host.
+------------------------------------------------------------------------
+r7354 | andlov | 2012-03-28 17:39:38 +0200 (Wed, 28 Mar 2012) | 1 line
+
+Preparing for release 1.1.0
+------------------------------------------------------------------------
+r7353 | andlov | 2012-03-28 17:36:13 +0200 (Wed, 28 Mar 2012) | 1 line
+
+Adding copyright header to source code files.
+------------------------------------------------------------------------
+r7352 | andlov | 2012-03-28 17:17:09 +0200 (Wed, 28 Mar 2012) | 1 line
+
+Updated options documentation on using exact matching filter options with the --active and --closed option.
+------------------------------------------------------------------------
+r7346 | andlov | 2012-03-28 16:01:39 +0200 (Wed, 28 Mar 2012) | 1 line
+
+Use whoson-php on localhost as test service.
+------------------------------------------------------------------------
+r7258 | andlov | 2012-02-28 18:32:49 +0100 (Tue, 28 Feb 2012) | 1 line
+
+Documenting the -F (--close) option in the manual page.
+------------------------------------------------------------------------
+r7217 | andlov | 2012-02-22 10:08:11 +0100 (Wed, 22 Feb 2012) | 1 line
+
+Adding utility script for register logon/logoff events. This script could be sourced by i.e. ~/.bashrc and ~/.bash_logout
+------------------------------------------------------------------------
+r7216 | andlov | 2012-02-10 17:04:44 +0100 (Fri, 10 Feb 2012) | 1 line
+
+Added -F (--close) option for closing all logon events matching the filter preferences.
+------------------------------------------------------------------------
+r7211 | andlov | 2012-02-09 16:45:56 +0100 (Thu, 09 Feb 2012) | 1 line
+
+Documenting the --with-gsoap configure option.
+------------------------------------------------------------------------
+r7210 | andlov | 2012-02-09 16:41:43 +0100 (Thu, 09 Feb 2012) | 1 line
+
+Renamed docs/README.SHARED-LIBS -> docs/README.GSOAP.
+------------------------------------------------------------------------
+r7209 | andlov | 2012-02-09 16:35:59 +0100 (Thu, 09 Feb 2012) | 1 line
+
+Substitute @GSOAPHOME@ with argument for --with-gsoap.
+------------------------------------------------------------------------
+r7180 | andlov | 2011-12-20 04:46:06 +0100 (Tue, 20 Dec 2011) | 1 line
+
+Added manual page for whoson.
+------------------------------------------------------------------------
+r7179 | andlov | 2011-12-20 04:11:45 +0100 (Tue, 20 Dec 2011) | 1 line
+
+Use class DateTime to format time stamps.
+------------------------------------------------------------------------
+r7178 | andlov | 2011-12-20 03:58:01 +0100 (Tue, 20 Dec 2011) | 1 line
+
+Using opts from an static member function is forbidden.
+------------------------------------------------------------------------
+r7177 | andlov | 2011-12-20 03:51:25 +0100 (Tue, 20 Dec 2011) | 1 line
+
+Adding session mode were the application waits for the parent process to exit before record an logout event matching the logon event recorded at startup.
+------------------------------------------------------------------------
+r7176 | andlov | 2011-12-19 21:57:57 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Removed TODO from libwhoson.
+------------------------------------------------------------------------
+r7175 | andlov | 2011-12-19 21:56:00 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Moved env.sh to admin.
+------------------------------------------------------------------------
+r7174 | andlov | 2011-12-19 21:55:33 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Adding admin directory.
+------------------------------------------------------------------------
+r7173 | andlov | 2011-12-19 21:55:12 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Adding script for setting environment variables.
+------------------------------------------------------------------------
+r7172 | andlov | 2011-12-19 21:53:35 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Fixed constness for operator and function returning time_t value of a datetime object.
+------------------------------------------------------------------------
+r7171 | andlov | 2011-12-19 21:52:36 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Query and listing logon events is now working.
+------------------------------------------------------------------------
+r7170 | andlov | 2011-12-19 21:51:25 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Adding classes for formatted output.
+------------------------------------------------------------------------
+r7169 | andlov | 2011-12-19 21:50:12 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Members in class LogonEvent is set direct.
+------------------------------------------------------------------------
+r7168 | andlov | 2011-12-19 21:47:14 +0100 (Mon, 19 Dec 2011) | 1 line
+
+The SOAP endpoint is now set direct in the SOAP proxy class when parsing options.
+------------------------------------------------------------------------
+r7167 | andlov | 2011-12-19 21:38:14 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Using std::string instead of std::string * for xsd::string elements and attributes.
+------------------------------------------------------------------------
+r7152 | andlov | 2011-12-19 03:28:07 +0100 (Mon, 19 Dec 2011) | 1 line
+
+Fixed bug when initializing from environment variables.
+------------------------------------------------------------------------
+r7151 | andlov | 2011-12-16 16:40:25 +0100 (Fri, 16 Dec 2011) | 1 line
+
+Let code deduce user and hostname parameters.
+------------------------------------------------------------------------
+r7150 | andlov | 2011-12-16 03:03:21 +0100 (Fri, 16 Dec 2011) | 1 line
+
+Web service renamed from LogonEventService -> LogonAccountingService.
+------------------------------------------------------------------------
+r7142 | andlov | 2011-12-07 03:59:15 +0100 (Wed, 07 Dec 2011) | 1 line
+
+The Account class is now maintaining the account providers list and a pointer to the active (selected) provider.
+------------------------------------------------------------------------
+r7141 | andlov | 2011-12-07 03:04:47 +0100 (Wed, 07 Dec 2011) | 1 line
+
+Fixed a bug were *ppd was used instead of ppd.
+------------------------------------------------------------------------
+r7140 | andlov | 2011-12-07 02:26:28 +0100 (Wed, 07 Dec 2011) | 1 line
+
+Checking canonical host in configure to determine additional linker flags. Use substitution of EXAMPLE_LDFLAGS on linux to add -Wl,-rpath to LDFLAGS when building examples.
+------------------------------------------------------------------------
+r7139 | andlov | 2011-12-07 02:08:52 +0100 (Wed, 07 Dec 2011) | 1 line
+
+Adding support for query logged on user/domain from kerberos v5 ticket cache.
+------------------------------------------------------------------------
+r7138 | andlov | 2011-12-05 22:01:24 +0100 (Mon, 05 Dec 2011) | 1 line
+
+Added --with-gsoap{-xxx} configure options.
+------------------------------------------------------------------------
+r7137 | andlov | 2011-12-05 14:37:47 +0100 (Mon, 05 Dec 2011) | 1 line
+
+Added option --with-wbclient telling whether to check for -lwbclient. Renamed option --enable-static-clients -> --enable-all-static.
+------------------------------------------------------------------------
+r7136 | andlov | 2011-12-05 03:24:30 +0100 (Mon, 05 Dec 2011) | 1 line
+
+Added class DateTime representing a date/time. This class is immutable by default, but can be compiled to expose its overloaded operators and property methods.
+------------------------------------------------------------------------
+r7135 | andlov | 2011-12-02 10:05:35 +0100 (Fri, 02 Dec 2011) | 1 line
+
+Adding private methods called by Process() in main.
+------------------------------------------------------------------------
+r7134 | andlov | 2011-12-02 10:05:04 +0100 (Fri, 02 Dec 2011) | 1 line
+
+Reverting back to using const char * as endpoint type.
+------------------------------------------------------------------------
+r7133 | andlov | 2011-12-02 09:55:27 +0100 (Fri, 02 Dec 2011) | 1 line
+
+Implementing the Find() method in class LogonEvent. It's now inheriting from the SOAP complex type, so we need to use pointers to std::string and thus manage memory for these fields.
+------------------------------------------------------------------------
+r7132 | andlov | 2011-12-02 09:50:09 +0100 (Fri, 02 Dec 2011) | 1 line
+
+Auto updated makefile template (with getip example).
+------------------------------------------------------------------------
+r7131 | andlov | 2011-12-01 17:59:52 +0100 (Thu, 01 Dec 2011) | 1 line
+
+Update for fixed typo error in WSDL (IpAaddres -> IpAddress)
+------------------------------------------------------------------------
+r7130 | andlov | 2011-12-01 14:51:47 +0100 (Thu, 01 Dec 2011) | 1 line
+
+Fixed bug in handling unknown options.
+------------------------------------------------------------------------
+r7129 | andlov | 2011-12-01 14:32:59 +0100 (Thu, 01 Dec 2011) | 1 line
+
+Adding SOAP endpoint option -s.
+------------------------------------------------------------------------
+r7128 | andlov | 2011-11-30 18:09:16 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Fake NetBIOS name on systems without -lwbclient.
+------------------------------------------------------------------------
+r7127 | andlov | 2011-11-30 17:08:58 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Get MAC address of default route interface on OS X.
+------------------------------------------------------------------------
+r7126 | andlov | 2011-11-30 17:07:19 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Adding example code showing how to use getifaddrs(). This is the only working example I found for Mac OS X without using any framework.
+------------------------------------------------------------------------
+r7125 | andlov | 2011-11-30 10:27:02 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Conditional include header files.
+------------------------------------------------------------------------
+r7124 | andlov | 2011-11-30 07:05:04 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Adding requirement documentation and build instructions for Mac OS X.
+------------------------------------------------------------------------
+r7123 | andlov | 2011-11-30 06:52:12 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Field ifr_hwaddr in struct ifreq is only defined on Linux.
+------------------------------------------------------------------------
+r7122 | andlov | 2011-11-30 06:51:10 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Exclude winbind specific code unless libwbclient was found.
+------------------------------------------------------------------------
+r7121 | andlov | 2011-11-30 06:30:15 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Adding M4 macros for pkg-config in acinclude.m4 seems to solve issues with missing functions on Mac OS X.
+------------------------------------------------------------------------
+r7120 | andlov | 2011-11-30 06:14:54 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Downgrade required autoconf version.
+------------------------------------------------------------------------
+r7119 | andlov | 2011-11-30 06:12:33 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Running libtoolize --copy to overcome problems running configure on Mac OS X.
+------------------------------------------------------------------------
+r7118 | andlov | 2011-11-30 05:53:02 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Added /usr to search dirs for libgsoap++. Fixed whoson_have_gsoap_cxx variable bug.
+------------------------------------------------------------------------
+r7117 | andlov | 2011-11-30 05:22:58 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Using PKG_CHECK_MODULES and PKG_CHECK_EXISTS instead of hand crafted shell code to detect libgsoap++ thru pkg-config.
+------------------------------------------------------------------------
+r7116 | andlov | 2011-11-30 04:31:24 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Fixed detection of gSOAP on system lacking pkg-config.
+------------------------------------------------------------------------
+r7115 | andlov | 2011-11-30 01:58:30 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Wrap main application behavour in a class. Sort of java-style ;-).
+------------------------------------------------------------------------
+r7114 | andlov | 2011-11-30 01:54:18 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Documenting the order of precedence between environment and command line options.
+------------------------------------------------------------------------
+r7113 | andlov | 2011-11-30 01:47:57 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Adding some documentation in README.
+------------------------------------------------------------------------
+r7112 | andlov | 2011-11-30 01:14:55 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Adding network information class Network.
+------------------------------------------------------------------------
+r7111 | andlov | 2011-11-30 01:11:44 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Auto updated makefile template (due to cleanup in src/Makefile.am)
+------------------------------------------------------------------------
+r7110 | andlov | 2011-11-30 01:10:19 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Adding examples sub directory. This directory will only contain the makefile templates as the source is (always?) included from the parent directory.
+------------------------------------------------------------------------
+r7109 | andlov | 2011-11-30 01:02:56 +0100 (Wed, 30 Nov 2011) | 1 line
+
+Conditional build libwhoson examples. Also added check for libwbclient (samba/winbind).
+------------------------------------------------------------------------
+r7108 | andlov | 2011-11-29 22:05:09 +0100 (Tue, 29 Nov 2011) | 1 line
+
+Adding class for retreiving the account name and, possibly, the logon domain of current effective user.
+------------------------------------------------------------------------
+r7107 | andlov | 2011-11-29 17:48:28 +0100 (Tue, 29 Nov 2011) | 1 line
+
+Adding C functions for MAC address resolution.
+------------------------------------------------------------------------
+r7106 | andlov | 2011-11-28 11:15:21 +0100 (Mon, 28 Nov 2011) | 1 line
+
+Adding class LogonEventAdapter and changed LogonEventProxy. The SOAP proxy storage is now handled external. Adding SoapServiceException for error reporting.
+------------------------------------------------------------------------
+r7105 | andlov | 2011-11-28 05:32:45 +0100 (Mon, 28 Nov 2011) | 1 line
+
+Adding --debug and --verbose options. Fixed an initialization bug by adding a constructor.
+------------------------------------------------------------------------
+r7104 | andlov | 2011-11-28 00:41:09 +0100 (Mon, 28 Nov 2011) | 1 line
+
+Keep the generated SOAP proxy files under version control, but allow users to regenerate them by running 'make soap-bindings'.
+------------------------------------------------------------------------
+r7103 | andlov | 2011-11-28 00:38:25 +0100 (Mon, 28 Nov 2011) | 1 line
+
+Auto updated configure.
+------------------------------------------------------------------------
+r7102 | andlov | 2011-11-28 00:36:54 +0100 (Mon, 28 Nov 2011) | 1 line
+
+No generated make files should be under version control.
+------------------------------------------------------------------------
+r7101 | andlov | 2011-11-28 00:33:43 +0100 (Mon, 28 Nov 2011) | 1 line
+
+Create defined SOAP proxy object.
+------------------------------------------------------------------------
+r7100 | andlov | 2011-11-28 00:32:21 +0100 (Mon, 28 Nov 2011) | 1 line
+
+Can't clean generated SOAP files on distclean because they are contained in an make target.
+------------------------------------------------------------------------
+r7099 | andlov | 2011-11-25 09:27:40 +0100 (Fri, 25 Nov 2011) | 1 line
+
+Adding support for building libwhoson using libtool.
+------------------------------------------------------------------------
+r7098 | andlov | 2011-11-25 09:26:54 +0100 (Fri, 25 Nov 2011) | 1 line
+
+Adding configure option --enable-static-clients for doing full static linking of programs (src/whoson*).
+------------------------------------------------------------------------
+r7097 | andlov | 2011-11-25 09:24:00 +0100 (Fri, 25 Nov 2011) | 1 line
+
+Adding some documentation about compiling the library with -fPIC or installing gSOAP using libtool as shared library.
+------------------------------------------------------------------------
+r7096 | andlov | 2011-11-25 09:21:31 +0100 (Fri, 25 Nov 2011) | 1 line
+
+Moved source for the client application to its own sub directory (whoson). The daemon is inside whosond.
+------------------------------------------------------------------------
+r7095 | andlov | 2011-11-25 09:18:34 +0100 (Fri, 25 Nov 2011) | 1 line
+
+Creating common library that wraps the logon accounting SOAP service. This library is using the gSOAP library for generating the C++ proxy classes handling the SOAP over HTTP bindings.
+------------------------------------------------------------------------
+r7094 | andlov | 2011-11-23 05:44:24 +0100 (Wed, 23 Nov 2011) | 1 line
+
+Initial import of the sources code for whoson's Linux client.
+------------------------------------------------------------------------
