@@ -1,3 +1,8 @@
+Version 1.2.0 (2012-05-14)
+
+    * Added --first, --last and --limit options. The UNIX/Linux client
+      is now command line option compatible with the Windows client.
+      
 Version 1.1.2 (2012-03-29)
 
     * Added --this option functioning as alias for this host.

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT([whoson], [1.1.2], [anders.lovgren@bmc.uu.se])
+AC_INIT([whoson], [1.2.0], [anders.lovgren@bmc.uu.se])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
