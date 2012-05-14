@@ -85,6 +85,9 @@ void Options::Usage()
 		<< "     --hw=addr:      Filter on MAC address.\n"
 		<< "     --user=name:    Filter on username.\n"
 		<< "     --domain=name:  Filter on domain name.\n"
+		<< "     --first=num:    Filter on event ID.\n"
+		<< "     --last=num:     Filter on event ID.\n"
+		<< "  -L,--limit=num:    Limit number of rows returned.\n"
 		<< "Matching:\n"
 		<< "  -a,--active:       Match active logons.\n"
 		<< "  -c,--closed:       Match closed logons.\n"
@@ -102,7 +105,7 @@ void Options::Usage()
 		<< "  -s,--endpoint=url: The SOAP service endpoint.\n"
 		<< "\n"
 		<< "Notes:\n"
-		<< "1. The --between, --before and --after can only be used with the --start, --end (and --id) filter.\n"
+		<< "1. The --between, --before and --after is limited to datetime (--start/--end) and ID (--first/--last) filtering.\n"
 		<< "2. The --active and --closed option can only be used with exact matching filter options, like --host=xxx.\n"
 		<< "\n"
 		<< "Copyright (C) 2011-2012 Anders Lövgren (QNET/Compdept BMC)\n";
@@ -135,6 +138,9 @@ void Options::Show() const
 		<< "    MAC-address: " << filter.HwAddress << "\n"
 		<< "       Username: " << filter.Username << "\n"
 		<< "         Domain: " << filter.Domain << "\n"
+		<< "          First: " << filter.FirstID << "\n"
+		<< "           Last: " << filter.LastID << "\n"
+		<< "          Limit: " << filter.Limit << "\n"
 		<< "  SOAP:\n"
 		<< "  --------------------------------------\n"
 		<< "       Endpoint: " << GetEndpoint() << "\n"
@@ -176,6 +182,9 @@ void Options::Parse(int argc, char **argv)
 		{ "user",     1, 0, OpUser },
 		{ "username", 1, 0, OpUser },    // alias
 		{ "domain",   1, 0, OpDomain },
+		{ "first",    1, 0, OpFirst },
+		{ "last",     1, 0, OpLast },
+		{ "limit",    1, 0, OpLimit },
 		// Match:
 		{ "active",   0, 0, OpActive },
 		{ "closed",   0, 0, OpClosed },
@@ -197,7 +206,7 @@ void Options::Parse(int argc, char **argv)
 	
 	opterr = 0;
 	
-	while((c = getopt_long(argc, argv, "acCdeFhHilos:StTvVX", longopts, &index)) != -1) {
+	while((c = getopt_long(argc, argv, "acCdeFhHilL:os:StTvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -262,6 +271,15 @@ void Options::Parse(int argc, char **argv)
 			break;
 		case OpDomain:
 			filter.Domain = optarg;
+			break;
+		case OpFirst:
+			filter.FirstID = atoi(optarg);
+			break;
+		case OpLast:
+			filter.LastID = atoi(optarg);
+			break;
+		case OpLimit:
+			filter.Limit = atoi(optarg);
 			break;
 			
 			// 

@@ -87,7 +87,7 @@ int LogonAccountingServiceSoap12Proxy::CreateLogonEvent(_WhosOn__CreateLogonEven
 	struct __ns2__CreateLogonEvent soap_tmp___ns2__CreateLogonEvent;
 	const char *soap_action = NULL;
 	if (!soap_endpoint)
-		soap_endpoint = "http://localhost/websvc/whoson2/LogonAccountingService.asmx";
+		soap_endpoint = "http://localhost/websvc/whoson/LogonAccountingService.asmx";
 	soap_action = "http://it.bmc.uu.se/whoson/CreateLogonEvent";
 	soap->encodingStyle = NULL;
 	soap_tmp___ns2__CreateLogonEvent.WhosOn__CreateLogonEvent = WhosOn__CreateLogonEvent;
@@ -139,7 +139,7 @@ int LogonAccountingServiceSoap12Proxy::CloseLogonEvent(_WhosOn__CloseLogonEvent 
 	struct __ns2__CloseLogonEvent soap_tmp___ns2__CloseLogonEvent;
 	const char *soap_action = NULL;
 	if (!soap_endpoint)
-		soap_endpoint = "http://localhost/websvc/whoson2/LogonAccountingService.asmx";
+		soap_endpoint = "http://localhost/websvc/whoson/LogonAccountingService.asmx";
 	soap_action = "http://it.bmc.uu.se/whoson/CloseLogonEvent";
 	soap->encodingStyle = NULL;
 	soap_tmp___ns2__CloseLogonEvent.WhosOn__CloseLogonEvent = WhosOn__CloseLogonEvent;
@@ -191,7 +191,7 @@ int LogonAccountingServiceSoap12Proxy::DeleteLogonEvent(_WhosOn__DeleteLogonEven
 	struct __ns2__DeleteLogonEvent soap_tmp___ns2__DeleteLogonEvent;
 	const char *soap_action = NULL;
 	if (!soap_endpoint)
-		soap_endpoint = "http://localhost/websvc/whoson2/LogonAccountingService.asmx";
+		soap_endpoint = "http://localhost/websvc/whoson/LogonAccountingService.asmx";
 	soap_action = "http://it.bmc.uu.se/whoson/DeleteLogonEvent";
 	soap->encodingStyle = NULL;
 	soap_tmp___ns2__DeleteLogonEvent.WhosOn__DeleteLogonEvent = WhosOn__DeleteLogonEvent;
@@ -243,7 +243,7 @@ int LogonAccountingServiceSoap12Proxy::FindLogonEvent(_WhosOn__FindLogonEvent *W
 	struct __ns2__FindLogonEvent soap_tmp___ns2__FindLogonEvent;
 	const char *soap_action = NULL;
 	if (!soap_endpoint)
-		soap_endpoint = "http://localhost/websvc/whoson2/LogonAccountingService.asmx";
+		soap_endpoint = "http://localhost/websvc/whoson/LogonAccountingService.asmx";
 	soap_action = "http://it.bmc.uu.se/whoson/FindLogonEvent";
 	soap->encodingStyle = NULL;
 	soap_tmp___ns2__FindLogonEvent.WhosOn__FindLogonEvent = WhosOn__FindLogonEvent;
@@ -295,7 +295,7 @@ int LogonAccountingServiceSoap12Proxy::FindLogonEvents(_WhosOn__FindLogonEvents 
 	struct __ns2__FindLogonEvents soap_tmp___ns2__FindLogonEvents;
 	const char *soap_action = NULL;
 	if (!soap_endpoint)
-		soap_endpoint = "http://localhost/websvc/whoson2/LogonAccountingService.asmx";
+		soap_endpoint = "http://localhost/websvc/whoson/LogonAccountingService.asmx";
 	soap_action = "http://it.bmc.uu.se/whoson/FindLogonEvents";
 	soap->encodingStyle = NULL;
 	soap_tmp___ns2__FindLogonEvents.WhosOn__FindLogonEvents = WhosOn__FindLogonEvents;

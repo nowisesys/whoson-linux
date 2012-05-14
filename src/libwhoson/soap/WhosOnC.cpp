@@ -12,7 +12,7 @@
 
 #include "WhosOnH.h"
 
-SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2011-12-19 15:22:02 GMT")
+SOAP_SOURCE_STAMP("@(#) WhosOnC.cpp ver 2.7.17 2012-05-14 15:25:09 GMT")
 
 
 #ifndef WITH_NOGLOBAL
@@ -2686,6 +2686,9 @@ void WhosOn__LogonEvent::soap_default(struct soap *soap)
 	soap_default_std__string(soap, &this->WhosOn__LogonEvent::Workstation);
 	soap_default_time(soap, &this->WhosOn__LogonEvent::StartTime);
 	soap_default_time(soap, &this->WhosOn__LogonEvent::EndTime);
+	soap_default_int(soap, &this->WhosOn__LogonEvent::FirstID);
+	soap_default_int(soap, &this->WhosOn__LogonEvent::LastID);
+	soap_default_int(soap, &this->WhosOn__LogonEvent::Limit);
 	/* transient soap skipped */
 }
 
@@ -2728,6 +2731,12 @@ SOAP_FMAC3 int SOAP_FMAC4 soap_out_WhosOn__LogonEvent(struct soap *soap, const c
 		return soap->error;
 	if (soap_out_time(soap, "WhosOn:EndTime", -1, &(a->WhosOn__LogonEvent::EndTime), ""))
 		return soap->error;
+	if (soap_out_int(soap, "WhosOn:FirstID", -1, &(a->WhosOn__LogonEvent::FirstID), ""))
+		return soap->error;
+	if (soap_out_int(soap, "WhosOn:LastID", -1, &(a->WhosOn__LogonEvent::LastID), ""))
+		return soap->error;
+	if (soap_out_int(soap, "WhosOn:Limit", -1, &(a->WhosOn__LogonEvent::Limit), ""))
+		return soap->error;
 	/* transient soap skipped */
 	return soap_element_end_out(soap, tag);
 }
@@ -2761,6 +2770,9 @@ SOAP_FMAC3 WhosOn__LogonEvent * SOAP_FMAC4 soap_in_WhosOn__LogonEvent(struct soa
 	size_t soap_flag_Workstation1 = 1;
 	size_t soap_flag_StartTime1 = 1;
 	size_t soap_flag_EndTime1 = 1;
+	size_t soap_flag_FirstID1 = 1;
+	size_t soap_flag_LastID1 = 1;
+	size_t soap_flag_Limit1 = 1;
 	if (soap->body && !*soap->href)
 	{
 		for (;;)
@@ -2810,6 +2822,21 @@ SOAP_FMAC3 WhosOn__LogonEvent * SOAP_FMAC4 soap_in_WhosOn__LogonEvent(struct soa
 				{	soap_flag_EndTime1--;
 					continue;
 				}
+			if (soap_flag_FirstID1 && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_int(soap, "WhosOn:FirstID", &(a->WhosOn__LogonEvent::FirstID), "xsd:int"))
+				{	soap_flag_FirstID1--;
+					continue;
+				}
+			if (soap_flag_LastID1 && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_int(soap, "WhosOn:LastID", &(a->WhosOn__LogonEvent::LastID), "xsd:int"))
+				{	soap_flag_LastID1--;
+					continue;
+				}
+			if (soap_flag_Limit1 && soap->error == SOAP_TAG_MISMATCH)
+				if (soap_in_int(soap, "WhosOn:Limit", &(a->WhosOn__LogonEvent::Limit), "xsd:int"))
+				{	soap_flag_Limit1--;
+					continue;
+				}
 			/* transient soap skipped */
 			if (soap->error == SOAP_TAG_MISMATCH)
 				soap->error = soap_ignore_element(soap);
@@ -2826,7 +2853,7 @@ SOAP_FMAC3 WhosOn__LogonEvent * SOAP_FMAC4 soap_in_WhosOn__LogonEvent(struct soa
 		if (soap->body && soap_element_end_in(soap, tag))
 			return NULL;
 	}
-	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_EventID1 > 0 || soap_flag_StartTime1 > 0 || soap_flag_EndTime1 > 0))
+	if ((soap->mode & SOAP_XML_STRICT) && (soap_flag_EventID1 > 0 || soap_flag_StartTime1 > 0 || soap_flag_EndTime1 > 0 || soap_flag_FirstID1 > 0 || soap_flag_LastID1 > 0 || soap_flag_Limit1 > 0))
 	{	soap->error = SOAP_OCCURS;
 		return NULL;
 	}

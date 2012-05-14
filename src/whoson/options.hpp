@@ -51,6 +51,7 @@ public:
 		
 		OpId = 128,      OpStart = 129,   OpEnd = 130,      OpComp = 131,   OpHost = 132, 
 		OpIp = 133,      OpHw = 134,      OpUser = 135,     OpDomain = 136,
+		OpFirst = 140,   OpLast = 141,    OpLimit = 'L',
 		
 		OpActive = 'a',  OpClosed = 'c',  OpBetween = 137,  OpBefore = 138, OpAfter = 139, OpExact = 'e',
 	        OpThis = 't',

@@ -61,6 +61,9 @@ public:
 	std::string Workstation;	/* optional element of type xsd:string */
 	time_t StartTime;	/* required element of type xsd:dateTime */
 	time_t EndTime;	/* required element of type xsd:dateTime */
+	int FirstID;	/* required element of type xsd:int */
+	int LastID;	/* required element of type xsd:int */
+	int Limit;	/* required element of type xsd:int */
 	struct soap *soap;	/* transient */
 public:
 	virtual int soap_type() const { return 8; } /* = unique id SOAP_TYPE_WhosOn__LogonEvent */
