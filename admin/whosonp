@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# Wrapper script intended to be runned from login/logout hooks on 
+# Mac OS X. This script should be called from symlink, not by the
+# scripts real name:
+#
+#   bash$> ln -s whosonp whoson.login
+#   bash$> ln -s whosonp whoson.logout
+#
+# Create login hooks like this
+# 
+#   defaults write com.apple.loginwindow LoginHook /usr/local/bin/whoson.login
+#   defaults write com.apple.loginwindow LogoutHook /usr/local/bin/whoson.logout
+#
+# The single argument for this script ($1) is the username. Please notice
+# that this script is always runned as root.
+# 
+# Author: Anders Lövgren
+# Date:   2012-03-26
+
+# The target script:
+script="/usr/local/bin/whosonrc"
+
+function usage()
+{
+   echo "This script should be called from an loginwindow hook in Mac OS X."
+   echo "usage: $0 <user>"
+}
+
+function register()
+{
+  mode=$1
+  user=$2
+  
+  if [ "$mode" == "login" ]; then
+    sudo -u $user $script -i
+  fi
+  if [ "$mode" == "logout" ]; then
+    sudo -u $user $script -o
+    # A hack if the the logon session has already been closed:
+    sudo -u $user $script -l -a --host=$(hostname -f) -F
+  fi
+}
+
+# Check if help is requested:
+if [ "$1" == "-h" -o "$1" == "--help" -o "$#" == "0" ]; then
+  usage
+  exit 1
+fi
+
+# Derive mode from symbolic link:
+mode="$(basename $0)"
+mode="${mode##*.}"
+
+case "$mode" in
+  login)
+    register login $1
+    ;;
+  logout)
+    register logout $1
+    ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac

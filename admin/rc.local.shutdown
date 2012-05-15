@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Commands to run at system shutdown and reboot.
+#
+# Author: Anders Lövgren
+# Date:   2012-03-28
+
+exec /usr/local/bin/whoson.logout
