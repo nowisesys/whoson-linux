@@ -1,13 +1,17 @@
-Version 1.2.0 (2012-05-14)
+Verison 1.2.1 (2012-05-15):
+
+    * Updates to documenation (maintenance release).
+    
+Version 1.2.0 (2012-05-14):
 
     * Added --first, --last and --limit options. The UNIX/Linux client
       is now command line option compatible with the Windows client.
       
-Version 1.1.2 (2012-03-29)
+Version 1.1.2 (2012-03-29):
 
     * Added --this option functioning as alias for this host.
     
-Version 1.1.0 (2012-03-28)
+Version 1.1.0 (2012-03-28):
 
     * Added -F (--close) option for closing all logon events matching
       the filter preferences.
@@ -22,7 +26,7 @@ Version 1.1.0 (2012-03-28)
       
     * Ported code to Mac OS X.
 
-Version 1.0.0 (2011-11-23)
+Version 1.0.0 (2011-11-23):
 
-    * Initial release
+    * Initial release.
     
