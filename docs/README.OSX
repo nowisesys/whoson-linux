@@ -8,10 +8,19 @@
    on Mac OS X (Lion). The examples fails to build due to -rpath being added to
    the linker flags. 
 
+   Binary releases of whoson for Mac OS X can be downloaded from:
+   http://it.bmc.uu.se/andlov/proj/whoson/linux/download.php
+   
 ** REQUIREMENTS:
 
-   Download gSOAP from http://http://gsoap2.sourceforge.net/
-   Installing to /usr/local (default) should be OK.
+   The GNU toolchain in Mac OS X is ofter out of date. You might have to update 
+   its components (libtool, automake, ...) before building the source code. 
+   
+   See http://it.bmc.uu.se/andlov/proj/whoson/linux/macosx.php for instructions
+   on updating the GNU toolchain.
+
+   Continue by installing gSOAP to /usr/local (default). The source code can 
+   be downloaded from Download from http://gsoap2.sourceforge.net/
 
 ** INSTALL:
 
@@ -20,5 +29,52 @@
      bash> ./configure --disable-examples
      bash> make
      bash> sudo make install
+
+** SETUP:
+
+   This section describes the steps to integrate whoson with the system to
+   enable automatic registration of logon/logoff events. The whoson program
+   can be used without these additional steps.
+
+   o) Files:
+   
+      Copy utility scripts to /usr/local/bin and configuration files to /etc:
+
+        bash# cd admin
+        bash# cp whosonrc whosonp /usr/local/bin
+        bash# cp rc.local.shutdown whoson.conf /etc
+
+   o) Logon/Logoff events:
+   
+      The whosonp script is a script intended to be runned from hooks into
+      the loginwindow module. It detects whether to register logon or logoff
+      events based on how its was invoked (thru the symbolic link name).
+
+      Create symbolic links to whosonp in /usr/local/bin:
+
+        bash# cd /usr/local/bin
+        bash# ln -s whosonp whoson.login
+	bash# ln -s whosonp whoson.logout
+	
+      Register whoson.login and whoson.logout as script hooks into the logonwindow 
+      domain (module). Notice that write might overwrite any previous content. Make
+      sure to use the fully qualified module name, or the hooks won't work:
+
+        bash# defaults write com.apple.loginwindow LoginHook \
+              /usr/local/bin/whoson.login
+        bash# defaults write com.apple.loginwindow LogoutHook \
+              /usr/local/bin/whoson.logout
+
+      Review the hooks:
+
+        bash# defaults read com.apple.loginwindow
+
+   o) Shutdown/Reboot
+   
+      Closing all active logon sessions are handled by the rc.local.shutdown 
+      script. Just copy it to /etc.
+
+   See http://it.bmc.uu.se/andlov/proj/whoson/linux/setup.php for latest setup 
+   information.
 
 // Anders Lovgren, 2011-11-30
