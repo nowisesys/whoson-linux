@@ -45,9 +45,7 @@
 #if defined(__APPLE__)
 # include <net/if_dl.h>
 #endif
-#ifdef HAVE_CSTDLIB
-# include <cstdlib>
-#elif  HAVE_STDLIB_H
+#ifdef HAVE_STDLIB_H
 # include <stdlib.h>
 #endif
 #ifdef HAVE_UNISTD_H
