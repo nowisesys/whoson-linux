@@ -18,8 +18,8 @@
 # Author: Anders Lövgren
 # Date:   2012-03-26
 
-# The target script:
-script="/usr/local/bin/whosonrc"
+# The wrapper script or executable:
+script="$(which whoson)"
 
 function usage()
 {

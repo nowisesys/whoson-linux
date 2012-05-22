@@ -41,7 +41,7 @@
       Copy utility scripts to /usr/local/bin and configuration files to /etc:
 
         bash# cd admin
-        bash# cp whosonrc whosonp /usr/local/bin
+        bash# cp whosonp /usr/local/bin
         bash# cp rc.local.shutdown whoson.conf /etc
 
    o) Logon/Logoff events:
