@@ -186,8 +186,9 @@ if test "x${with_krb5}" = "xyes"; then
   # fi
 fi
 
-# Checks for header files.
+# Checks for header files (C/C++).
 AC_CHECK_HEADERS([arpa/inet.h inttypes.h netinet/in.h stdint.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])
+AC_CHECK_HEADERS([climits csignal cstdlib cstring ctime])
 if test "x${with_krb5}" = "xyes"; then
   AC_CHECK_HEADERS([krb5.h com_err.h])
 fi
