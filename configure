@@ -754,6 +754,7 @@ enable_fast_install
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
+with_gnu_ld
 enable_static_all
 enable_examples
 with_krb5
@@ -771,8 +772,13 @@ CPPFLAGS
 CCC
 CC
 CFLAGS
+LDFLAGS
+LIBS
+CPPFLAGS
 CPP
+CPPFLAGS
 CXXCPP
+CPPFLAGS
 PKG_CONFIG
 PKG_CONFIG_PATH
 PKG_CONFIG_LIBDIR

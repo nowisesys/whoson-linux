@@ -54,7 +54,15 @@ public:
 	void Parse(int argc, char **argv)
 	{
 		try {
+			opts->Parse("/etc/whoson.conf");
+			opts->Parse("~/.whoson.conf");
 			opts->Parse(argc, argv);
+			if(opts->HasConfig()) {
+				opts->Parse(opts->GetConfig());
+			}
+			if(opts->Debug) {
+				opts->Write(std::cout);
+			}
 		} catch(Options::ArgumentException exception) {
 			std::cerr << exception.msg << std::endl;
 			exit(1);

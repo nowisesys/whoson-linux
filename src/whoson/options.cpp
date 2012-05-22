@@ -32,11 +32,19 @@
 #elif defined(HAVE_STDLIB_H)
 # include <stdlib.h>
 #endif
+#if defined(HAVE_CSTRING)
+# include <cstring>
+#elif defined(HAVE_STRING_H)
+# include <string.h>
+#elif defined(HAVE_STRINGS_H)
+# include <strings.h>
+#endif
 #include <getopt.h>
 
 #include "options.hpp"
 #include "datetime.hpp"
 #include "network.hpp"
+#include "config.hpp"
 
 Options::ArgumentException::ArgumentException(const char *opt)
 {
@@ -45,14 +53,14 @@ Options::ArgumentException::ArgumentException(const char *opt)
 	msg += "'";
 }
 
-Options::Options() : proxy(0)
+Options::Options() : proxy(0), config(0), Verbose(0), Debug(false)
 {
 	reason = Unknown;
 	format = Compact;
 	match  = WhosOn::MatchExact;
 }
 
-Options::Options(SoapServiceProxy *proxy) : proxy(proxy)
+Options::Options(SoapServiceProxy *proxy) : proxy(proxy), config(0), Verbose(0), Debug(false)
 {
 	reason = Unknown;
 	format = Compact;
@@ -75,6 +83,7 @@ void Options::Usage()
 		<< "  -v,--verbose:      Be more verbose.\n"
 		<< "  -d,--debug:        Enable debug mode.\n"
 		<< "  -S,--session:      Use session mode (login on start/logout on exit).\n"
+		<< "  -f,--config:       Read configuration file.\n"
 		<< "Filters:\n"
 		<< "     --id=num:       Filter on event ID.\n"
 		<< "     --start=date:   Filter on start date.\n"
@@ -116,13 +125,13 @@ void Options::Version()
 	std::cout << PACKAGE_STRING << std::endl;
 }
 
-void Options::Show() const
+void Options::Write(std::ostream &out) const
 {
 	const char *mReason[] = { "Logout", "Login", "List", "Close", "Session", "Unknown" };
 	const char *mFormat[] = { "Compact", "Human", "Tabbed", "XML" };
 	const char *mMatch[]  = { "Before", "Between", "After", "Exact", "Active", "Closed" };
 	
-	std::cout 
+	out 
 		<< "Options: " << "\n"
 		<< "  Reason: " << mReason[reason] << "\n"
 		<< "  Format: " << mFormat[format] << "\n"
@@ -141,10 +150,20 @@ void Options::Show() const
 		<< "          First: " << filter.FirstID << "\n"
 		<< "           Last: " << filter.LastID << "\n"
 		<< "          Limit: " << filter.Limit << "\n"
+		<< "  Generic: " << "\n"
+		<< "  --------------------------------------\n"
+		<< "       Debug: " << Debug << "\n"
+		<< "     Verbose: " << Verbose << "\n"
+		<< "      Config: " << config << "\n"
 		<< "  SOAP:\n"
 		<< "  --------------------------------------\n"
 		<< "       Endpoint: " << GetEndpoint() << "\n"
 		<< std::endl;
+}
+
+void Options::Show() const
+{
+	Write(std::cout);
 }
 
 const char * Options::GetEndpoint() const
@@ -161,6 +180,7 @@ void Options::Parse(int argc, char **argv)
 		{ "version",  0, 0, OpVersion },
 		{ "verbose",  0, 0, OpVerbose },
 		{ "debug",    0, 0, OpDebug },
+		{ "config",   1, 0, OpConfig },
 		// Reason:
 		{ "logon",    0, 0, OpLogon },
 		{ "logout",   0, 0, OpLogout },
@@ -206,7 +226,7 @@ void Options::Parse(int argc, char **argv)
 	
 	opterr = 0;
 	
-	while((c = getopt_long(argc, argv, "acCdeFhHilL:os:StTvVX", longopts, &index)) != -1) {
+	while((c = getopt_long(argc, argv, "acCdef:FhHilL:os:StTvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -221,6 +241,9 @@ void Options::Parse(int argc, char **argv)
 			break;
 		case OpDebug:
 			Debug = true;
+			break;
+		case OpConfig:
+			config = optarg;
 			break;
 			
 			// 
@@ -341,12 +364,56 @@ void Options::Parse(int argc, char **argv)
 		}
 	}
 	
-	if(Debug) {
-		Show();
-	}
-	
 	if(reason == Unknown) {
 		std::string msg = "Missing -o or -i option, see --help";
 		throw ArgumentException(msg);
 	}
+}
+
+void Options::Parse(const char *file)
+{
+	char *buff = 0;
+	char *home = getenv("HOME");
+	
+	if(!file) {
+		throw ArgumentException("Config file argument is null.");
+	}
+	if(*file == '~') {
+		if(!home) {
+			throw ArgumentException("HOME is unset in the environment.");
+		}
+		buff = new char[strlen(home) + strlen(file) + 1];
+		strcpy(buff, home);
+		strcat(buff, "/");
+		strcat(buff, &file[2]);      // cut leading '~/'
+		file = buff;
+	}
+	
+	Config conf(file);
+	for(const Config::Entry *ent = conf.First(); ent; ent = conf.Next()) {
+		if(ent->key.compare("WHOSON_SOAP_ENDPOINT") == 0) {
+			if(proxy) {
+				proxy->soap_endpoint = strdup(ent->val.c_str());
+			}
+		}
+		if(ent->key.compare("WHOSON_DEBUG") == 0) {
+			if(!Debug) {
+				Debug = atoi(ent->val.c_str()) > 0;
+			}
+		}
+		if(ent->key.compare("WHOSON_VERBOSE") == 0) {
+			if(!Verbose) {
+				Verbose = atoi(ent->val.c_str());
+			}
+		}
+	}
+	
+	if(buff) {
+		delete[] buff;
+	}
+}
+
+void Options::Parse(std::string file)
+{
+	Parse(file.c_str());
 }
