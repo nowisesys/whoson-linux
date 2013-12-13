@@ -1,3 +1,7 @@
+Version 1.2.3 (2013-12-13):
+
+    * Fixed compilation errors using GCC >= 4.7.x
+    
 Version 1.2.2 (2012-05-22):
 
     * Added support for global, personal and optional (-f option)
