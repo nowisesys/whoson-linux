@@ -48,6 +48,14 @@ namespace WhosOn {
 		SoapServiceException(SoapServiceProxy *proxy) : proxy(proxy) {}
 		void Write(std::ostream &stream) const { proxy->soap_stream_fault(stream); }
 	};
+        
+        struct SoapServiceCredentials
+        {
+                std::string userid;
+                std::string passwd;
+                SoapServiceCredentials(const char *userid, const char *passwd) 
+                : userid(userid ? userid : ""), passwd(passwd ? passwd : "") {}
+        };
 	
 	enum LogonEventMatch
 	{
@@ -79,6 +87,7 @@ namespace WhosOn {
 		SoapServiceProxy * GetProxy() const { return proxy; }
 		
 	private:
+                SoapServiceCredentials creds;   // Must cache credentials between SOAP calls
 		SoapServiceProxy *proxy;
 	};
 	

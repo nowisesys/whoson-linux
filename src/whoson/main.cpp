@@ -49,6 +49,12 @@ public:
 		if(getenv("WHOSON_SOAP_ENDPOINT")) {
 			proxy.soap_endpoint = getenv("WHOSON_SOAP_ENDPOINT");
 		}
+		if(getenv("WHOSON_SOAP_USER")) {
+			proxy.userid = getenv("WHOSON_SOAP_USER");
+		}
+		if(getenv("WHOSON_SOAP_PASS")) {
+			proxy.passwd = getenv("WHOSON_SOAP_PASS");
+		}
 	}
 	
 	void Parse(int argc, char **argv)

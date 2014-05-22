@@ -112,12 +112,14 @@ void Options::Usage()
 		<< "  -X,--XML:          Output formatted as XML.\n"
 		<< "SOAP:\n"
 		<< "  -s,--endpoint=url: The SOAP service endpoint.\n"
+		<< "  -U,--userid=str:    The SOAP service username (if required).\n"
+		<< "  -P,--passwd=str:    The SOAP service password (if required).\n"
 		<< "\n"
 		<< "Notes:\n"
 		<< "1. The --between, --before and --after is limited to datetime (--start/--end) and ID (--first/--last) filtering.\n"
 		<< "2. The --active and --closed option can only be used with exact matching filter options, like --host=xxx.\n"
 		<< "\n"
-		<< "Copyright (C) 2011-2012 Anders Lövgren (QNET/Compdept BMC)\n";
+		<< "Copyright (C) 2011-2012, 2014 Anders Lövgren (QNET/Compdept BMC)\n";
 }
 
 void Options::Version()
@@ -154,10 +156,12 @@ void Options::Write(std::ostream &out) const
 		<< "  --------------------------------------\n"
 		<< "       Debug: " << Debug << "\n"
 		<< "     Verbose: " << Verbose << "\n"
-		<< "      Config: " << config << "\n"
+		<< "      Config: " << (config ? config : "") << "\n"
 		<< "  SOAP:\n"
 		<< "  --------------------------------------\n"
 		<< "       Endpoint: " << GetEndpoint() << "\n"
+                << "       Username: " << GetSoapUser() << "\n"
+                << "       Password: " << GetSoapPass() << "\n"
 		<< std::endl;
 }
 
@@ -169,6 +173,16 @@ void Options::Show() const
 const char * Options::GetEndpoint() const
 {
 	return (proxy && proxy->soap_endpoint) ? proxy->soap_endpoint : "";
+}
+
+const char * Options::GetSoapUser() const
+{
+	return (proxy && proxy->userid) ? proxy->userid : "";
+}
+
+const char * Options::GetSoapPass() const
+{
+	return (proxy && proxy->passwd) ? proxy->passwd : "";
 }
 
 void Options::Parse(int argc, char **argv)
@@ -221,12 +235,14 @@ void Options::Parse(int argc, char **argv)
 		{ "xml",      0, 0, OpXml },     // alias
 		// SOAP:
 		{ "endpoint", 1, 0, OpEndpoint },
+                { "userid",   1, 0, OpSoapUser },
+                { "passwd",   1, 0, OpSoapPass }, 
 		{ 0, 0, 0, 0 }
 	};
 	
 	opterr = 0;
 	
-	while((c = getopt_long(argc, argv, "acCdef:FhHilL:os:StTvVX", longopts, &index)) != -1) {
+	while((c = getopt_long(argc, argv, "acCdef:FhHilL:os:U:P:StTvVX", longopts, &index)) != -1) {
 		switch(c) {
 		case OpHelp:
 			Usage();
@@ -358,6 +374,16 @@ void Options::Parse(int argc, char **argv)
 				proxy->soap_endpoint = optarg;
 			}
 			break;
+                case OpSoapUser:
+			if(proxy) {
+				proxy->userid = optarg;
+			}
+			break;
+                case OpSoapPass:
+			if(proxy) {
+				proxy->passwd = optarg;
+			}
+			break;
 
 		default:
 			throw ArgumentException(argv[--optind]);
@@ -394,6 +420,16 @@ void Options::Parse(const char *file)
 		if(ent->key.compare("WHOSON_SOAP_ENDPOINT") == 0) {
 			if(proxy) {
 				proxy->soap_endpoint = strdup(ent->val.c_str());
+			}
+		}
+		if(ent->key.compare("WHOSON_SOAP_USER") == 0) {
+			if(proxy) {
+				proxy->userid = strdup(ent->val.c_str());
+			}
+		}
+		if(ent->key.compare("WHOSON_SOAP_PASS") == 0) {
+			if(proxy) {
+				proxy->passwd = strdup(ent->val.c_str());
 			}
 		}
 		if(ent->key.compare("WHOSON_DEBUG") == 0) {

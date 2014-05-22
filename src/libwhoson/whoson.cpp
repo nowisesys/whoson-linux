@@ -31,7 +31,7 @@
 namespace WhosOn {
 
 	LogonEventAdapter::LogonEventAdapter(SoapServiceProxy *proxy)
-		: proxy(proxy)
+		: proxy(proxy), creds(proxy->userid, proxy->passwd)
 	{
 	}
 		
@@ -62,7 +62,10 @@ namespace WhosOn {
 		args.domain = domain;
 		args.hwaddr = hwaddr;
 		args.computer = workstation;
-		
+                
+                proxy->userid = creds.userid.c_str();
+                proxy->passwd = creds.passwd.c_str();
+                
 		if(proxy->CreateLogonEvent(&args, &resp) != SOAP_OK) {
 			throw SoapServiceException(proxy);
 		} else {
@@ -76,6 +79,10 @@ namespace WhosOn {
 		_WhosOn__CloseLogonEventResponse resp;
 		
 		args.eventID = event;
+                
+                proxy->userid = creds.userid.c_str();
+                proxy->passwd = creds.passwd.c_str();
+                
 		if(proxy->CloseLogonEvent(&args, &resp) != SOAP_OK) {
 			throw SoapServiceException(proxy);
 		}
@@ -87,6 +94,10 @@ namespace WhosOn {
 		_WhosOn__DeleteLogonEventResponse resp;
 		
 		args.eventID = event;
+                
+                proxy->userid = creds.userid.c_str();
+                proxy->passwd = creds.passwd.c_str();
+                
 		if(proxy->DeleteLogonEvent(&args, &resp) != SOAP_OK) {
 			throw SoapServiceException(proxy);
 		}
@@ -99,11 +110,14 @@ namespace WhosOn {
 		
 		args.filter = (WhosOn__LogonEvent *)filter;
 		args.match  = (WhosOn__LogonEventMatch)match;
-		
+
+                proxy->userid = creds.userid.c_str();
+                proxy->passwd = creds.passwd.c_str();
+                
 		if(proxy->FindLogonEvents(&args, &resp) != SOAP_OK) {
 			throw SoapServiceException(proxy);
 		}
-		
+
 		result = resp.FindLogonEventsResult->LogonEvent;
 	}
 	
@@ -116,6 +130,9 @@ namespace WhosOn {
 		args.domain = domain;
 		args.computer = workstation;
 
+                proxy->userid = creds.userid.c_str();
+                proxy->passwd = creds.passwd.c_str();
+                
 		if(proxy->FindLogonEvent(&args, &resp) != SOAP_OK) {
 			throw SoapServiceException(proxy);
 		}

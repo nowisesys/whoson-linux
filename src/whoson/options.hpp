@@ -46,18 +46,20 @@ public:
 	
 	enum Option
 	{
-		OpLogon = 'i',   OpLogout = 'o',  OpList = 'l',     OpClose = 'F',  OpSession = 'S',
-		OpHelp  = 'h',   OpVersion = 'V', OpConfig = 'f',
+		OpLogon = 'i',    OpLogout = 'o',   OpList = 'l',     OpClose = 'F',  OpSession = 'S',
+		OpHelp  = 'h',    OpVersion = 'V',  OpConfig = 'f',
 		
-		OpId = 128,      OpStart = 129,   OpEnd = 130,      OpComp = 131,   OpHost = 132, 
-		OpIp = 133,      OpHw = 134,      OpUser = 135,     OpDomain = 136,
-		OpFirst = 140,   OpLast = 141,    OpLimit = 'L',
+		OpId = 128,       OpStart = 129,    OpEnd = 130,      OpComp = 131,   OpHost = 132, 
+		OpIp = 133,       OpHw = 134,       OpUser = 135,     OpDomain = 136,
+		OpFirst = 140,    OpLast = 141,     OpLimit = 'L',
 		
-		OpActive = 'a',  OpClosed = 'c',  OpBetween = 137,  OpBefore = 138, OpAfter = 139, OpExact = 'e',
+		OpActive = 'a',   OpClosed = 'c',   OpBetween = 137,  OpBefore = 138, OpAfter = 139, OpExact = 'e',
 	        OpThis = 't',
 		
-	        OpHuman = 'H',   OpCompact = 'C', OpTabbed = 'T',   OpXml = 'X',
-		OpVerbose = 'v', OpDebug = 'd',   OpEndpoint = 's'
+	        OpHuman = 'H',    OpCompact = 'C',  OpTabbed = 'T',   OpXml = 'X',
+		OpVerbose = 'v',  OpDebug = 'd',   
+                
+                OpEndpoint = 's', OpSoapUser = 'U', OpSoapPass = 'P'
 	};
 	
 	Options();
@@ -75,7 +77,10 @@ public:
 	const WhosOn::LogonEvent * GetFilter() const { return &filter; }
 	WhosOn::LogonEventMatch GetMatch() const { return match; }
 	
+        const char * GetSoapUser() const;
+        const char * GetSoapPass() const;
 	const char * GetEndpoint() const;
+        
 	const char * GetConfig() const { return config; }
 	bool HasConfig() const { return config != 0; }
 	
