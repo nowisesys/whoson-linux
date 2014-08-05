@@ -52,7 +52,7 @@ void OutputFormatHuman::WriteRecord(const WhosOn::LogonEvent *record) const
 
 void OutputFormatTabbed::WriteHeader() const
 {
-	std::cout << "Event ID:\tUsername:\tDomain:\tMAC:\tIP-address\tHostname:\tWorkstation (NetBIOS):\tStart:\tEnd:\n";
+	std::cout << "Event ID:\tUsername:\tDomain:\tMAC:\tIP-address:\tHostname:\tWorkstation (NetBIOS):\tStart:\tEnd:\n";
 }
 
 void OutputFormatTabbed::WriteFooter(const std::vector<WhosOn::LogonEvent *> *records) const
@@ -75,7 +75,7 @@ void OutputFormatTabbed::WriteRecord(const WhosOn::LogonEvent *record) const
 
 void OutputFormatCompact::WriteHeader() const
 {
-	std::cout << "EventID: Username: Domain: MAC: IP-address Hostname: Workstation: Start: End:\n";
+	std::cout << "EventID: Username: Domain: MAC: IP-address: Hostname: Workstation: Start: End:\n";
 }
 	
 void OutputFormatCompact::WriteFooter(const std::vector<WhosOn::LogonEvent *> *records) const
