@@ -1,0 +1,13 @@
+
+#include "WhosOnH.h"
+SOAP_NMAC struct Namespace namespaces[] =
+{
+	{"SOAP-ENV", "http://www.w3.org/2003/05/soap-envelope", "http://schemas.xmlsoap.org/soap/envelope/", NULL},
+	{"SOAP-ENC", "http://www.w3.org/2003/05/soap-encoding", "http://schemas.xmlsoap.org/soap/encoding/", NULL},
+	{"xsi", "http://www.w3.org/2001/XMLSchema-instance", "http://www.w3.org/*/XMLSchema-instance", NULL},
+	{"xsd", "http://www.w3.org/2001/XMLSchema", "http://www.w3.org/*/XMLSchema", NULL},
+	{"LogonAccountingServiceSoap", "http://it.bmc.uu.se/whoson/LogonAccountingServiceSoap", NULL, NULL},
+	{"WhosOn", "http://it.bmc.uu.se/whoson", NULL, NULL},
+	{"LogonAccountingServiceSoap2", "http://it.bmc.uu.se/whoson/LogonAccountingServiceSoap12", NULL, NULL},
+	{NULL, NULL, NULL, NULL}
+};
