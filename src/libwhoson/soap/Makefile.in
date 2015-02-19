@@ -197,6 +197,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 NAMESPACE = WhosOn
+BINDNAME = LogonAccountingServiceSoap
 all: all-am
 
 .SUFFIXES:
@@ -307,12 +308,8 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-clean: clean-am
-
 clean-am: clean-generic clean-libtool mostlyclean-am
 
-distclean: distclean-am
-	-rm -f Makefile
 distclean-am: clean-am distclean-generic
 
 dvi: dvi-am
@@ -391,8 +388,11 @@ all : soap-bindings
 
 soap-bindings : service.h 
 service.h : service.wsdl
-	wsdl2h -e -o service.h service.wsdl
+	wsdl2h -z3 -N$(BINDNAME) -e -o service.h service.wsdl
 	soapcpp2 -i -x -C -I$(GSOAPHOME) -I$(GSOAPHOME)/import -p$(NAMESPACE) service.h
+
+clean : clean-soap-bindings
+distclean : distclean-soap-bindings
 
 clean-soap-bindings :
 	rm -f *.cpp *.h 
