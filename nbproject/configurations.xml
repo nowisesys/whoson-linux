@@ -5,6 +5,9 @@
       <df name="src">
         <df name="libwhoson">
           <df name="soap">
+            <df name="bundled">
+              <in>README</in>
+            </df>
             <in>WhosOnC.cpp</in>
             <in>WhosOnLogonAccountingServiceSoap12Proxy.cpp</in>
             <in>WhosOnLogonAccountingServiceSoapProxy.cpp</in>
@@ -155,6 +158,8 @@
             <Elem>__GCC_HAVE_DWARF2_CFI_ASM=1</Elem>
           </undefinedList>
         </ccTool>
+      </item>
+      <item path="src/libwhoson/soap/bundled/README" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/libwhoson/whoson.cpp" ex="false" tool="1" flavor2="4">
         <ccTool flags="0">
