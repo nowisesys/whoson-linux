@@ -1,3 +1,10 @@
+Version 1.2.5 (2015-02-20):
+
+    * The SOAP service binding code is now generated "on fly". The code is
+      also distributed in the bundled sub directory.
+
+    * Verified working with GCC 4.8.3 and gSOAP 2.7.17/2.8.19.
+
 Version 1.2.4 (2014-05-22):
 
     * Implemented HTTP basic authentication against the SOAP service.
