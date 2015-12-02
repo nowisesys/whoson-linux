@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.61])
-AC_INIT([whoson], [1.2.5], [anders.lovgren@bmc.uu.se])
+AC_INIT([whoson], [1.2.6], [anders.lovgren@bmc.uu.se])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
@@ -51,13 +51,12 @@ AC_MSG_CHECKING([whether to build examples])
 AC_MSG_RESULT([${build_examples}])
 AM_CONDITIONAL([BUILD_EXAMPLES], [test x${build_examples} = xyes])
 
-with_krb5=yes
 AC_ARG_WITH([krb5],
   [AS_HELP_STRING(
     [--with-krb5],
     [Enable Kerberos v5 (yes)])],
   [with_krb5=$withval],
-  [with_krb5=${with_krb5}])
+  [with_krb5=yes])
 
 AC_ARG_WITH([gsoap],
   [AS_HELP_STRING(
@@ -77,8 +76,14 @@ AC_ARG_WITH([gsoap],
     [Check for gSOAP libraries in PATH])],
   [with_gsoap_lib=$withval])
 
+AC_ARG_WITH([ssl],
+  [AS_HELP_STRING(
+    [--with-ssl],
+    [Enable suppport for SSL])],
+  [with_ssl=$withval],
+  [with_ssl=yes])
+
 # Disable wbclient by default if --enable-static-all:
-with_wbclient=yes
 if test x${static_clients} = xyes; then
   with_wbclient=no
 fi
@@ -93,77 +98,7 @@ AC_ARG_WITH([wbclient],
 # Strips leading/trailing whitespace:
 function whoson_trim() { echo $1; }
 
-
 # Checks for libraries.
-
-## ------------------------------------
-##  gSOAP
-## ------------------------------------
-
-# gsoapssl   - SOAP C Web Services with SSL and ZLIB
-# gsoapssl++ - SOAP C++ Web Services with SSL and ZLIB
-# gsoapck    - SOAP C Web Services with Cookies Enabled
-# gsoap++    - SOAP C++ Web Services
-# gsoapck++  - SOAP C++ Web Services with Cookies Enabled
-# gsoap      - SOAP C Web Services
-
-# Set to yes if libsoap++ is found:
-whoson_have_gsoap_cxx="no"
-
-PKG_CHECK_EXISTS([gsoap++],
-  [PKG_CHECK_MODULES(
-    [gsoap], [gsoap++],
-    [
-      GSOAP_LIBS="$(whoson_trim ${pkg_cv_gsoap_LIBS})"
-      GSOAP_CXXFLAGS="$(whoson_trim ${pkg_cv_gsoap_CFLAGS})"
-      whoson_have_gsoap_cxx="yes"
-    ],
-    [ whoson_have_gsoap_cxx="no" ]
-    )]
-)
-
-#
-# Try to find library and header in --with-gsoap-xxx:
-# 
-if test -n "x${with_gsoap_lib}" ; then
-  if test -e "${with_gsoap_lib}/libgsoap++.a" ; then
-    GSOAP_LIBS="-L${with_gsoap_lib} -lgsoap++"
-    whoson_have_gsoap_cxx="yes"
-  fi
-fi
-if test -n "x${with_gsoap_inc}" ; then
-  if test -e "${with_gsoap_inc}/stdsoap2.h" ; then
-    GSOAP_CXXFLAGS="-I${with_gsoap_inc}"
-  fi
-fi
-
-if test "x${whoson_have_gsoap_cxx}" = "xno" -o "${with_gsoap}" != "" ; then
-  # Using the standard AC_CHECK_LIB() won't work.
-  for d in ${with_gsoap} /usr /usr/local /usr/local/gsoap /opt /opt/gsoap; do
-    if test -e "$d/lib/libgsoap++.a" ; then
-      GSOAP_LIBS="-L$d/lib -lgsoap++"
-      whoson_have_gsoap_cxx="yes"
-    fi
-    if test -e "$d/include/stdsoap2.h" ; then
-      GSOAP_CXXFLAGS="-I$d/include"
-    fi
-  done
-fi
-
-if test "${with_gsoap}" != ""; then
-  AC_SUBST(GSOAPHOME, ${with_gsoap})
-else
-  AC_SUBST(GSOAPHOME, /usr/share/gsoap)
-fi
-
-AC_MSG_CHECKING([how to link gsoap])
-if test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
-  AC_MSG_RESULT([libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS}])
-  AC_DEFINE([HAVE_LIBGSOAP_CXX], [1], [Define to 1 if libgsoap++ was found])
-else 
-  AC_MSG_RESULT([missing])
-  AC_MSG_ERROR([The gSOAP Toolkit was not found. Please download and install it from http://gsoap2.sourceforge.net/])
-fi
 
 ## ------------------------------------
 ##  Samba (winbind)
@@ -184,6 +119,118 @@ if test "x${with_krb5}" = "xyes"; then
   # if test x${ac_cv_func_com_err} = xno ; then
   #   AC_CHECK_LIB([com_err], [com_err])
   # fi
+fi
+
+## ------------------------------------
+##  SSL (OpenSSL)
+## ------------------------------------
+if test "x${with_ssl}" = "xyes"; then
+  AC_CHECK_LIB([ssl], [SSL_library_init])
+fi
+
+## ------------------------------------
+##  gSOAP
+## ------------------------------------
+
+# gsoapssl   - SOAP C Web Services with SSL and ZLIB
+# gsoapssl++ - SOAP C++ Web Services with SSL and ZLIB
+# gsoapck    - SOAP C Web Services with Cookies Enabled
+# gsoap++    - SOAP C++ Web Services
+# gsoapck++  - SOAP C++ Web Services with Cookies Enabled
+# gsoap      - SOAP C Web Services
+
+# Set to yes if libsoap++ was found:
+whoson_have_gsoap_cxx="no"
+
+# Set to yes if GSOAP with SSL was found:
+whoson_have_gsoap_ssl="no"
+
+PKG_CHECK_EXISTS([gsoap++],
+  [PKG_CHECK_MODULES(
+    [gsoap], [gsoap++],
+    [
+      GSOAP_LIBS_STD="$(whoson_trim ${pkg_cv_gsoap_LIBS})"
+      GSOAP_CXXFLAGS_STD="$(whoson_trim ${pkg_cv_gsoap_CFLAGS})"
+      whoson_have_gsoap_cxx="yes"
+    ],
+    [ whoson_have_gsoap_cxx="no" ]
+    )]
+)
+
+PKG_CHECK_EXISTS([gsoapssl++],
+  [PKG_CHECK_MODULES(
+    [gsoapssl], [gsoapssl++],
+    [
+      GSOAP_LIBS_SSL="$(whoson_trim ${pkg_cv_gsoapssl_LIBS})"
+      GSOAP_CXXFLAGS_SSL="$(whoson_trim ${pkg_cv_gsoapssl_CFLAGS})"
+      whoson_have_gsoap_ssl="yes"
+    ],
+    [ whoson_have_gsoap_ssl="no" ]
+    )]
+)
+
+#
+# Try to find library and header in --with-gsoap-xxx:
+# 
+if test -n "x${with_gsoap_lib}" ; then
+  if test -e "${with_gsoap_lib}/libgsoap++.a" ; then
+    GSOAP_LIBS_STD="-L${with_gsoap_lib} -lgsoap++"
+    whoson_have_gsoap_cxx="yes"
+  fi
+  if test -e "${with_gsoap_lib}/libgsoapssl++.a" ; then
+    GSOAP_LIBS_SSL="-L${with_gsoap_lib} -lgsoapssl++"
+    whoson_have_gsoap_ssl="yes"
+  fi
+fi
+if test -n "x${with_gsoap_inc}" ; then
+  if test -e "${with_gsoap_inc}/stdsoap2.h" ; then
+    GSOAP_CXXFLAGS_STD="-I${with_gsoap_inc}"
+    GSOAP_CXXFLAGS_SSL="-I${with_gsoap_inc}"
+  fi
+fi
+
+if test "x${whoson_have_gsoap_cxx}" = "xno" -o "${with_gsoap}" != "" ; then
+  # Using the standard AC_CHECK_LIB() won't work.
+  for d in ${with_gsoap} /usr /usr/local /usr/local/gsoap /opt /opt/gsoap; do
+    if test -e "$d/lib/libgsoap++.a" ; then
+      GSOAP_LIBS_STD="-L$d/lib -lgsoap++"
+      whoson_have_gsoap_cxx="yes"
+    fi
+    if test -e "$d/lib/libgsoapssl++.a" ; then
+      GSOAP_LIBS_SSL="-L$d/lib -lgsoapssl++"
+      whoson_have_gsoap_ssl="yes"
+    fi
+    if test -e "$d/include/stdsoap2.h" ; then
+      GSOAP_CXXFLAGS_STD="-I$d/include"
+      GSOAP_CXXFLAGS_SSL="-I$d/include"
+    fi
+  done
+fi
+
+if test "${with_gsoap}" != ""; then
+  AC_SUBST(GSOAPHOME, ${with_gsoap})
+else
+  AC_SUBST(GSOAPHOME, /usr/share/gsoap)
+fi
+
+if test "x${with_ssl}" != "xyes"; then
+  whoson_have_gsoap_ssl="no"
+fi
+
+AC_MSG_CHECKING([how to link gsoap])
+if test "x${whoson_have_gsoap_ssl}" == "xyes" -a "x${with_ssl}" == "xyes" ; then
+  GSOAP_LIBS=${GSOAP_LIBS_SSL}
+  GSOAP_CXXFLAGS=${GSOAP_CXXFLAGS_SSL}
+  AC_MSG_RESULT([libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS}])
+  AC_DEFINE([HAVE_LIBGSOAP_SSL], [1], [Define to 1 if libgsoapssl++ was found])
+elif test "x${whoson_have_gsoap_cxx}" == "xyes" ; then
+  GSOAP_LIBS=${GSOAP_LIBS_STD}
+  GSOAP_CXXFLAGS=${GSOAP_CXXFLAGS_STD}
+  AC_MSG_RESULT([libs: ${GSOAP_LIBS}, cxxflags: ${GSOAP_CXXFLAGS}])
+  AC_DEFINE([HAVE_LIBGSOAP_CXX], [1], [Define to 1 if libgsoap++ was found])
+else 
+  AC_MSG_RESULT([missing])
+  AC_MSG_ERROR([The gSOAP Toolkit was not found. Please download and install it from http://gsoap2.sourceforge.net/])
 fi
 
 # Checks for header files (C/C++).

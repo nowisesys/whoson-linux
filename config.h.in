@@ -39,8 +39,14 @@
 /* Define to 1 if libgsoap++ was found */
 #undef HAVE_LIBGSOAP_CXX
 
+/* Define to 1 if libgsoapssl++ was found */
+#undef HAVE_LIBGSOAP_SSL
+
 /* Define to 1 if you have the `krb5' library (-lkrb5). */
 #undef HAVE_LIBKRB5
+
+/* Define to 1 if you have the `ssl' library (-lssl). */
+#undef HAVE_LIBSSL
 
 /* Define to 1 if you have the `wbclient' library (-lwbclient). */
 #undef HAVE_LIBWBCLIENT

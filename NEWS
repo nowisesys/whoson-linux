@@ -1,3 +1,8 @@
+Version 1.2.6 (2015-12-02):
+
+    * Enabled support for SSL in gSOAP. Use --with-ssl=val to enable/disable 
+      at configure time.
+
 Version 1.2.5 (2015-02-20):
 
     * The SOAP service binding code is now generated "on fly". The code is
