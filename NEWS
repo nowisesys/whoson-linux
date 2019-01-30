@@ -1,3 +1,7 @@
+Version 1.2.7 (2019-01-30):
+
+    * Migrated project to GIT (QNET/BMC-IT -> Nowise Systems).
+
 Version 1.2.6 (2015-12-02):
 
     * Enabled support for SSL in gSOAP. Use --with-ssl=val to enable/disable 
