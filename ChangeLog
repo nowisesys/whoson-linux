@@ -1,3 +1,189 @@
+commit 4215136b2fc3ce0012c1648ae664c75fc1892b99
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Wed Jan 30 02:02:27 2019 +0100
+
+    New release version.
+
+commit f2313edabc89720718c746d923cf5e930a1b0903
+Author: Anders Lövgren <35581658+nowisesys@users.noreply.github.com>
+Date:   Wed Jan 30 01:59:57 2019 +0100
+
+    Created markdown readme file.
+
+commit d804a106701e49ac04c3978a33cbd953e972a0b0
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Wed Jan 30 01:52:18 2019 +0100
+
+    Migrated project to Nowise.
+
+commit 28ecd8bd2159a88e40c55a37206339e65f4f5379
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Wed Jan 30 01:51:50 2019 +0100
+
+    Ignore netbeans private project directory.
+
+commit bae240fe8bae64c4a91111c3f5cd481a2b72d8c2
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Mon Jan 28 16:28:33 2019 +0100
+
+    Removed DISCONTINUED file after SVN migration.
+
+commit b7176dad77ed5c9f8e2d8d1bf844bc9055208888
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Mon Jan 28 14:36:05 2019 +0000
+
+    Migrated to GIT (QNET)
+
+commit 6226ed7761d67d1ef5e5bb2ab8aca797a42f968a
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Wed Dec 2 15:42:41 2015 +0000
+
+    Enabled support for SSL in gSOAP. Prepared for new release.
+
+commit f7770a3c749f5da0d6fe2ae9aa05082472b90cf6
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Fri Feb 20 00:12:48 2015 +0000
+
+    Prepared for release 1.2.5
+
+commit 40e4625b504c83aab59b069f159398ae9f1c6865
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Thu Feb 19 23:59:37 2015 +0000
+
+    Upgraded project file to Netbeans 8.0.2.
+
+commit 86e303c4ac26f44f858d9bfa713312f8a0773fc7
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Thu Feb 19 23:58:55 2015 +0000
+
+    Distribute generated source code as a complement to relying on running wsdl2h or soapcpp2.
+
+commit 482478418ede68af13b1fbc6a495b3da588b8fed
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Thu Feb 19 23:54:36 2015 +0000
+
+    Delete src/libwhoson/soap/Makefile for distclean target.
+
+commit f1d32f73a4f550bf89c2fbb3e0c46ef39dc119d4
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Thu Feb 19 23:45:57 2015 +0000
+
+    Generate SOAP service binding code on fly for target service.h.
+
+commit 5f81b7364e237a7e914417f64485eed87e99d7b9
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue Aug 5 14:47:30 2014 +0000
+
+    All header labels should end with ':'.
+
+commit 1b0c2bc7be73f2d10d2c8176afc47f18dd69e757
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Mon Jun 2 09:24:52 2014 +0000
+
+    Added netbeans project to version control.
+
+commit 23300efd8c6a6710babff80c0a271fa01382ce90
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Thu May 22 16:15:26 2014 +0000
+
+    Prepared for next release (1.2.4)
+
+commit 08173c788a6db7b255b2c97b8c6f90e746f78c25
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Fri Dec 13 17:26:59 2013 +0000
+
+    Prepared for release 1.2.3 of whoson-linux.
+
+commit ee5cd266ab475df85d42220d7e8bd6d8f4cd476d
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Fri Dec 13 17:26:22 2013 +0000
+
+    Should been part of commit 8150.
+
+commit ddf80ace454f951545750f2d880060d4cdb7bc73
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Fri Dec 13 17:24:45 2013 +0000
+
+    Updates for autoconf & co.
+
+commit 3aa3fedbb26d0a922b9490827797b093ce960bd1
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Fri Dec 13 17:16:26 2013 +0000
+
+    Fixed compile error using GCC >= 4.7.x
+
+commit 786f790aa7a5af68e60c950b9b670f4037a607ee
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 22 15:44:23 2012 +0000
+
+    Don't include C++ headers in C-source code.
+
+commit 8b55db108d5ab7a31955be9248a79703a745bebe
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 22 15:40:34 2012 +0000
+
+    Check for C++ headers wrapping standard C-headers (i.e. stdlib.h -> cstdlib).
+
+commit 65aad5a4f528e5dca52d5d4e1a9ce97f2891b5c3
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 22 15:33:11 2012 +0000
+
+    Preparing for next release 1.2.2
+
+commit d98ef594ee500d2c964d760522c8b5dda07bbe45
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 22 15:23:05 2012 +0000
+
+    Added support for global, personal and optional (-f option) configuration files thru class Config.
+
+commit ba83b1efe05dc0a48c3afc3dae6d63df0a067594
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 15 13:06:22 2012 +0000
+
+    Prepared for next release (1.2.1)
+
+commit 4a5647eb9e0d84174d87af42c4e9b3cc62f5122f
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 15 13:02:08 2012 +0000
+
+    Documenting the environment variables in the manual page.
+
+commit 4afd000b40959c425fab00202afb844e3649197b
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 15 13:01:14 2012 +0000
+
+    Updated documentation for installation/integration on Mac OS X.
+
+commit c47913943a1683f11be1dfcb89f270db540dd025
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Tue May 15 12:53:35 2012 +0000
+
+    Added configuration files and utility scripts.
+
+commit dd532ff03b7577dd7a9652b5015fe9d14efed8f3
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Mon May 14 16:43:24 2012 +0000
+
+    Preparing for next release (1.2.0).
+
+commit 1f9577be5dc936979e431f5e116e25ef345d0e41
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Mon May 14 16:39:26 2012 +0000
+
+    Adding --first (FirstID), --last (LastID) and -L (Limit) options.
+
+commit 78edfe7fbb29d9bbf0a74608e6df792355279eab
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Thu Mar 29 00:11:53 2012 +0000
+
+    Preparing for release 1.1.2
+
+commit d22c4ef9373b27a82064b9df6c25a36215167c28
+Author: Anders Lövgren <andlov@nowise.se>
+Date:   Thu Mar 29 00:10:47 2012 +0000
+
+    Dumping SVN log to ChangeLog. Documenting some major changes in NEWS.
+
 ------------------------------------------------------------------------
 r7367 | andlov | 2012-03-29 01:56:41 +0200 (Thu, 29 Mar 2012) | 1 line
 
