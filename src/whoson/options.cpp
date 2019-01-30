@@ -1,7 +1,7 @@
 // WhosOn Linux - Centralized Logon Accounting (WhosOn Program Suite).
 // 
-// Copyright (C) 2011-2012 Anders Lövgren, Computing Department at BMC,
-// Uppsala Biomedical Centre, Uppsala University.
+// Copyright (C) 2011-2018 Anders Lövgren, BMC-IT, Uppsala University.
+// Copyright (C) 2018-2019 Anders Lövgren, Nowise Systems.
 // 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -119,7 +119,7 @@ void Options::Usage()
 		<< "1. The --between, --before and --after is limited to datetime (--start/--end) and ID (--first/--last) filtering.\n"
 		<< "2. The --active and --closed option can only be used with exact matching filter options, like --host=xxx.\n"
 		<< "\n"
-		<< "Copyright (C) 2011-2012, 2014 Anders Lövgren (QNET/Compdept BMC)\n";
+		<< "Copyright (C) 2011-2019 Anders Lövgren (Nowise Systems/BMC-IT, Uppsala University)\n";
 }
 
 void Options::Version()

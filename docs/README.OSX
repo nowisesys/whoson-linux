@@ -9,14 +9,14 @@
    the linker flags. 
 
    Binary releases of whoson for Mac OS X can be downloaded from:
-   http://it.bmc.uu.se/andlov/proj/whoson/linux/download.php
+   https://nowise.se/oss/whoson/linux/download
    
 ** REQUIREMENTS:
 
    The GNU toolchain in Mac OS X is ofter out of date. You might have to update 
    its components (libtool, automake, ...) before building the source code. 
    
-   See http://it.bmc.uu.se/andlov/proj/whoson/linux/macosx.php for instructions
+   See https://nowise.se/oss/whoson/linux/macosx for instructions
    on updating the GNU toolchain.
 
    Continue by installing gSOAP to /usr/local (default). The source code can 
@@ -74,7 +74,7 @@
       Closing all active logon sessions are handled by the rc.local.shutdown 
       script. Just copy it to /etc.
 
-   See http://it.bmc.uu.se/andlov/proj/whoson/linux/setup.php for latest setup 
+   See https://nowise.se/oss/whoson/linux/setup for latest setup 
    information.
 
-// Anders Lovgren, 2011-11-30
+// Anders Lövgren, 2011-11-30

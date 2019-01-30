@@ -25,4 +25,4 @@ information.
            CFLAGS="-O2 -pipe -march=k8 -msse3 -fPIC -DPIC" \
 	   emerge net-libs/gsoap
 
-// Anders Lövgren, 2011-11-24
+// Anders LÃ¶vgren, 2011-11-24

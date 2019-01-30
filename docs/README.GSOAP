@@ -54,4 +54,4 @@ build the libraries with libtool?".
 
      bash> ./configure --with-gsoap=/usr/local/share/gsoap
    
-// Anders Lövgren, 2011-11-24
+// Anders LÃ¶vgren, 2011-11-24

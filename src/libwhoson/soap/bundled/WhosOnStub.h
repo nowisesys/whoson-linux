@@ -11,7 +11,7 @@ compiling, linking, and/or using OpenSSL is allowed.
 #ifndef WhosOnStub_H
 #define WhosOnStub_H
 #include <vector>
-#define SOAP_NAMESPACE_OF_WhosOn	"http://it.bmc.uu.se/whoson"
+#define SOAP_NAMESPACE_OF_WhosOn	"http://nowise.se/schemas/whoson"
 #include "stdsoap2.h"
 #if GSOAP_VERSION != 20819
 # error "GSOAP VERSION MISMATCH IN GENERATED CODE: PLEASE REINSTALL PACKAGE"
